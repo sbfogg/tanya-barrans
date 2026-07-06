@@ -95,21 +95,28 @@ footer.wp-block-template-part {
 	}
 }
 
-/* Parallax hero background — image is oversized (35% buffer top/bottom)
-   so JS can translate it vertically without ever exposing an edge.
-   Buffer must stay larger than the JS scroll factor (0.25) for safety. */
-.tb-parallax {
-	overflow: hidden;
+/* Fixed background scene — pinned behind the hero and About section.
+   Painted first in <body>, so any later opaque section (credibility,
+   services, etc.) simply scrolls up and covers it in normal stacking
+   order; no z-index tricks needed. */
+.tb-fixed-scene {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
 }
-.tb-parallax-bg {
-	top: -35% !important;
-	height: 170% !important;
-	will-change: transform;
+.tb-fixed-scene img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
-@media (prefers-reduced-motion: reduce) {
-	.tb-parallax-bg {
-		transform: none !important;
-	}
+
+/* "Meet Tanya" content floats as a card over the fixed scene; the
+   full-bleed gutters on either side reveal the scene scrolling beneath. */
+.tb-content-card {
+	box-shadow: 0 24px 60px rgba(28, 42, 36, 0.18);
 }
 
 /* Outline button variant */

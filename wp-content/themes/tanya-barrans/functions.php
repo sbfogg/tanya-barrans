@@ -25,11 +25,19 @@ add_action( 'wp_enqueue_scripts', function () {
 		true
 	);
 
-	wp_enqueue_script(
-		'tanya-barrans-parallax',
-		get_theme_file_uri( 'assets/js/parallax.js' ),
-		array(),
-		wp_get_theme()->get( 'Version' ),
-		true
-	);
+} );
+
+// Fixed background scene behind the homepage hero and About section — pure
+// CSS position:fixed, painted as the very first thing in <body> so later
+// opaque sections (credibility, services, etc.) naturally scroll over and
+// cover it without any extra work.
+add_action( 'wp_body_open', function () {
+	if ( ! is_front_page() ) {
+		return;
+	}
+	?>
+	<div class="tb-fixed-scene" aria-hidden="true">
+		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/placeholder-hero.svg' ) ); ?>" alt=""/>
+	</div>
+	<?php
 } );

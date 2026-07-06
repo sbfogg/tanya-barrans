@@ -5,10 +5,9 @@
  * Categories: featured
  */
 ?>
-<!-- wp:cover {"url":"<?php echo esc_url( get_theme_file_uri( 'assets/images/placeholder-hero.svg' ) ); ?>","dimRatio":50,"customGradient":"linear-gradient(180deg,rgba(28,42,36,0.25) 0%,rgba(28,42,36,0.65) 100%)","minHeight":88,"minHeightUnit":"vh","align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"860px"}} -->
-<div class="wp-block-cover alignfull tb-parallax" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40);min-height:88vh">
+<!-- wp:cover {"dimRatio":50,"customGradient":"linear-gradient(180deg,rgba(28,42,36,0.25) 0%,rgba(28,42,36,0.65) 100%)","minHeight":88,"minHeightUnit":"vh","isDark":false,"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"860px"}} -->
+<div class="wp-block-cover alignfull" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40);min-height:88vh">
 	<span aria-hidden="true" class="wp-block-cover__background has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(180deg,rgba(28,42,36,0.25) 0%,rgba(28,42,36,0.65) 100%)"></span>
-	<img class="wp-block-cover__image-background tb-parallax-bg" alt="" src="<?php echo esc_url( get_theme_file_uri( 'assets/images/placeholder-hero.svg' ) ); ?>" data-object-fit="cover"/>
 	<div class="wp-block-cover__inner-container">
 
 		<!-- wp:paragraph {"align":"center","className":"tb-eyebrow","style":{"elements":{"link":{"color":{"text":"var:preset|color|sand"}}},"color":{"text":"var:preset|color|sand"}}} -->
