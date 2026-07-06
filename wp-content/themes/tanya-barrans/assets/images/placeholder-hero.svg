@@ -3,10 +3,37 @@
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#9fb4be"/><stop offset="0.5" stop-color="#c9d2c6"/><stop offset="1" stop-color="#7c93a0"/>
     </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8ea6ae"/><stop offset="1" stop-color="#5f7a82"/>
+    </linearGradient>
   </defs>
+
   <rect width="2000" height="1200" fill="url(#sky)"/>
-  <path d="M0 780 L350 560 L620 700 L980 520 L1350 690 L1680 580 L2000 660 L2000 1200 L0 1200 Z" fill="#4a5e54" opacity="0.6"/>
-  <path d="M0 900 L450 760 L850 880 L1300 740 L1700 860 L2000 800 L2000 1200 L0 1200 Z" fill="#2f4038" opacity="0.8"/>
-  <path d="M0 1020 L500 940 L1000 1010 L1500 930 L2000 990 L2000 1200 L0 1200 Z" fill="#1c2a24" opacity="0.9"/>
-  <text x="1000" y="1140" font-family="Georgia, serif" font-size="34" fill="#f2f1ea" opacity="0.45" text-anchor="middle">Placeholder — replace with hero photograph</text>
+
+  <!-- distant snow-capped range -->
+  <path d="M0 660 L220 520 L400 600 L620 460 L780 560 L1020 440 L1260 570 L1500 480 L1720 590 L2000 520 L2000 800 L0 800 Z" fill="#7f9199" opacity="0.55"/>
+  <path d="M400 600 L430 575 L460 600 Z" fill="#eef1ee" opacity="0.8"/>
+  <path d="M1020 440 L1055 410 L1090 440 Z" fill="#eef1ee" opacity="0.8"/>
+  <path d="M1500 480 L1530 452 L1562 480 Z" fill="#eef1ee" opacity="0.8"/>
+
+  <!-- distant skyline hint on the point -->
+  <g opacity="0.5" fill="#5c6960">
+    <rect x="1638" y="605" width="6" height="75" />
+    <ellipse cx="1641" cy="600" rx="20" ry="7" />
+    <rect x="1639" y="580" width="4" height="22" />
+  </g>
+
+  <!-- water band with soft reflection lines -->
+  <rect x="0" y="760" width="2000" height="200" fill="url(#water)"/>
+  <path d="M0 800 Q250 792 500 800 T1000 800 T1500 800 T2000 800" stroke="#e7ece7" stroke-width="3" fill="none" opacity="0.3"/>
+  <path d="M0 850 Q250 840 500 850 T1000 850 T1500 850 T2000 850" stroke="#e7ece7" stroke-width="3" fill="none" opacity="0.22"/>
+  <path d="M0 900 Q250 892 500 900 T1000 900 T1500 900 T2000 900" stroke="#e7ece7" stroke-width="3" fill="none" opacity="0.18"/>
+
+  <!-- near shoreline -->
+  <path d="M0 900 L350 860 L620 900 L980 850 L1350 890 L1680 855 L2000 875 L2000 1200 L0 1200 Z" fill="#3d5148" opacity="0.85"/>
+
+  <!-- fir treeline silhouette -->
+  <path d="M0 1000 L40 950 L60 985 L90 930 L115 975 L150 940 L175 985 L210 935 L235 980 L270 945 L300 990 L340 930 L370 985 L410 945 L440 980 L480 925 L510 990 L555 935 L590 985 L630 945 L665 980 L705 930 L740 990 L785 940 L815 985 L855 935 L890 980 L930 945 L965 985 L1005 930 L1040 990 L1085 940 L1115 985 L1155 935 L1190 980 L1230 945 L1265 985 L1305 930 L1340 990 L1385 940 L1415 985 L1455 935 L1490 980 L1530 945 L1565 985 L1605 930 L1640 990 L1685 940 L1715 985 L1755 935 L1790 980 L1830 945 L1865 985 L1905 930 L1940 990 L1970 950 L2000 985 L2000 1200 L0 1200 Z" fill="#1c2a24" opacity="0.95"/>
+
+  <text x="1000" y="1155" font-family="Georgia, serif" font-size="30" fill="#f2f1ea" opacity="0.4" text-anchor="middle">Placeholder — replace with hero photograph</text>
 </svg>
