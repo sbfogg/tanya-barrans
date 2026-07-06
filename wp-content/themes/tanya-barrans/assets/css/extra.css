@@ -119,6 +119,38 @@ footer.wp-block-template-part {
 	box-shadow: 0 24px 60px rgba(28, 42, 36, 0.18);
 }
 
+/* Recent Sales gallery grid on the Listings page */
+.tb-sales-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: var(--wp--preset--spacing--40);
+}
+.tb-sales-photo {
+	position: relative;
+	aspect-ratio: 4/3;
+	overflow: hidden;
+	border-radius: 4px;
+}
+.tb-sales-photo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+.tb-sales-tag {
+	position: absolute;
+	top: 0.75rem;
+	left: 0.75rem;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding: 0.3rem 0.7rem;
+	border-radius: 3px;
+}
+
 /* Outline button variant */
 .tb-button-outline .wp-block-button__link {
 	background: transparent;
