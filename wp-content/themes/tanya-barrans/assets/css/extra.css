@@ -1,0 +1,53 @@
+/* Polish that theme.json can't express. */
+
+/* Smooth font rendering for the editorial look */
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+/* Subtle lift on cards (blog grid, service columns) */
+.tb-card {
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.tb-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 32px rgba(28, 42, 36, 0.12);
+}
+
+/* Eyebrow label above headings */
+.tb-eyebrow {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--bronze);
+}
+
+/* Hairline rule used between sections */
+.tb-rule {
+	border: none;
+	border-top: 1px solid var(--wp--preset--color--sand);
+}
+
+/* Phone header: title + hamburger only, CTA button hidden (it repeats on every page) */
+@media (max-width: 599px) {
+	header.wp-block-template-part .wp-block-site-title a {
+		font-size: 1.125rem;
+	}
+	header.wp-block-template-part .wp-block-buttons {
+		display: none;
+	}
+}
+
+/* Outline button variant */
+.tb-button-outline .wp-block-button__link {
+	background: transparent;
+	color: currentColor;
+	border: 1px solid currentColor;
+}
+.tb-button-outline .wp-block-button__link:hover {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--ink);
+}

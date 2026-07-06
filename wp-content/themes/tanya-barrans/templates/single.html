@@ -1,0 +1,29 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
+
+	<!-- wp:group {"style":{"spacing":{"blockGap":"0.75rem","margin":{"bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"720px"}} -->
+	<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--40)">
+		<!-- wp:post-terms {"term":"category","className":"tb-eyebrow"} /-->
+		<!-- wp:post-title {"level":1,"fontSize":"xx-large"} /-->
+		<!-- wp:post-date {"textColor":"muted","fontSize":"small"} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-featured-image {"aspectRatio":"16/9","align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} /-->
+
+	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+	<!-- wp:separator {"className":"tb-rule","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
+	<hr class="wp-block-separator has-alpha-channel-opacity tb-rule" style="margin-top:var(--wp--preset--spacing--50)"/>
+	<!-- /wp:separator -->
+
+	<!-- wp:paragraph {"fontSize":"small"} -->
+	<p class="has-small-font-size"><a href="/blog/">← Back to all posts</a></p>
+	<!-- /wp:paragraph -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

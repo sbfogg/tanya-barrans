@@ -1,0 +1,184 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"layout": {
+			"contentSize": "720px",
+			"wideSize": "1200px"
+		},
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"palette": [
+				{ "slug": "base", "color": "#FFFFFF", "name": "White" },
+				{ "slug": "alabaster", "color": "#F2F1EA", "name": "Sea Mist" },
+				{ "slug": "sand", "color": "#E0E2D6", "name": "Driftwood" },
+				{ "slug": "ink", "color": "#1C2A24", "name": "Deep Forest" },
+				{ "slug": "charcoal", "color": "#2F4038", "name": "Pine" },
+				{ "slug": "stone", "color": "#9CA895", "name": "Sage" },
+				{ "slug": "bronze", "color": "#A06A4C", "name": "Cedar" },
+				{ "slug": "muted", "color": "#5C6960", "name": "Moss" },
+				{ "slug": "sound", "color": "#7C93A0", "name": "Sound Blue" }
+			],
+			"gradients": [
+				{
+					"slug": "hero-scrim",
+					"gradient": "linear-gradient(180deg, rgba(28,42,36,0.25) 0%, rgba(28,42,36,0.65) 100%)",
+					"name": "Hero Scrim"
+				}
+			]
+		},
+		"typography": {
+			"fluid": true,
+			"defaultFontSizes": false,
+			"fontFamilies": [
+				{
+					"slug": "serif",
+					"name": "Playfair Display",
+					"fontFamily": "\"Playfair Display\", Georgia, serif",
+					"fontFace": [
+						{ "fontFamily": "Playfair Display", "fontWeight": "400", "fontStyle": "normal", "src": [ "file:./assets/fonts/playfair-display-v40-latin-regular.woff2" ] },
+						{ "fontFamily": "Playfair Display", "fontWeight": "400", "fontStyle": "italic", "src": [ "file:./assets/fonts/playfair-display-v40-latin-italic.woff2" ] },
+						{ "fontFamily": "Playfair Display", "fontWeight": "600", "fontStyle": "normal", "src": [ "file:./assets/fonts/playfair-display-v40-latin-600.woff2" ] },
+						{ "fontFamily": "Playfair Display", "fontWeight": "700", "fontStyle": "normal", "src": [ "file:./assets/fonts/playfair-display-v40-latin-700.woff2" ] }
+					]
+				},
+				{
+					"slug": "sans",
+					"name": "Inter",
+					"fontFamily": "\"Inter\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+					"fontFace": [
+						{ "fontFamily": "Inter", "fontWeight": "400", "fontStyle": "normal", "src": [ "file:./assets/fonts/inter-v20-latin-regular.woff2" ] },
+						{ "fontFamily": "Inter", "fontWeight": "500", "fontStyle": "normal", "src": [ "file:./assets/fonts/inter-v20-latin-500.woff2" ] },
+						{ "fontFamily": "Inter", "fontWeight": "600", "fontStyle": "normal", "src": [ "file:./assets/fonts/inter-v20-latin-600.woff2" ] }
+					]
+				}
+			],
+			"fontSizes": [
+				{ "slug": "small", "name": "Small", "size": "0.875rem", "fluid": false },
+				{ "slug": "medium", "name": "Medium", "size": "1.0625rem", "fluid": false },
+				{ "slug": "large", "name": "Large", "size": "1.375rem", "fluid": { "min": "1.25rem", "max": "1.375rem" } },
+				{ "slug": "x-large", "name": "Extra Large", "size": "2rem", "fluid": { "min": "1.625rem", "max": "2rem" } },
+				{ "slug": "xx-large", "name": "Heading", "size": "3rem", "fluid": { "min": "2.125rem", "max": "3rem" } },
+				{ "slug": "hero", "name": "Hero", "size": "4.25rem", "fluid": { "min": "2.5rem", "max": "4.25rem" } }
+			]
+		},
+		"spacing": {
+			"defaultSpacingSizes": false,
+			"spacingSizes": [
+				{ "slug": "20", "size": "0.75rem", "name": "XS" },
+				{ "slug": "30", "size": "1.25rem", "name": "S" },
+				{ "slug": "40", "size": "2rem", "name": "M" },
+				{ "slug": "50", "size": "3.5rem", "name": "L" },
+				{ "slug": "60", "size": "5.5rem", "name": "XL" },
+				{ "slug": "70", "size": "8rem", "name": "XXL" }
+			],
+			"units": [ "px", "em", "rem", "vh", "vw", "%" ]
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--base)",
+			"text": "var(--wp--preset--color--ink)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--sans)",
+			"fontSize": "var(--wp--preset--font-size--medium)",
+			"fontWeight": "400",
+			"lineHeight": "1.7"
+		},
+		"spacing": {
+			"blockGap": "1.5rem"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--serif)",
+					"fontWeight": "600",
+					"lineHeight": "1.15",
+					"letterSpacing": "-0.01em"
+				}
+			},
+			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--xx-large)" } },
+			"h2": { "typography": { "fontSize": "var(--wp--preset--font-size--x-large)" } },
+			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--large)" } },
+			"link": {
+				"color": { "text": "var(--wp--preset--color--ink)" },
+				":hover": { "color": { "text": "var(--wp--preset--color--bronze)" } }
+			},
+			"button": {
+				"color": {
+					"background": "var(--wp--preset--color--ink)",
+					"text": "var(--wp--preset--color--base)"
+				},
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--sans)",
+					"fontSize": "0.8125rem",
+					"fontWeight": "600",
+					"letterSpacing": "0.12em",
+					"textTransform": "uppercase"
+				},
+				"spacing": {
+					"padding": {
+						"top": "1rem",
+						"bottom": "1rem",
+						"left": "2rem",
+						"right": "2rem"
+					}
+				},
+				"border": { "radius": "0px" },
+				":hover": {
+					"color": {
+						"background": "var(--wp--preset--color--bronze)",
+						"text": "var(--wp--preset--color--base)"
+					}
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--serif)",
+					"fontSize": "1.375rem",
+					"fontWeight": "700",
+					"letterSpacing": "0.01em"
+				}
+			},
+			"core/navigation": {
+				"typography": {
+					"fontSize": "0.8125rem",
+					"fontWeight": "500",
+					"letterSpacing": "0.1em",
+					"textTransform": "uppercase"
+				}
+			},
+			"core/quote": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--serif)",
+					"fontSize": "var(--wp--preset--font-size--large)",
+					"fontStyle": "italic",
+					"lineHeight": "1.5"
+				},
+				"border": {
+					"left": { "color": "var(--wp--preset--color--bronze)", "width": "2px", "style": "solid" }
+				}
+			},
+			"core/post-title": {
+				"elements": {
+					"link": {
+						"typography": { "textDecoration": "none" },
+						":hover": { "color": { "text": "var(--wp--preset--color--bronze)" } }
+					}
+				}
+			}
+		}
+	},
+	"templateParts": [
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" }
+	],
+	"customTemplates": [
+		{ "name": "page-no-title", "title": "Page (No Title)", "postTypes": [ "page" ] }
+	]
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="1200" viewBox="0 0 2000 1200">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9fb4be"/><stop offset="0.5" stop-color="#c9d2c6"/><stop offset="1" stop-color="#7c93a0"/>
+    </linearGradient>
+  </defs>
+  <rect width="2000" height="1200" fill="url(#sky)"/>
+  <path d="M0 780 L350 560 L620 700 L980 520 L1350 690 L1680 580 L2000 660 L2000 1200 L0 1200 Z" fill="#4a5e54" opacity="0.6"/>
+  <path d="M0 900 L450 760 L850 880 L1300 740 L1700 860 L2000 800 L2000 1200 L0 1200 Z" fill="#2f4038" opacity="0.8"/>
+  <path d="M0 1020 L500 940 L1000 1010 L1500 930 L2000 990 L2000 1200 L0 1200 Z" fill="#1c2a24" opacity="0.9"/>
+  <text x="1000" y="1140" font-family="Georgia, serif" font-size="34" fill="#f2f1ea" opacity="0.45" text-anchor="middle">Placeholder — replace with hero photograph</text>
+</svg>

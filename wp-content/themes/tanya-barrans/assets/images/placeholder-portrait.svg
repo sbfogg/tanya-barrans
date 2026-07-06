@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#e0e2d6"/>
+  <circle cx="400" cy="380" r="140" fill="#9ca895"/>
+  <path d="M150 1000 Q150 640 400 640 Q650 640 650 1000 Z" fill="#9ca895"/>
+  <text x="400" y="950" font-family="Georgia, serif" font-size="26" fill="#5c6960" text-anchor="middle">Replace with Tanya's portrait</text>
+</svg>
