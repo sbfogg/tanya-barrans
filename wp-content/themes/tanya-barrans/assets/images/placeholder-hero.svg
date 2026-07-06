@@ -12,16 +12,10 @@
 
   <!-- distant snow-capped range -->
   <path d="M0 660 L220 520 L400 600 L620 460 L780 560 L1020 440 L1260 570 L1500 480 L1720 590 L2000 520 L2000 800 L0 800 Z" fill="#7f9199" opacity="0.55"/>
-  <path d="M400 600 L430 575 L460 600 Z" fill="#eef1ee" opacity="0.8"/>
-  <path d="M1020 440 L1055 410 L1090 440 Z" fill="#eef1ee" opacity="0.8"/>
-  <path d="M1500 480 L1530 452 L1562 480 Z" fill="#eef1ee" opacity="0.8"/>
-
-  <!-- distant skyline hint on the point -->
-  <g opacity="0.5" fill="#5c6960">
-    <rect x="1638" y="605" width="6" height="75" />
-    <ellipse cx="1641" cy="600" rx="20" ry="7" />
-    <rect x="1639" y="580" width="4" height="22" />
-  </g>
+  <path d="M220 505 L250 530 L190 530 Z" fill="#eef1ee" opacity="0.8"/>
+  <path d="M620 445 L650 470 L590 470 Z" fill="#eef1ee" opacity="0.8"/>
+  <path d="M1020 425 L1050 450 L990 450 Z" fill="#eef1ee" opacity="0.8"/>
+  <path d="M1500 465 L1530 490 L1470 490 Z" fill="#eef1ee" opacity="0.8"/>
 
   <!-- water band with soft reflection lines -->
   <rect x="0" y="760" width="2000" height="200" fill="url(#water)"/>
