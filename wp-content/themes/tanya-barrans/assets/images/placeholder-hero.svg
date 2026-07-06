@@ -12,10 +12,10 @@
 
   <!-- distant snow-capped range -->
   <path d="M0 660 L220 520 L400 600 L620 460 L780 560 L1020 440 L1260 570 L1500 480 L1720 590 L2000 520 L2000 800 L0 800 Z" fill="#7f9199" opacity="0.55"/>
-  <path d="M220 505 L245 531 L195 536 Z" fill="#eef1ee" opacity="0.8"/>
-  <path d="M620 445 L645 476 L595 476 Z" fill="#eef1ee" opacity="0.8"/>
-  <path d="M1020 425 L1045 454 L995 453 Z" fill="#eef1ee" opacity="0.8"/>
-  <path d="M1500 465 L1525 493 L1475 489 Z" fill="#eef1ee" opacity="0.8"/>
+  <path d="M220 484 L236.3 509.4 L252.5 507.4 L268.8 544 L285 548.9 L171.3 553.3 L187.5 513.7 L203.8 512.5 L155 561.4 Z" fill="#eef1ee" opacity="0.85"/>
+  <path d="M620 424 L636.3 452.3 L652.5 453.3 L668.8 492.8 L685 500.6 L571.3 493.3 L587.5 453.7 L603.8 452.5 L555 501.4 Z" fill="#eef1ee" opacity="0.85"/>
+  <path d="M1020 404 L1036.3 431 L1052.5 430.6 L1068.8 468.7 L1085 475.2 L971.3 466.7 L987.5 429.3 L1003.8 430.3 L955 472.5 Z" fill="#eef1ee" opacity="0.85"/>
+  <path d="M1500 444 L1516.3 470.3 L1532.5 469.3 L1548.8 506.7 L1565 512.5 L1451.3 500.6 L1467.5 465.2 L1483.8 468.3 L1435 504.4 Z" fill="#eef1ee" opacity="0.85"/>
 
   <!-- water band with soft reflection lines -->
   <rect x="0" y="760" width="2000" height="200" fill="url(#water)"/>
