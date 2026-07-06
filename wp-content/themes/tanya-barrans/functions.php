@@ -24,4 +24,12 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_get_theme()->get( 'Version' ),
 		true
 	);
+
+	wp_enqueue_script(
+		'tanya-barrans-parallax',
+		get_theme_file_uri( 'assets/js/parallax.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
 } );

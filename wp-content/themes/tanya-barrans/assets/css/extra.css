@@ -95,6 +95,23 @@ footer.wp-block-template-part {
 	}
 }
 
+/* Parallax hero background — image is oversized (35% buffer top/bottom)
+   so JS can translate it vertically without ever exposing an edge.
+   Buffer must stay larger than the JS scroll factor (0.25) for safety. */
+.tb-parallax {
+	overflow: hidden;
+}
+.tb-parallax-bg {
+	top: -35% !important;
+	height: 170% !important;
+	will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+	.tb-parallax-bg {
+		transform: none !important;
+	}
+}
+
 /* Outline button variant */
 .tb-button-outline .wp-block-button__link {
 	background: transparent;
