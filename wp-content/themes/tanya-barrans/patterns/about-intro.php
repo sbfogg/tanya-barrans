@@ -11,8 +11,8 @@
 	<!-- wp:columns {"align":"wide","verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
 	<div class="wp-block-columns alignwide are-vertically-aligned-center">
 
-		<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
-		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
+		<!-- wp:column {"verticalAlignment":"center","width":"42%","className":"tb-reveal"} -->
+		<div class="wp-block-column is-vertically-aligned-center tb-reveal" style="flex-basis:42%">
 			<!-- wp:image {"id":17,"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"4px"}}} -->
 			<figure class="wp-block-image size-full has-custom-border">
 				<?php
@@ -26,8 +26,8 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"verticalAlignment":"center","width":"58%"} -->
-		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
+		<!-- wp:column {"verticalAlignment":"center","width":"58%","className":"tb-reveal"} -->
+		<div class="wp-block-column is-vertically-aligned-center tb-reveal" style="flex-basis:58%">
 
 			<!-- wp:paragraph {"className":"tb-eyebrow"} -->
 			<p class="tb-eyebrow">Meet Tanya</p>

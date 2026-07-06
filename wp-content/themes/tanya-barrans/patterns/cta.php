@@ -5,8 +5,8 @@
  * Categories: featured
  */
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"ink","textColor":"base","layout":{"type":"constrained","contentSize":"720px"}} -->
-<div class="wp-block-group alignfull has-base-color has-ink-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"align":"full","className":"tb-reveal","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"ink","textColor":"base","layout":{"type":"constrained","contentSize":"720px"}} -->
+<div class="wp-block-group alignfull tb-reveal has-base-color has-ink-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
 
 	<!-- wp:heading {"textAlign":"center","fontSize":"xx-large"} -->
 	<h2 class="wp-block-heading has-text-align-center has-xx-large-font-size">Ready when you are.</h2>

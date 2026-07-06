@@ -11,8 +11,8 @@
 	<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|50"}}}} -->
 	<div class="wp-block-columns alignwide">
 
-		<!-- wp:column -->
-		<div class="wp-block-column">
+		<!-- wp:column {"className":"tb-reveal"} -->
+		<div class="wp-block-column tb-reveal">
 			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large"} -->
 			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size">10+</h3>
 			<!-- /wp:heading -->
@@ -22,8 +22,8 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column -->
-		<div class="wp-block-column">
+		<!-- wp:column {"className":"tb-reveal"} -->
+		<div class="wp-block-column tb-reveal">
 			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large"} -->
 			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size">100%</h3>
 			<!-- /wp:heading -->
@@ -33,8 +33,8 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column -->
-		<div class="wp-block-column">
+		<!-- wp:column {"className":"tb-reveal"} -->
+		<div class="wp-block-column tb-reveal">
 			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large"} -->
 			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size">5★</h3>
 			<!-- /wp:heading -->

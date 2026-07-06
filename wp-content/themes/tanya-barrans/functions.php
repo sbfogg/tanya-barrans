@@ -16,4 +16,12 @@ add_action( 'wp_enqueue_scripts', function () {
 		array(),
 		wp_get_theme()->get( 'Version' )
 	);
+
+	wp_enqueue_script(
+		'tanya-barrans-reveal',
+		get_theme_file_uri( 'assets/js/reveal.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
 } );
