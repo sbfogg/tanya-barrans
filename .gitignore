@@ -1,4 +1,4 @@
-# Ignore everything except the custom theme and database backups
+# Ignore everything except the custom theme, uploaded media, and database backups
 /*
 !/.gitignore
 !/README.md
@@ -6,5 +6,6 @@
 !/wp-content/
 /wp-content/*
 !/wp-content/themes/
+!/wp-content/uploads/
 /wp-content/themes/*
 !/wp-content/themes/tanya-barrans/

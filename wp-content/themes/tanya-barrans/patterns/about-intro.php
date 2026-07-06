@@ -13,8 +13,15 @@
 
 		<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
 		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
-			<!-- wp:image {"sizeSlug":"large"} -->
-			<figure class="wp-block-image size-large"><img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/placeholder-portrait.svg' ) ); ?>" alt="Tanya Barrans, Puget Sound real estate broker"/></figure>
+			<!-- wp:image {"id":15,"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"4px"}}} -->
+			<figure class="wp-block-image size-full has-custom-border">
+				<?php
+				echo wp_get_attachment_image( 15, 'full', false, array(
+					'class' => 'wp-image-15',
+					'style' => 'border-radius:4px',
+				) );
+				?>
+			</figure>
 			<!-- /wp:image -->
 		</div>
 		<!-- /wp:column -->
