@@ -122,7 +122,7 @@ footer.wp-block-template-part {
 /* Recent Sales gallery grid on the Listings page */
 .tb-sales-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 	gap: var(--wp--preset--spacing--40);
 }
 .tb-sales-photo {
