@@ -13,11 +13,11 @@
 
 		<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
 		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
-			<!-- wp:image {"id":15,"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"4px"}}} -->
+			<!-- wp:image {"id":17,"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"4px"}}} -->
 			<figure class="wp-block-image size-full has-custom-border">
 				<?php
-				echo wp_get_attachment_image( 15, 'full', false, array(
-					'class' => 'wp-image-15',
+				echo wp_get_attachment_image( 17, 'full', false, array(
+					'class' => 'wp-image-17',
 					'style' => 'border-radius:4px',
 				) );
 				?>
