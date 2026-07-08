@@ -8,11 +8,11 @@
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"1200px"}} -->
 <div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
 
-	<!-- wp:columns {"align":"wide","verticalAlignment":"center","className":"tb-content-card","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"},"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"border":{"radius":"8px"}},"backgroundColor":"base"} -->
-	<div class="wp-block-columns alignwide are-vertically-aligned-center tb-content-card has-base-background-color has-background" style="border-radius:8px;padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
+	<!-- wp:columns {"align":"wide","verticalAlignment":"center","className":"tb-content-card tb-reveal","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"},"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}},"border":{"radius":"8px"}},"backgroundColor":"base"} -->
+	<div class="wp-block-columns alignwide are-vertically-aligned-center tb-content-card tb-reveal has-base-background-color has-background" style="border-radius:8px;padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--50)">
 
-		<!-- wp:column {"verticalAlignment":"center","width":"42%","className":"tb-reveal"} -->
-		<div class="wp-block-column is-vertically-aligned-center tb-reveal" style="flex-basis:42%">
+		<!-- wp:column {"verticalAlignment":"center","width":"42%"} -->
+		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:42%">
 			<!-- wp:image {"id":17,"sizeSlug":"full","linkDestination":"none","style":{"border":{"radius":"4px"}}} -->
 			<figure class="wp-block-image size-full has-custom-border">
 				<?php
@@ -26,8 +26,8 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"verticalAlignment":"center","width":"58%","className":"tb-reveal"} -->
-		<div class="wp-block-column is-vertically-aligned-center tb-reveal" style="flex-basis:58%">
+		<!-- wp:column {"verticalAlignment":"center","width":"58%"} -->
+		<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:58%">
 
 			<!-- wp:paragraph {"className":"tb-eyebrow"} -->
 			<p class="tb-eyebrow">Meet Tanya</p>
