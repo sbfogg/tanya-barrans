@@ -88,21 +88,23 @@ footer.wp-block-template-part {
 	background-size: 360px 360px;
 }
 
-/* Scroll reveal — content fades/slides in on entering the viewport and
-   back out when it leaves, toggled by assets/js/reveal.js */
+/* Scroll reveal — content fades/slides/scales in on entering the viewport
+   and back out when it leaves, toggled by assets/js/reveal.js. The scale
+   pairs with the longer duration so the motion still reads as deliberate
+   rather than just "the same animation, slower". */
 .tb-reveal {
 	opacity: 0;
-	transform: translateY(28px);
-	transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+	transform: translateY(40px) scale(0.97);
+	transition: opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .tb-reveal.is-visible {
 	opacity: 1;
-	transform: translateY(0);
+	transform: translateY(0) scale(1);
 }
 /* Stagger siblings within a row (stat columns, service cards, blog cards) */
-.tb-reveal:nth-child(2) { transition-delay: 0.12s; }
-.tb-reveal:nth-child(3) { transition-delay: 0.24s; }
-.tb-reveal:nth-child(4) { transition-delay: 0.36s; }
+.tb-reveal:nth-child(2) { transition-delay: 0.18s; }
+.tb-reveal:nth-child(3) { transition-delay: 0.36s; }
+.tb-reveal:nth-child(4) { transition-delay: 0.54s; }
 
 @media (prefers-reduced-motion: reduce) {
 	.tb-reveal {
