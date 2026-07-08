@@ -7,5 +7,6 @@
 /wp-content/*
 !/wp-content/themes/
 !/wp-content/uploads/
+/wp-content/uploads/wpforms/cache/
 /wp-content/themes/*
 !/wp-content/themes/tanya-barrans/

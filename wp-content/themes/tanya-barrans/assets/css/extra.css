@@ -151,6 +151,60 @@ footer.wp-block-template-part {
 	border-radius: 3px;
 }
 
+/* WPForms — match the site's typography and button styling.
+   WPForms sets its button colors via CSS custom properties with an
+   inline <style> block per-form, which beats a plain background-color
+   override; overriding the variables themselves is the reliable fix. */
+.wpforms-container {
+	--wpforms-button-background-color: var(--wp--preset--color--ink);
+	--wpforms-button-background-color-alt: var(--wp--preset--color--bronze);
+	--wpforms-button-text-color: var(--wp--preset--color--base);
+	--wpforms-button-text-color-alt: var(--wp--preset--color--base);
+	--wpforms-label-color: var(--wp--preset--color--ink);
+	--wpforms-field-border-color: var(--wp--preset--color--sand);
+	--wpforms-field-background-color: var(--wp--preset--color--base);
+	--wpforms-field-text-color: var(--wp--preset--color--ink);
+}
+.wpforms-container .wpforms-field-label {
+	font-family: var(--wp--preset--font-family--sans);
+	font-weight: 600;
+	color: var(--wp--preset--color--ink);
+}
+.wpforms-container input[type=text],
+.wpforms-container input[type=email],
+.wpforms-container input[type=tel],
+.wpforms-container textarea,
+.wpforms-container select {
+	font-family: var(--wp--preset--font-family--sans);
+	border: 1px solid var(--wp--preset--color--sand);
+	border-radius: 3px;
+}
+.wpforms-container input[type=text]:focus,
+.wpforms-container input[type=email]:focus,
+.wpforms-container input[type=tel]:focus,
+.wpforms-container textarea:focus {
+	border-color: var(--wp--preset--color--bronze);
+	outline: none;
+	box-shadow: 0 0 0 1px var(--wp--preset--color--bronze);
+}
+.wpforms-container .wpforms-field-sublabel {
+	color: var(--wp--preset--color--muted);
+}
+.wpforms-container button[type=submit].wpforms-submit {
+	background: var(--wp--preset--color--ink);
+	border: none;
+	border-radius: 0;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	padding: 1rem 2rem;
+}
+.wpforms-container button[type=submit].wpforms-submit:hover {
+	background: var(--wp--preset--color--bronze);
+}
+
 /* Outline button variant */
 .tb-button-outline .wp-block-button__link {
 	background: transparent;
