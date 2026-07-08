@@ -20,5 +20,9 @@
 	<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">— Placeholder testimonial, replace with a real client review</p>
 	<!-- /wp:paragraph -->
 
+	<!-- wp:paragraph {"align":"center","fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
+	<p class="has-text-align-center has-small-font-size" style="margin-top:var(--wp--preset--spacing--30)"><a href="https://g.page/r/CTDpOcL-7SDkEAE/review" target="_blank" rel="noopener noreferrer">Read Tanya's reviews on Google →</a></p>
+	<!-- /wp:paragraph -->
+
 </div>
 <!-- /wp:group -->

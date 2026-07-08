@@ -205,6 +205,24 @@ footer.wp-block-template-part {
 	background: var(--wp--preset--color--bronze);
 }
 
+/* Footer social icons */
+.tb-social-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 34px;
+	height: 34px;
+	border-radius: 999px;
+	border: 1px solid var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--stone);
+	transition: color 0.2s ease, border-color 0.2s ease;
+}
+.tb-social-icon:hover {
+	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--bronze);
+	background: var(--wp--preset--color--bronze);
+}
+
 /* Outline button variant */
 .tb-button-outline .wp-block-button__link {
 	background: transparent;

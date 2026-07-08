@@ -34,15 +34,15 @@
 			<!-- /wp:paragraph -->
 
 			<!-- wp:heading {"fontSize":"xx-large"} -->
-			<h2 class="wp-block-heading has-xx-large-font-size">A neighbor first, <em>an agent second.</em></h2>
+			<h2 class="wp-block-heading has-xx-large-font-size">Hi, I'm <em>Tanya.</em></h2>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"textColor":"muted"} -->
-			<p class="has-muted-color has-text-color">Buying or selling a home is one of the biggest decisions you'll ever make — and you deserve someone who treats it that way. Tanya combines deep local knowledge of the Puget Sound region with straightforward advice and genuine care for the people she works with.</p>
+			<p class="has-muted-color has-text-color">Buying or selling a home is personal. It's exciting, stressful, emotional, and sometimes downright overwhelming. My goal is to make sure you never feel like you're navigating it alone.</p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:paragraph {"textColor":"muted"} -->
-			<p class="has-muted-color has-text-color">From staging and photography to negotiation and closing, every detail is handled so you can focus on what matters: your next chapter.</p>
+			<p class="has-muted-color has-text-color">You'll get honest advice, quick answers, plenty of laughs, and someone who genuinely cares about the outcome — not just the closing date. I believe the best real estate experiences are built on trust, communication, and relationships that don't end when the keys change hands.</p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->

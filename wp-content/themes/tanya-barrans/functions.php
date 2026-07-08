@@ -27,6 +27,33 @@ add_action( 'wp_enqueue_scripts', function () {
 
 } );
 
+// Basic SEO: output a meta description per page. Uses the page/post excerpt
+// when available, falls back to a sensible site-wide default on the home
+// page and anywhere else without one.
+add_action( 'wp_head', function () {
+	$description = '';
+
+	if ( is_front_page() ) {
+		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, Maple Valley, and nearby communities with honest advice and local expertise.';
+	} elseif ( is_singular() ) {
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post ) {
+			$excerpt = has_excerpt( $post ) ? $post->post_excerpt : wp_strip_all_tags( $post->post_content );
+			$description = wp_trim_words( $excerpt, 30, '…' );
+		}
+	} elseif ( is_category() || is_tag() || is_archive() ) {
+		$description = trim( wp_strip_all_tags( term_description() ) );
+	}
+
+	if ( empty( $description ) ) {
+		$description = get_bloginfo( 'description' );
+	}
+
+	if ( ! empty( $description ) ) {
+		echo '<meta name="description" content="' . esc_attr( $description ) . '" />' . "\n";
+	}
+}, 1 );
+
 // Fixed background scene behind the homepage hero and About section — pure
 // CSS position:fixed, painted as the very first thing in <body> so later
 // opaque sections (credibility, services, etc.) naturally scroll over and
