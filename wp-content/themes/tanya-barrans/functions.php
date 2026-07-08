@@ -37,7 +37,7 @@ add_action( 'wp_body_open', function () {
 	}
 	?>
 	<div class="tb-fixed-scene" aria-hidden="true">
-		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/placeholder-hero.svg' ) ); ?>" alt=""/>
+		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/hero-photo.jpg' ) ); ?>" alt=""/>
 	</div>
 	<?php
 } );
