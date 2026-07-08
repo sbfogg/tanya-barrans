@@ -64,6 +64,23 @@ footer.wp-block-template-part {
 	background-size: auto 100%;
 }
 
+/* Straight hairline divider — used instead of the wave motif where two
+   sections share the same continuous scene behind them (a color-change
+   wave would look arbitrary there since there's no color change). */
+.tb-straight-divider {
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tb-straight-divider::after {
+	content: "";
+	display: block;
+	width: min(240px, 60%);
+	height: 1px;
+	background: rgba(255, 255, 255, 0.5);
+}
+
 /* Faint topographic contour texture for section backgrounds */
 .tb-topo-bg {
 	background-image: url(../images/topo-pattern.svg);
