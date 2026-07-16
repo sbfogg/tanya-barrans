@@ -288,3 +288,95 @@ footer.wp-block-template-part {
 	color: var(--wp--preset--color--base);
 	border-color: var(--wp--preset--color--ink);
 }
+
+/* Accessibility helper: visually hidden but available to screen readers. */
+.tb-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Newsletter signup (blog index) */
+.tb-newsletter-form {
+	margin-top: var(--wp--preset--spacing--40);
+}
+.tb-newsletter-fields {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: center;
+}
+.tb-newsletter-input {
+	flex: 1 1 200px;
+	min-width: 0;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 1rem;
+	padding: 0.85rem 1rem;
+	border: 1px solid var(--wp--preset--color--sand);
+	border-radius: 3px;
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--ink);
+}
+.tb-newsletter-input::placeholder {
+	color: var(--wp--preset--color--muted);
+}
+.tb-newsletter-input:focus {
+	outline: none;
+	border-color: var(--wp--preset--color--bronze);
+	box-shadow: 0 0 0 1px var(--wp--preset--color--bronze);
+}
+.tb-newsletter-submit {
+	flex: 0 0 auto;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	padding: 0.85rem 1.75rem;
+	border: none;
+	border-radius: 3px;
+	background: var(--wp--preset--color--bronze);
+	color: var(--wp--preset--color--base);
+	cursor: pointer;
+	transition: background 0.2s ease, opacity 0.2s ease;
+}
+.tb-newsletter-submit:hover {
+	background: var(--wp--preset--color--sand);
+	color: var(--wp--preset--color--ink);
+}
+.tb-newsletter-submit.is-loading,
+.tb-newsletter-submit:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+/* Honeypot — kept out of view and out of the tab order. */
+.tb-newsletter-hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.tb-newsletter-status {
+	min-height: 1.25rem;
+	margin-top: 0.85rem;
+	margin-bottom: 0;
+	text-align: center;
+	font-size: 0.875rem;
+}
+.tb-newsletter-status[data-state="error"] {
+	color: var(--wp--preset--color--sand);
+}
+.tb-newsletter-status[data-state="success"] {
+	color: var(--wp--preset--color--base);
+	font-weight: 600;
+}
+.tb-newsletter-status[data-state="pending"] {
+	color: var(--wp--preset--color--stone);
+}
