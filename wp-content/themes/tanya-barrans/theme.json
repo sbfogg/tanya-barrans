@@ -18,6 +18,9 @@
 				{ "slug": "charcoal", "color": "#2F4038", "name": "Pine" },
 				{ "slug": "stone", "color": "#9CA895", "name": "Sage" },
 				{ "slug": "bronze", "color": "#A06A4C", "name": "Cedar" },
+				{ "slug": "coral", "color": "#DB6A52", "name": "Coral" },
+				{ "slug": "coral-deep", "color": "#C05A43", "name": "Coral Deep" },
+				{ "slug": "slate", "color": "#6E8FA8", "name": "Slate Blue" },
 				{ "slug": "muted", "color": "#5C6960", "name": "Moss" },
 				{ "slug": "sound", "color": "#7C93A0", "name": "Sound Blue" }
 			],
@@ -105,11 +108,11 @@
 			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--large)" } },
 			"link": {
 				"color": { "text": "var(--wp--preset--color--ink)" },
-				":hover": { "color": { "text": "var(--wp--preset--color--bronze)" } }
+				":hover": { "color": { "text": "var(--wp--preset--color--coral)" } }
 			},
 			"button": {
 				"color": {
-					"background": "var(--wp--preset--color--ink)",
+					"background": "var(--wp--preset--color--coral)",
 					"text": "var(--wp--preset--color--base)"
 				},
 				"typography": {
@@ -130,7 +133,7 @@
 				"border": { "radius": "0px" },
 				":hover": {
 					"color": {
-						"background": "var(--wp--preset--color--bronze)",
+						"background": "var(--wp--preset--color--coral-deep)",
 						"text": "var(--wp--preset--color--base)"
 					}
 				}
@@ -161,14 +164,14 @@
 					"lineHeight": "1.5"
 				},
 				"border": {
-					"left": { "color": "var(--wp--preset--color--bronze)", "width": "2px", "style": "solid" }
+					"left": { "color": "var(--wp--preset--color--coral)", "width": "2px", "style": "solid" }
 				}
 			},
 			"core/post-title": {
 				"elements": {
 					"link": {
 						"typography": { "textDecoration": "none" },
-						":hover": { "color": { "text": "var(--wp--preset--color--bronze)" } }
+						":hover": { "color": { "text": "var(--wp--preset--color--coral)" } }
 					}
 				}
 			}

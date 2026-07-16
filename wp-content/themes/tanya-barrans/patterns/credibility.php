@@ -13,8 +13,8 @@
 
 		<!-- wp:column {"className":"tb-reveal"} -->
 		<div class="wp-block-column tb-reveal">
-			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large"} -->
-			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size">10+</h3>
+			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large","textColor":"coral"} -->
+			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size has-coral-color has-text-color">10+</h3>
 			<!-- /wp:heading -->
 			<!-- wp:paragraph {"align":"center","textColor":"muted","fontSize":"small"} -->
 			<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">Years in Puget Sound real estate</p>
@@ -24,8 +24,8 @@
 
 		<!-- wp:column {"className":"tb-reveal"} -->
 		<div class="wp-block-column tb-reveal">
-			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large"} -->
-			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size">100%</h3>
+			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large","textColor":"coral"} -->
+			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size has-coral-color has-text-color">100%</h3>
 			<!-- /wp:heading -->
 			<!-- wp:paragraph {"align":"center","textColor":"muted","fontSize":"small"} -->
 			<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">Committed to every client, every time</p>
@@ -35,8 +35,8 @@
 
 		<!-- wp:column {"className":"tb-reveal"} -->
 		<div class="wp-block-column tb-reveal">
-			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large"} -->
-			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size">5★</h3>
+			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large","textColor":"coral"} -->
+			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size has-coral-color has-text-color">5★</h3>
 			<!-- /wp:heading -->
 			<!-- wp:paragraph {"align":"center","textColor":"muted","fontSize":"small"} -->
 			<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">Client reviews and referrals</p>

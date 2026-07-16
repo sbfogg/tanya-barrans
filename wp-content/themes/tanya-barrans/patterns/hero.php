@@ -10,8 +10,8 @@
 	<span aria-hidden="true" class="wp-block-cover__background has-background-dim wp-block-cover__gradient-background has-background-gradient" style="background:linear-gradient(180deg,rgba(28,42,36,0.25) 0%,rgba(28,42,36,0.65) 100%)"></span>
 	<div class="wp-block-cover__inner-container tb-hero-arrive">
 
-		<!-- wp:paragraph {"align":"center","className":"tb-eyebrow","style":{"elements":{"link":{"color":{"text":"var:preset|color|sand"}}},"color":{"text":"var:preset|color|sand"}}} -->
-		<p class="has-text-align-center tb-eyebrow has-text-color" style="color:var(--wp--preset--color--sand)">Puget Sound Real Estate</p>
+		<!-- wp:paragraph {"align":"center","className":"tb-eyebrow","style":{"elements":{"link":{"color":{"text":"var:preset|color|coral"}}},"color":{"text":"var:preset|color|coral"}}} -->
+		<p class="has-text-align-center tb-eyebrow has-text-color" style="color:var(--wp--preset--color--coral)">Puget Sound Real Estate</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:heading {"textAlign":"center","level":1,"fontSize":"hero","textColor":"base"} -->

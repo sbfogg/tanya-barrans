@@ -50,13 +50,24 @@ body {
 	box-shadow: 0 12px 32px rgba(28, 42, 36, 0.12);
 }
 
-/* Eyebrow label above headings */
+/* Eyebrow label above headings — coral, gently fading to slate blue and back
+   on a slow loop for a subtle two-tone pop. Holds on coral for reduced-motion. */
+@keyframes tb-colorpop {
+	0%, 100% { color: var(--wp--preset--color--coral); }
+	50% { color: var(--wp--preset--color--slate); }
+}
 .tb-eyebrow {
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.22em;
+	font-size: 0.875rem;
+	font-weight: 700;
+	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--wp--preset--color--bronze);
+	color: var(--wp--preset--color--coral);
+	animation: tb-colorpop 8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+	.tb-eyebrow {
+		animation: none;
+	}
 }
 
 /* Hairline rule used between sections */
@@ -65,10 +76,34 @@ body {
 	border-top: 1px solid var(--wp--preset--color--sand);
 }
 
-/* Phone header: title + hamburger only, CTA button hidden (it repeats on every page) */
+/* Header brand lockup: Tanya logo + John L Scott brokerage logo with a divider */
+.tb-logo-primary {
+	height: 72px;
+	width: auto;
+	display: block;
+}
+.tb-logo-brokerage {
+	height: 32px;
+	width: auto;
+	display: block;
+}
+.tb-logo-divider {
+	display: inline-block;
+	width: 1px;
+	height: 38px;
+	background: var(--wp--preset--color--sand);
+}
+
+/* Phone header: shrink the logos, hide the CTA button (it repeats on every page) */
 @media (max-width: 599px) {
-	header.wp-block-template-part .wp-block-site-title a {
-		font-size: 1.125rem;
+	.tb-logo-primary {
+		height: 48px;
+	}
+	.tb-logo-brokerage {
+		height: 24px;
+	}
+	.tb-logo-divider {
+		height: 30px;
 	}
 	header.wp-block-template-part .wp-block-buttons {
 		display: none;
@@ -81,9 +116,20 @@ footer.wp-block-template-part {
 	margin-top: 0;
 }
 
+/* Footer text links: the global link color is dark "ink", which is invisible
+   on the dark ink footer background. Give them a light "stone" tone that
+   reads clearly, brightening to white on hover. Social icons are excluded so
+   their own styling stays intact. */
+footer.wp-block-template-part a:not(.tb-social-icon) {
+	color: var(--wp--preset--color--stone);
+}
+footer.wp-block-template-part a:not(.tb-social-icon):hover {
+	color: var(--wp--preset--color--base);
+}
+
 /* Evergreen treeline along the top edge of the dark footer */
 .tb-treeline {
-	height: 56px;
+	height: 36px;
 	background-image: url(../images/treeline.svg);
 	background-repeat: repeat-x;
 	background-position: bottom;
@@ -195,7 +241,7 @@ footer.wp-block-template-part {
 	position: absolute;
 	top: 0.75rem;
 	left: 0.75rem;
-	background: var(--wp--preset--color--ink);
+	background: var(--wp--preset--color--coral);
 	color: var(--wp--preset--color--base);
 	font-size: 0.6875rem;
 	font-weight: 600;
@@ -210,8 +256,8 @@ footer.wp-block-template-part {
    inline <style> block per-form, which beats a plain background-color
    override; overriding the variables themselves is the reliable fix. */
 .wpforms-container {
-	--wpforms-button-background-color: var(--wp--preset--color--ink);
-	--wpforms-button-background-color-alt: var(--wp--preset--color--bronze);
+	--wpforms-button-background-color: var(--wp--preset--color--coral);
+	--wpforms-button-background-color-alt: var(--wp--preset--color--coral-deep);
 	--wpforms-button-text-color: var(--wp--preset--color--base);
 	--wpforms-button-text-color-alt: var(--wp--preset--color--base);
 	--wpforms-label-color: var(--wp--preset--color--ink);
@@ -237,9 +283,9 @@ footer.wp-block-template-part {
 .wpforms-container input[type=email]:focus,
 .wpforms-container input[type=tel]:focus,
 .wpforms-container textarea:focus {
-	border-color: var(--wp--preset--color--bronze);
+	border-color: var(--wp--preset--color--coral);
 	outline: none;
-	box-shadow: 0 0 0 1px var(--wp--preset--color--bronze);
+	box-shadow: 0 0 0 1px var(--wp--preset--color--coral);
 }
 .wpforms-container .wpforms-field-sublabel {
 	color: var(--wp--preset--color--muted);
@@ -256,7 +302,7 @@ footer.wp-block-template-part {
 	padding: 1rem 2rem;
 }
 .wpforms-container button[type=submit].wpforms-submit:hover {
-	background: var(--wp--preset--color--bronze);
+	background: var(--wp--preset--color--coral);
 }
 
 /* Footer social icons */
@@ -273,8 +319,25 @@ footer.wp-block-template-part {
 }
 .tb-social-icon:hover {
 	color: var(--wp--preset--color--base);
-	border-color: var(--wp--preset--color--bronze);
-	background: var(--wp--preset--color--bronze);
+	border-color: var(--wp--preset--color--coral);
+	background: var(--wp--preset--color--coral);
+}
+
+/* Social icons on a light background (e.g. the Contact page): the default
+   stone-on-charcoal tuning is for the dark footer, so use darker "ink" glyphs
+   with a soft "sand" border here, keeping the bronze hover. */
+.tb-social-icons--contact {
+	display: flex;
+	gap: 0.6rem;
+}
+.tb-social-icons--contact .tb-social-icon {
+	color: var(--wp--preset--color--ink);
+	border-color: var(--wp--preset--color--sand);
+}
+.tb-social-icons--contact .tb-social-icon:hover {
+	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--coral);
+	background: var(--wp--preset--color--coral);
 }
 
 /* Outline button variant */
@@ -328,8 +391,8 @@ footer.wp-block-template-part {
 }
 .tb-newsletter-input:focus {
 	outline: none;
-	border-color: var(--wp--preset--color--bronze);
-	box-shadow: 0 0 0 1px var(--wp--preset--color--bronze);
+	border-color: var(--wp--preset--color--coral);
+	box-shadow: 0 0 0 1px var(--wp--preset--color--coral);
 }
 .tb-newsletter-submit {
 	flex: 0 0 auto;
@@ -341,7 +404,7 @@ footer.wp-block-template-part {
 	padding: 0.85rem 1.75rem;
 	border: none;
 	border-radius: 3px;
-	background: var(--wp--preset--color--bronze);
+	background: var(--wp--preset--color--coral);
 	color: var(--wp--preset--color--base);
 	cursor: pointer;
 	transition: background 0.2s ease, opacity 0.2s ease;
