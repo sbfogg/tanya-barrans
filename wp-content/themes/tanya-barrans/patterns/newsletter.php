@@ -12,8 +12,8 @@
 	<p class="has-text-align-center tb-eyebrow">Stay in the Loop</p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:heading {"textAlign":"center","fontSize":"x-large"} -->
-	<h2 class="wp-block-heading has-text-align-center has-x-large-font-size">Puget Sound updates, worth reading.</h2>
+	<!-- wp:heading {"textAlign":"center","fontSize":"x-large","textColor":"base"} -->
+	<h2 class="wp-block-heading has-text-align-center has-base-color has-text-color has-x-large-font-size">Puget Sound updates, worth reading.</h2>
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph {"align":"center","textColor":"stone","fontSize":"small"} -->

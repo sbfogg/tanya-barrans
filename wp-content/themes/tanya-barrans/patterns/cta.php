@@ -8,8 +8,8 @@
 <!-- wp:group {"align":"full","className":"tb-reveal","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"coral","textColor":"base","layout":{"type":"constrained","contentSize":"720px"}} -->
 <div class="wp-block-group alignfull tb-reveal has-base-color has-coral-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
 
-	<!-- wp:heading {"textAlign":"center","fontSize":"xx-large"} -->
-	<h2 class="wp-block-heading has-text-align-center has-xx-large-font-size">Ready when you are.</h2>
+	<!-- wp:heading {"textAlign":"center","fontSize":"xx-large","textColor":"base"} -->
+	<h2 class="wp-block-heading has-text-align-center has-base-color has-text-color has-xx-large-font-size">Ready when you are.</h2>
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph {"align":"center","textColor":"base"} -->
