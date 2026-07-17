@@ -25,6 +25,15 @@ add_action( 'wp_enqueue_scripts', function () {
 		true
 	);
 
+	// Progressive paintbrush animation for .tb-eyebrow labels.
+	wp_enqueue_script(
+		'tanya-barrans-paint-eyebrow',
+		get_theme_file_uri( 'assets/js/paint-eyebrow.js' ),
+		array(),
+		wp_get_theme()->get( 'Version' ),
+		true
+	);
+
 	// Newsletter signup form lives on the blog index only.
 	if ( is_home() ) {
 		wp_enqueue_script(
@@ -144,18 +153,3 @@ add_action( 'wp_head', function () {
 		echo '<meta name="description" content="' . esc_attr( $description ) . '" />' . "\n";
 	}
 }, 1 );
-
-// Fixed background scene behind the homepage hero and About section — pure
-// CSS position:fixed, painted as the very first thing in <body> so later
-// opaque sections (credibility, services, etc.) naturally scroll over and
-// cover it without any extra work.
-add_action( 'wp_body_open', function () {
-	if ( ! is_front_page() ) {
-		return;
-	}
-	?>
-	<div class="tb-fixed-scene" aria-hidden="true">
-		<img src="<?php echo esc_url( get_theme_file_uri( 'assets/images/hero-photo.jpg' ) ); ?>" alt=""/>
-	</div>
-	<?php
-} );
