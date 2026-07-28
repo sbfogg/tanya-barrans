@@ -12,23 +12,24 @@
 			"defaultGradients": false,
 			"palette": [
 				{ "slug": "base", "color": "#FFFFFF", "name": "White" },
-				{ "slug": "alabaster", "color": "#F6EFE3", "name": "Warm Ivory" },
-				{ "slug": "sand", "color": "#E8E1D4", "name": "Linen" },
+				{ "slug": "alabaster", "color": "#FAF7F2", "name": "Warm Ivory" },
+				{ "slug": "sand", "color": "#E8DFD2", "name": "Linen" },
 				{ "slug": "ink", "color": "#465D7C", "name": "Modern Navy" },
-				{ "slug": "charcoal", "color": "#394D67", "name": "Deep Navy" },
-				{ "slug": "stone", "color": "#C9D6E3", "name": "Powder Mist" },
-				{ "slug": "bronze", "color": "#F5E7B2", "name": "Butter Cream" },
-				{ "slug": "coral", "color": "#D6A3B5", "name": "Dusty Blush" },
-				{ "slug": "coral-deep", "color": "#C08CA1", "name": "Blush Deep" },
-				{ "slug": "slate", "color": "#9EBFD6", "name": "Powder Blue" },
-				{ "slug": "muted", "color": "#5B5B5B", "name": "Soft Graphite" },
-				{ "slug": "sound", "color": "#7FA0BE", "name": "Powder Deep" },
+				{ "slug": "charcoal", "color": "#0F1E35", "name": "Dark Navy" },
+				{ "slug": "stone", "color": "#E8DFD2", "name": "Linen Light" },
+				{ "slug": "bronze", "color": "#6B7B5E", "name": "Sage" },
+				{ "slug": "coral", "color": "#D8A7B1", "name": "Dusty Blush" },
+				{ "slug": "coral-deep", "color": "#465D7C", "name": "Modern Navy" },
+				{ "slug": "slate", "color": "#6B7B5E", "name": "Sage" },
+				{ "slug": "muted", "color": "#2D2D2D", "name": "Graphite" },
+				{ "slug": "sound", "color": "#6B7B5E", "name": "Sage" },
+				{ "slug": "sage", "color": "#6B7B5E", "name": "Sage" },
 				{ "slug": "graphite", "color": "#2D2D2D", "name": "Graphite" }
 			],
 			"gradients": [
 				{
 					"slug": "hero-scrim",
-					"gradient": "linear-gradient(180deg, rgba(40,54,74,0.25) 0%, rgba(40,54,74,0.65) 100%)",
+					"gradient": "linear-gradient(180deg, rgba(15,30,53,0.2) 0%, rgba(15,30,53,0.62) 100%)",
 					"name": "Hero Scrim"
 				}
 			]
@@ -56,6 +57,14 @@
 						{ "fontFamily": "Montserrat", "fontWeight": "400", "fontStyle": "normal", "src": [ "file:./assets/fonts/montserrat-latin-regular.woff2" ] },
 						{ "fontFamily": "Montserrat", "fontWeight": "500", "fontStyle": "normal", "src": [ "file:./assets/fonts/montserrat-latin-500.woff2" ] },
 						{ "fontFamily": "Montserrat", "fontWeight": "600", "fontStyle": "normal", "src": [ "file:./assets/fonts/montserrat-latin-600.woff2" ] }
+					]
+				},
+				{
+					"slug": "script",
+					"name": "Playlist Script",
+					"fontFamily": "\"Playlist Script\", cursive",
+					"fontFace": [
+						{ "fontFamily": "Playlist Script", "fontWeight": "400", "fontStyle": "normal", "src": [ "file:./assets/fonts/playlist-script.otf" ] }
 					]
 				}
 			],
@@ -110,7 +119,7 @@
 			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--large)" } },
 			"link": {
 				"color": { "text": "var(--wp--preset--color--ink)" },
-				":hover": { "color": { "text": "var(--wp--preset--color--slate)" } }
+				":hover": { "color": { "text": "var(--wp--preset--color--coral)" } }
 			},
 			"button": {
 				"color": {
@@ -152,8 +161,8 @@
 			},
 			"core/navigation": {
 				"color": {
-					"text": "var(--wp--preset--color--base)",
-					"background": "var(--wp--preset--color--ink)"
+					"text": "var(--wp--preset--color--charcoal)",
+					"background": "var(--wp--preset--color--alabaster)"
 				},
 				"typography": {
 					"fontSize": "0.8125rem",

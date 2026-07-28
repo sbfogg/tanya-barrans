@@ -1,27 +1,27 @@
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"position":{"type":"sticky","top":"0px"}},"backgroundColor":"ink","textColor":"base","layout":{"type":"constrained","contentSize":"1200px"}} -->
-<div class="wp-block-group alignfull has-base-color has-ink-background-color has-text-color has-background" style="padding-top:1.25rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:1.25rem;padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"align":"full","className":"tb-site-header","style":{"spacing":{"padding":{"top":"0.9rem","bottom":"0.9rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}},"position":{"type":"sticky","top":"0px"}},"backgroundColor":"alabaster","textColor":"charcoal","layout":{"type":"constrained","contentSize":"1320px"}} -->
+<div class="wp-block-group alignfull tb-site-header has-charcoal-color has-alabaster-background-color has-text-color has-background" style="padding-top:0.9rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:0.9rem;padding-left:var(--wp--preset--spacing--40)">
 
-	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-	<div class="wp-block-group alignwide">
+	<!-- wp:group {"align":"wide","className":"tb-site-header__inner","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+	<div class="wp-block-group alignwide tb-site-header__inner">
 
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"0.9rem"}}} -->
-		<div class="wp-block-group">
-			<a href="/" aria-label="Tanya Barrans — Home" style="display:inline-flex;line-height:0;">
-				<img class="tb-logo-primary" src="/wp-content/themes/tanya-barrans/assets/images/logo-tb-white.png" alt="Tanya Barrans Real Estate"/>
+		<!-- wp:group {"className":"tb-brand-lockup","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"0.8rem"}}} -->
+		<div class="wp-block-group tb-brand-lockup">
+			<a href="/" aria-label="Tanya Barrans — Home" class="tb-brand-lockup__link">
+				<img class="tb-logo-primary" src="/wp-content/themes/tanya-barrans/assets/images/logo-tb-black.png" alt="Tanya Barrans Real Estate"/>
 			</a>
 			<span aria-hidden="true" class="tb-logo-divider"></span>
-			<img class="tb-logo-brokerage" src="/wp-content/themes/tanya-barrans/assets/images/logo-jls-white.png" alt="John L Scott Real Estate"/>
+			<img class="tb-logo-brokerage" src="/wp-content/themes/tanya-barrans/assets/images/logo-jls-black.png" alt="John L. Scott Real Estate"/>
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"2rem"}}} -->
-		<div class="wp-block-group">
-			<!-- wp:navigation {"overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"right"},"style":{"spacing":{"blockGap":"1.75rem"}}} /-->
+		<!-- wp:group {"className":"tb-site-header__actions","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"1.5rem"}}} -->
+		<div class="wp-block-group tb-site-header__actions">
+			<!-- wp:navigation {"overlayMenu":"mobile","className":"tb-primary-navigation","layout":{"type":"flex","justifyContent":"right"},"style":{"spacing":{"blockGap":"1.5rem"}}} /-->
 
 			<!-- wp:buttons -->
 			<div class="wp-block-buttons">
-				<!-- wp:button {"fontSize":"small"} -->
-				<div class="wp-block-button has-custom-font-size has-small-font-size"><a class="wp-block-button__link wp-element-button" href="/contact/">Work With Tanya</a></div>
+				<!-- wp:button {"backgroundColor":"coral","fontSize":"small","className":"tb-header-cta"} -->
+				<div class="wp-block-button has-custom-font-size has-small-font-size tb-header-cta"><a class="wp-block-button__link has-coral-background-color has-background wp-element-button" href="/contact/">Let’s Connect</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->

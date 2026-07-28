@@ -5,39 +5,53 @@
  * Categories: featured
  */
 ?>
-<!-- wp:group {"align":"full","className":"tb-split tb-split--photo-right tb-split--hero","backgroundColor":"base","layout":{"type":"default"}} -->
-<div class="wp-block-group alignfull tb-split tb-split--photo-right tb-split--hero has-base-background-color has-background">
+<!-- wp:group {"align":"full","className":"tb-home-hero","backgroundColor":"alabaster","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull tb-home-hero has-alabaster-background-color has-background">
 
-	<!-- wp:group {"className":"tb-split__photo","layout":{"type":"default"}} -->
-	<div class="wp-block-group tb-split__photo" aria-hidden="true" style="background-image:url(/wp-content/themes/tanya-barrans/assets/images/hero-family-room.jpg)"></div>
-	<!-- /wp:group -->
+	<!-- wp:html -->
+	<img
+		class="tb-home-hero__image"
+		src="/wp-content/themes/tanya-barrans/assets/images/lwyl-hero.jpg"
+		alt=""
+		width="1720"
+		height="914"
+		fetchpriority="high"
+		decoding="async"
+	/>
+	<!-- /wp:html -->
 
-	<!-- wp:group {"className":"tb-split__content tb-hero-arrive","layout":{"type":"default"}} -->
-	<div class="wp-block-group tb-split__content tb-hero-arrive">
+	<!-- wp:group {"className":"tb-home-hero__inner","layout":{"type":"default"}} -->
+	<div class="wp-block-group tb-home-hero__inner">
 
-		<!-- wp:paragraph {"className":"tb-eyebrow"} -->
-		<p class="tb-eyebrow">Puget Sound Real Estate</p>
-		<!-- /wp:paragraph -->
+		<!-- wp:group {"className":"tb-home-hero__content tb-hero-arrive","layout":{"type":"default"}} -->
+		<div class="wp-block-group tb-home-hero__content tb-hero-arrive">
 
-		<!-- wp:heading {"level":1,"fontSize":"hero"} -->
-		<h1 class="wp-block-heading has-hero-font-size">Your home, <em>handled with care.</em></h1>
-		<!-- /wp:heading -->
+			<!-- wp:paragraph {"className":"tb-script-accent"} -->
+			<p class="tb-script-accent">Helping you</p>
+			<!-- /wp:paragraph -->
 
-		<!-- wp:paragraph {"textColor":"muted","fontSize":"large"} -->
-		<p class="has-muted-color has-text-color has-large-font-size">Local expertise, honest guidance, and full-service support — from first showing to final signature.</p>
-		<!-- /wp:paragraph -->
+			<!-- wp:heading {"level":1,"className":"tb-home-hero__title"} -->
+			<h1 class="wp-block-heading tb-home-hero__title">Love Your Home<br>&amp; Where You Live</h1>
+			<!-- /wp:heading -->
 
-		<!-- wp:buttons {"style":{"spacing":{"blockGap":"1rem","margin":{"top":"var:preset|spacing|40"}}}} -->
-		<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--40)">
-			<!-- wp:button {"backgroundColor":"coral"} -->
-			<div class="wp-block-button"><a class="wp-block-button__link has-coral-background-color has-background wp-element-button" href="/listings/">Find Your Next Home</a></div>
-			<!-- /wp:button -->
+			<!-- wp:paragraph {"className":"tb-home-hero__dek"} -->
+			<p class="tb-home-hero__dek">Local expertise. Real relationships.<br>Guiding you home with confidence.</p>
+			<!-- /wp:paragraph -->
 
-			<!-- wp:button {"className":"tb-button-outline","textColor":"ink"} -->
-			<div class="wp-block-button tb-button-outline"><a class="wp-block-button__link has-ink-color has-text-color wp-element-button" href="/sell/">Sell With Tanya</a></div>
-			<!-- /wp:button -->
+			<!-- wp:buttons {"className":"tb-home-hero__buttons","style":{"spacing":{"blockGap":"0.75rem","margin":{"top":"var:preset|spacing|40"}}}} -->
+			<div class="wp-block-buttons tb-home-hero__buttons" style="margin-top:var(--wp--preset--spacing--40)">
+				<!-- wp:button {"backgroundColor":"charcoal"} -->
+				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-background-color has-background wp-element-button" href="/blog/">Explore the Local Guide</a></div>
+				<!-- /wp:button -->
+
+				<!-- wp:button {"backgroundColor":"coral","textColor":"charcoal"} -->
+				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-color has-coral-background-color has-text-color has-background wp-element-button" href="/contact/">Buy or Sell With Tanya</a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+
 		</div>
-		<!-- /wp:buttons -->
+		<!-- /wp:group -->
 
 	</div>
 	<!-- /wp:group -->

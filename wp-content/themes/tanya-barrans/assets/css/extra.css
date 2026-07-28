@@ -469,3 +469,402 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 .tb-newsletter-status[data-state="pending"] {
 	color: var(--wp--preset--color--stone);
 }
+
+/* --------------------------------------------------------------------------
+   Love Where You Live — homepage design foundation
+   -------------------------------------------------------------------------- */
+
+/* Reusable editorial heading treatment for future homepage and archive
+   sections. Keep the copy in semantic HTML; this class controls presentation. */
+.tb-section-intro {
+	max-width: 720px;
+	margin-inline: auto;
+	text-align: center;
+}
+.tb-section-intro .tb-section-intro__kicker {
+	margin-bottom: 0.8rem;
+	color: var(--wp--preset--color--coral);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+.tb-section-intro .tb-section-intro__title {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	color: var(--wp--preset--color--charcoal);
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: clamp(2.5rem, 5vw, 4.5rem);
+	font-weight: 600;
+	line-height: 0.98;
+}
+.tb-section-intro .tb-section-intro__copy {
+	max-width: 620px;
+	margin-inline: auto;
+	color: var(--wp--preset--color--graphite);
+}
+
+/* Light, magazine-like site header. */
+.tb-site-header {
+	position: relative;
+	z-index: 100;
+	border-bottom: 1px solid rgba(15, 30, 53, 0.1);
+	box-shadow: none;
+}
+.tb-site-header__inner,
+.tb-site-header__actions {
+	min-width: 0;
+}
+.tb-brand-lockup__link {
+	display: inline-flex;
+	line-height: 0;
+}
+.tb-site-header .tb-logo-primary {
+	height: 58px;
+}
+.tb-site-header .tb-logo-brokerage {
+	height: 27px;
+}
+.tb-site-header .tb-logo-divider {
+	height: 32px;
+	background: rgba(15, 30, 53, 0.18);
+}
+.tb-site-header .wp-block-navigation {
+	background: transparent;
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-site-header .wp-block-navigation-item__content {
+	position: relative;
+	padding-block: 0.45rem;
+	color: var(--wp--preset--color--charcoal);
+	text-decoration: none;
+}
+.tb-site-header .wp-block-navigation-item__content::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 100%;
+	bottom: 0;
+	height: 1px;
+	background: var(--wp--preset--color--coral);
+	transition: right 0.35s ease;
+}
+.tb-site-header .wp-block-navigation-item__content:hover::after,
+.tb-site-header .current-menu-item > .wp-block-navigation-item__content::after {
+	right: 0;
+}
+.tb-site-header .tb-header-cta .wp-block-button__link {
+	background: var(--wp--preset--color--coral);
+	color: var(--wp--preset--color--charcoal);
+	padding: 0.8rem 1.45rem;
+	border: 1px solid transparent;
+}
+.tb-site-header .tb-header-cta .wp-block-button__link:hover {
+	background: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--base);
+}
+
+/* Image-led homepage hero. The approved image intentionally leaves quiet
+   space on the left; a soft ivory wash preserves readable contrast without
+   making the photography feel like a dark real-estate banner. */
+.tb-home-hero {
+	position: relative;
+	isolation: isolate;
+	min-height: clamp(620px, 69vw, 790px);
+	overflow: hidden;
+}
+.tb-home-hero::after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	inset: 0;
+	background:
+		linear-gradient(
+			90deg,
+			rgba(250, 247, 242, 0.98) 0%,
+			rgba(250, 247, 242, 0.94) 25%,
+			rgba(250, 247, 242, 0.56) 43%,
+			rgba(250, 247, 242, 0) 61%
+		);
+	pointer-events: none;
+}
+.tb-home-hero__image {
+	position: absolute;
+	z-index: -2;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center center;
+}
+.tb-home-hero__inner {
+	display: flex;
+	align-items: center;
+	width: min(1320px, calc(100% - 4rem));
+	min-height: inherit;
+	margin-inline: auto;
+}
+.tb-home-hero__content {
+	width: min(600px, 48%);
+	padding-block: clamp(5rem, 10vw, 8rem);
+}
+.tb-script-accent {
+	margin: 0 0 0.5rem;
+	color: var(--wp--preset--color--coral);
+	font-family: var(--wp--preset--font-family--script);
+	font-size: clamp(2.35rem, 3.5vw, 3.75rem);
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+}
+.tb-home-hero__title {
+	margin: 0;
+	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(3rem, 5.6vw, 5.4rem);
+	font-weight: 600;
+	letter-spacing: 0.015em;
+	line-height: 0.92;
+	text-transform: uppercase;
+	text-wrap: balance;
+}
+.tb-home-hero__dek {
+	margin-top: 1.4rem;
+	margin-bottom: 0;
+	color: var(--wp--preset--color--graphite);
+	font-size: clamp(0.95rem, 1.4vw, 1.125rem);
+	line-height: 1.75;
+}
+.tb-home-hero__buttons .wp-block-button__link {
+	min-width: 0;
+	padding: 0.95rem 1.5rem;
+}
+.tb-home-hero__buttons .has-coral-background-color:hover {
+	background: var(--wp--preset--color--ink) !important;
+	color: var(--wp--preset--color--base) !important;
+}
+.tb-home-hero__buttons .has-charcoal-background-color:hover {
+	background: var(--wp--preset--color--coral) !important;
+	color: var(--wp--preset--color--charcoal) !important;
+}
+
+/* Four clear pathways immediately connect lifestyle value to Tanya's real
+   estate work. They read as one editorial band rather than four floating
+   marketing cards. */
+.tb-pathways {
+	padding: clamp(2.5rem, 5vw, 4.5rem) max(1.25rem, calc((100% - 1320px) / 2));
+	border-top: 1px solid rgba(15, 30, 53, 0.08);
+	border-bottom: 1px solid rgba(15, 30, 53, 0.1);
+}
+.tb-pathways__grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 0;
+}
+.tb-pathway {
+	position: relative;
+	min-width: 0;
+	padding: 0.25rem clamp(1.3rem, 2.6vw, 2.5rem);
+	border-right: 1px solid rgba(15, 30, 53, 0.12);
+	text-align: center;
+}
+.tb-pathway:last-child {
+	border-right: 0;
+}
+.tb-pathway__icon {
+	display: grid;
+	place-items: center;
+	width: 62px;
+	height: 62px;
+	margin: 0 auto 1rem;
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-pathway__icon svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.35;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.tb-pathway--home .tb-pathway__icon {
+	color: var(--wp--preset--color--coral);
+}
+.tb-pathway--local .tb-pathway__icon {
+	color: var(--wp--preset--color--sage);
+}
+.tb-pathway--buy .tb-pathway__icon {
+	color: var(--wp--preset--color--ink);
+}
+.tb-pathway--sell .tb-pathway__icon {
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-pathway__title {
+	margin: 0 0 0.75rem;
+	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(1.35rem, 2vw, 1.75rem);
+	line-height: 1.05;
+}
+.tb-pathway__copy {
+	max-width: 260px;
+	min-height: 5.25em;
+	margin: 0 auto;
+	color: var(--wp--preset--color--graphite);
+	font-size: 0.825rem;
+	line-height: 1.75;
+}
+.tb-pathway__link {
+	margin: 1.15rem 0 0;
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}
+.tb-pathway__link a {
+	color: var(--wp--preset--color--coral);
+	text-decoration: none;
+}
+.tb-pathway__link a span {
+	display: inline-block;
+	margin-left: 0.25rem;
+	transition: transform 0.3s ease;
+}
+.tb-pathway__link a:hover span {
+	transform: translateX(4px);
+}
+.tb-pathway.tb-reveal {
+	transform: translateY(20px);
+}
+.tb-pathway.tb-reveal.is-visible {
+	transform: translateY(0);
+}
+
+@media (max-width: 1100px) {
+	.tb-site-header .tb-header-cta {
+		display: none;
+	}
+	.tb-site-header__actions {
+		gap: 1rem;
+	}
+	.tb-site-header .wp-block-navigation {
+		font-size: 0.72rem;
+		letter-spacing: 0.07em;
+	}
+	.tb-site-header .wp-block-navigation__container {
+		gap: 1rem;
+	}
+	.tb-home-hero__content {
+		width: min(580px, 54%);
+	}
+	.tb-pathways__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		row-gap: 2.5rem;
+	}
+	.tb-pathway:nth-child(2) {
+		border-right: 0;
+	}
+	.tb-pathway:nth-child(3),
+	.tb-pathway:nth-child(4) {
+		padding-top: 2.5rem;
+		border-top: 1px solid rgba(15, 30, 53, 0.1);
+	}
+}
+
+@media (max-width: 781px) {
+	.tb-site-header {
+		padding-inline: 1.25rem !important;
+	}
+	.tb-site-header .tb-logo-primary {
+		height: 48px;
+	}
+	.tb-site-header .tb-logo-brokerage {
+		height: 23px;
+	}
+	.tb-site-header__actions {
+		margin-left: auto;
+	}
+	.tb-site-header .wp-block-navigation__responsive-container.is-menu-open {
+		background: var(--wp--preset--color--alabaster);
+		color: var(--wp--preset--color--charcoal);
+		padding: 2rem;
+	}
+	.tb-home-hero {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+	.tb-home-hero::after {
+		display: none;
+	}
+	.tb-home-hero__inner {
+		order: 1;
+		width: 100%;
+		min-height: 0;
+		padding: 4rem 1.5rem 3.5rem;
+	}
+	.tb-home-hero__content {
+		width: 100%;
+		max-width: 600px;
+		margin-inline: auto;
+		padding: 0;
+		text-align: center;
+	}
+	.tb-home-hero__image {
+		position: relative;
+		order: 2;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 10;
+		object-position: 58% center;
+	}
+	.tb-home-hero__buttons {
+		justify-content: center;
+	}
+	.tb-pathway__copy {
+		min-height: 0;
+	}
+}
+
+@media (max-width: 599px) {
+	.tb-site-header .tb-logo-brokerage,
+	.tb-site-header .tb-logo-divider {
+		display: none;
+	}
+	.tb-site-header .wp-block-buttons {
+		display: none;
+	}
+	.tb-home-hero__title {
+		font-size: clamp(2.65rem, 14vw, 4rem);
+	}
+	.tb-home-hero__buttons {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.tb-home-hero__buttons .wp-block-button,
+	.tb-home-hero__buttons .wp-block-button__link {
+		width: 100%;
+	}
+	.tb-pathways {
+		padding-inline: 1.25rem;
+	}
+	.tb-pathways__grid {
+		grid-template-columns: 1fr;
+	}
+	.tb-pathway,
+	.tb-pathway:nth-child(2),
+	.tb-pathway:nth-child(3),
+	.tb-pathway:nth-child(4) {
+		padding: 2rem 0;
+		border-right: 0;
+		border-top: 1px solid rgba(15, 30, 53, 0.1);
+	}
+	.tb-pathway:first-child {
+		padding-top: 0;
+		border-top: 0;
+	}
+	.tb-pathway:last-child {
+		padding-bottom: 0;
+	}
+}
