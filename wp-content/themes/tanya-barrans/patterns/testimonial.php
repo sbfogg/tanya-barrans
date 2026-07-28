@@ -1,37 +1,41 @@
 <?php
 /**
- * Title: Testimonial
+ * Title: Relationship Testimonial
  * Slug: tanya-barrans/testimonial
  * Categories: featured
  */
 ?>
-<!-- wp:group {"align":"full","className":"tb-split tb-split--photo-left","backgroundColor":"base","layout":{"type":"default"}} -->
-<div class="wp-block-group alignfull tb-split tb-split--photo-left has-base-background-color has-background">
+<!-- wp:group {"align":"full","className":"tb-story-quote","backgroundColor":"coral","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull tb-story-quote has-coral-background-color has-background">
 
-	<!-- wp:group {"className":"tb-split__photo","layout":{"type":"default"}} -->
-	<div class="wp-block-group tb-split__photo" aria-hidden="true" style="background-image:url(/wp-content/uploads/2026/07/northbend.jpg)"></div>
-	<!-- /wp:group -->
-
-	<!-- wp:group {"className":"tb-split__content tb-reveal","layout":{"type":"default"}} -->
-	<div class="wp-block-group tb-split__content tb-reveal">
+	<!-- wp:group {"className":"tb-story-quote__content tb-reveal","layout":{"type":"default"}} -->
+	<div class="wp-block-group tb-story-quote__content tb-reveal">
 
 		<!-- wp:paragraph {"className":"tb-eyebrow"} -->
-		<p class="tb-eyebrow">Kind Words</p>
+		<p class="tb-eyebrow">What Clients Remember</p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:paragraph {"style":{"typography":{"fontStyle":"italic","fontSize":"1.75rem","lineHeight":"1.4"}},"fontFamily":"serif"} -->
-		<p class="has-serif-font-family" style="font-size:1.75rem;font-style:italic;line-height:1.4">"Tanya made the entire process feel effortless. She knew every neighborhood we asked about, negotiated fiercely on our behalf, and was there for us long after closing day."</p>
+		<!-- wp:paragraph {"className":"tb-story-quote__mark"} -->
+		<p class="tb-story-quote__mark" aria-hidden="true">“</p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:paragraph {"textColor":"muted","fontSize":"small"} -->
-		<p class="has-muted-color has-text-color has-small-font-size">— Placeholder testimonial, replace with a real client review</p>
+		<!-- wp:quote {"className":"tb-story-quote__quote"} -->
+		<blockquote class="wp-block-quote tb-story-quote__quote"><p>By the end, you felt like family.</p></blockquote>
+		<!-- /wp:quote -->
+
+		<!-- wp:paragraph {"textColor":"charcoal"} -->
+		<p class="has-charcoal-color has-text-color">The best real estate relationships do not end when the keys change hands. Tanya’s favorite messages are the ones that speak to feeling supported, understood, and cared for through the entire process.</p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:paragraph {"fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} -->
-		<p class="has-small-font-size" style="margin-top:var(--wp--preset--spacing--30)"><a href="https://g.page/r/CTDpOcL-7SDkEAE/review" target="_blank" rel="noopener noreferrer">Read Tanya's reviews on Google →</a></p>
+		<!-- wp:paragraph {"className":"tb-text-link"} -->
+		<p class="tb-text-link"><a href="https://g.page/r/CTDpOcL-7SDkEAE/review" target="_blank" rel="noopener noreferrer">Read Tanya’s Google reviews <span aria-hidden="true">→</span></a></p>
 		<!-- /wp:paragraph -->
 
 	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"tb-story-quote__image","layout":{"type":"default"}} -->
+	<div class="wp-block-group tb-story-quote__image" aria-hidden="true" style="background-image:url(/wp-content/themes/tanya-barrans/assets/images/lwyl-living-room.jpg)"></div>
 	<!-- /wp:group -->
 
 </div>

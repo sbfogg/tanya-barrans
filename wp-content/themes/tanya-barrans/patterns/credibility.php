@@ -1,45 +1,49 @@
 <?php
 /**
- * Title: Credibility Stats Band
+ * Title: Brand Promise
  * Slug: tanya-barrans/credibility
  * Categories: featured
  */
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"alabaster","layout":{"type":"constrained","contentSize":"1200px"}} -->
-<div class="wp-block-group alignfull has-alabaster-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50);padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"align":"full","className":"tb-brand-pillars","backgroundColor":"charcoal","textColor":"base","layout":{"type":"constrained","contentSize":"1200px"}} -->
+<div class="wp-block-group alignfull tb-brand-pillars has-base-color has-charcoal-background-color has-text-color has-background">
 
-	<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|50"}}}} -->
-	<div class="wp-block-columns alignwide">
+	<!-- wp:heading {"level":2,"className":"tb-sr-only"} -->
+	<h2 class="wp-block-heading tb-sr-only">What you can expect from Tanya</h2>
+	<!-- /wp:heading -->
 
-		<!-- wp:column {"className":"tb-reveal"} -->
-		<div class="wp-block-column tb-reveal">
-			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large","textColor":"ink","className":"tb-stat"} -->
-			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size has-ink-color has-text-color tb-stat">10+</h3>
-			<!-- /wp:heading -->
-			<!-- wp:paragraph {"align":"center","textColor":"muted","fontSize":"small"} -->
-			<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">Years in Puget Sound real estate</p>
+	<!-- wp:columns {"align":"wide","className":"tb-brand-pillars__grid"} -->
+	<div class="wp-block-columns alignwide tb-brand-pillars__grid">
+
+		<!-- wp:column {"className":"tb-brand-pillar tb-reveal"} -->
+		<div class="wp-block-column tb-brand-pillar tb-reveal">
+			<!-- wp:paragraph {"className":"tb-brand-pillar__label"} -->
+			<p class="tb-brand-pillar__label">Clear Advice</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph -->
+			<p>Practical answers that help you make a decision you will still feel good about years from now.</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"className":"tb-reveal"} -->
-		<div class="wp-block-column tb-reveal">
-			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large","textColor":"ink","className":"tb-stat"} -->
-			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size has-ink-color has-text-color tb-stat">100%</h3>
-			<!-- /wp:heading -->
-			<!-- wp:paragraph {"align":"center","textColor":"muted","fontSize":"small"} -->
-			<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">Committed to every client, every time</p>
+		<!-- wp:column {"className":"tb-brand-pillar tb-reveal"} -->
+		<div class="wp-block-column tb-brand-pillar tb-reveal">
+			<!-- wp:paragraph {"className":"tb-brand-pillar__label"} -->
+			<p class="tb-brand-pillar__label">Local Knowledge</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph -->
+			<p>Neighborhood context, market perspective, and the everyday details that shape where you live.</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"className":"tb-reveal"} -->
-		<div class="wp-block-column tb-reveal">
-			<!-- wp:heading {"textAlign":"center","level":3,"fontSize":"xx-large","textColor":"ink","className":"tb-stat"} -->
-			<h3 class="wp-block-heading has-text-align-center has-xx-large-font-size has-ink-color has-text-color tb-stat">5★</h3>
-			<!-- /wp:heading -->
-			<!-- wp:paragraph {"align":"center","textColor":"muted","fontSize":"small"} -->
-			<p class="has-text-align-center has-muted-color has-text-color has-small-font-size">Client reviews and referrals</p>
+		<!-- wp:column {"className":"tb-brand-pillar tb-reveal"} -->
+		<div class="wp-block-column tb-brand-pillar tb-reveal">
+			<!-- wp:paragraph {"className":"tb-brand-pillar__label"} -->
+			<p class="tb-brand-pillar__label">Real Relationships</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph -->
+			<p>Responsive, honest guidance built around your family, your goals, and what matters after closing.</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:column -->

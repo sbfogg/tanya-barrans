@@ -1,9 +1,10 @@
 (function () {
 	var prefersReduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	document.documentElement.classList.add( 'tb-motion-ready' );
 
 	// Refresh always starts at the top of the page rather than restoring
 	// the previous scroll position — the entrance animations (hero arrive,
-	// scroll reveals, eyebrow fills) are choreographed from the top down,
+	// scroll reveals, eyebrow entrances) are choreographed from the top down,
 	// so landing mid-page after a reload reads as broken. Anchor links
 	// (#section) are left alone so they still jump to their target.
 	if ( 'scrollRestoration' in window.history ) {
@@ -18,7 +19,7 @@
 	// off again at the edges caused a feedback loop (the reveal transform
 	// moves the element across the observer threshold, which re-hides it,
 	// which moves it back — a visible flicker/bounce at screen edges).
-	var els = document.querySelectorAll( '.tb-reveal' );
+	var els = document.querySelectorAll( '.tb-reveal, .tb-eyebrow' );
 	if ( prefersReduced || ! ( 'IntersectionObserver' in window ) ) {
 		els.forEach( function ( el ) {
 			el.classList.add( 'is-visible' );
@@ -27,7 +28,7 @@
 		var observer = new IntersectionObserver(
 			function ( entries ) {
 				entries.forEach( function ( entry ) {
-					if ( entry.isIntersecting ) {
+					if ( entry.isIntersecting || entry.boundingClientRect.top < 0 ) {
 						entry.target.classList.add( 'is-visible' );
 						observer.unobserve( entry.target );
 					}
@@ -39,9 +40,25 @@
 		els.forEach( function ( el ) {
 			observer.observe( el );
 		} );
-	}
 
-	// The eyebrow paintbrush animation lives in paint-eyebrow.js.
+		// A scrollbar drag can jump completely past an element without
+		// crossing an IntersectionObserver threshold. Reveal anything the
+		// viewport has already reached so labels can never remain stranded.
+		function revealReachedElements() {
+			els.forEach( function ( el ) {
+				if (
+					! el.classList.contains( 'is-visible' ) &&
+					el.getBoundingClientRect().top <= window.innerHeight * 0.92
+				) {
+					el.classList.add( 'is-visible' );
+					observer.unobserve( el );
+				}
+			} );
+		}
+
+		window.addEventListener( 'scroll', revealReachedElements, { passive: true } );
+		revealReachedElements();
+	}
 
 	// Stat count-up — .tb-stat numbers (e.g. "10+", "100%", "5★") climb
 	// from 0 to their real value when the stats band scrolls into view.

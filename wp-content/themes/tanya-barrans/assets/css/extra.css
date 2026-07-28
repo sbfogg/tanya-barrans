@@ -122,29 +122,36 @@ body {
 	box-shadow: 0 10px 28px rgba(70, 93, 124, 0.14);
 }
 
-/* Eyebrow label above headings. paint-eyebrow.js progressively paints a
-   blush band behind each label with individual SVG brush strokes — down,
-   shift right, up, shift right — whitening the letters exactly along the
-   painted edge (see that file for the full architecture). The paint color
-   is exposed as a custom property so the effect follows the palette.
-   Without JavaScript the label is simply this blush text. */
+/* Eyebrow labels remain readable without JavaScript. When motion is
+   available, reveal.js gives each one a restrained left-to-right entrance. */
 .tb-eyebrow {
-	--tb-paint-color: var(--wp--preset--color--coral);
 	font-size: 1.75rem;
 	font-weight: 700;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
 	color: var(--wp--preset--color--coral);
 }
-.tb-paint-eyebrow-svg {
-	display: inline-block;
-	max-width: 100%;
-	height: auto;
-	overflow: visible;
-	vertical-align: middle;
+.tb-motion-ready .tb-eyebrow {
+	opacity: 0;
+	transform: translateX(-1.25rem);
+	clip-path: inset(0 100% 0 0);
+	transition:
+		opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+		clip-path 1.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.tb-paint-eyebrow-svg .tb-paint-eyebrow-stroke {
-	stroke: var(--tb-paint-color);
+.tb-motion-ready .tb-eyebrow.is-visible {
+	opacity: 1;
+	transform: translateX(0);
+	clip-path: inset(0 0 0 0);
+}
+@media (prefers-reduced-motion: reduce) {
+	.tb-motion-ready .tb-eyebrow {
+		opacity: 1;
+		transform: none;
+		clip-path: none;
+		transition: none;
+	}
 }
 
 /* Hairline rule used between sections */
@@ -866,5 +873,446 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	}
 	.tb-pathway:last-child {
 		padding-bottom: 0;
+	}
+}
+
+/* --------------------------------------------------------------------------
+   Sprint 2 — lower-homepage editorial system
+   -------------------------------------------------------------------------- */
+.tb-brand-pillars {
+	padding: clamp(3rem, 5vw, 4.75rem) clamp(1.5rem, 5vw, 4rem);
+}
+.tb-brand-pillars__grid {
+	margin: 0;
+	gap: 0;
+}
+.tb-brand-pillar {
+	padding: 0 clamp(1.5rem, 3vw, 3rem);
+	border-right: 1px solid rgba(250, 247, 242, 0.2);
+}
+.tb-brand-pillar:first-child {
+	padding-left: 0;
+}
+.tb-brand-pillar:last-child {
+	padding-right: 0;
+	border-right: 0;
+}
+.tb-brand-pillar__label {
+	margin: 0 0 0.75rem;
+	color: var(--wp--preset--color--coral);
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: clamp(1.55rem, 2.2vw, 2rem);
+	line-height: 1.1;
+}
+.tb-brand-pillar p:last-child {
+	margin: 0;
+	color: var(--wp--preset--color--stone);
+	font-size: 0.92rem;
+	line-height: 1.75;
+}
+
+.tb-editorial-feature {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	min-height: clamp(620px, 54vw, 760px);
+}
+.tb-editorial-feature__image {
+	min-height: inherit;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.tb-editorial-feature__content {
+	align-self: center;
+	width: min(100%, 650px);
+	padding: clamp(4rem, 8vw, 8rem) clamp(2rem, 7vw, 7rem);
+}
+.tb-editorial-feature--photo-right .tb-editorial-feature__image {
+	grid-column: 2;
+	grid-row: 1;
+}
+.tb-editorial-feature--photo-right .tb-editorial-feature__content {
+	grid-column: 1;
+	grid-row: 1;
+	justify-self: end;
+}
+.tb-editorial-feature h2 {
+	margin-top: 1.1rem;
+	margin-bottom: 1.5rem;
+	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(2.6rem, 4.2vw, 4.25rem);
+	line-height: 0.98;
+	text-wrap: balance;
+}
+.tb-editorial-feature h2 em,
+.tb-journal-section h2 em {
+	color: var(--wp--preset--color--ink);
+	font-weight: 400;
+}
+.tb-editorial-feature__content > p:not(.tb-eyebrow) {
+	max-width: 590px;
+	line-height: 1.8;
+}
+.tb-real-estate-links {
+	gap: 0 !important;
+	margin-top: 2rem;
+	border-top: 1px solid rgba(15, 30, 53, 0.18);
+}
+.tb-real-estate-links p {
+	flex: 1 1 100%;
+	margin: 0;
+	border-bottom: 1px solid rgba(15, 30, 53, 0.18);
+}
+.tb-real-estate-links a {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.9rem 0;
+	color: var(--wp--preset--color--charcoal);
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.tb-real-estate-links a span {
+	transition: transform 0.35s ease;
+}
+.tb-real-estate-links a:hover span {
+	transform: translateX(0.35rem);
+}
+
+.tb-story-quote {
+	display: grid;
+	grid-template-columns: 1.05fr 0.95fr;
+	min-height: clamp(560px, 48vw, 680px);
+}
+.tb-story-quote__content {
+	align-self: center;
+	justify-self: end;
+	width: min(100%, 720px);
+	padding: clamp(4rem, 8vw, 7rem);
+}
+.tb-story-quote__image {
+	min-height: inherit;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.tb-story-quote .tb-eyebrow {
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-story-quote__mark {
+	height: 2.5rem;
+	margin: 1.25rem 0 -0.4rem;
+	color: rgba(15, 30, 53, 0.32);
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: 5rem;
+	line-height: 1;
+}
+.tb-story-quote__quote {
+	margin: 0 0 1.5rem;
+	padding: 0;
+	border: 0;
+}
+.tb-story-quote__quote p {
+	margin: 0;
+	color: var(--wp--preset--color--charcoal);
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: clamp(2.6rem, 4.8vw, 4.75rem);
+	font-style: italic;
+	line-height: 1;
+}
+.tb-story-quote__content > p:not(.tb-eyebrow, .tb-story-quote__mark, .tb-text-link) {
+	max-width: 580px;
+	line-height: 1.8;
+}
+.tb-text-link {
+	margin-top: 1.75rem;
+}
+.tb-text-link a {
+	color: var(--wp--preset--color--charcoal);
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.tb-text-link a span {
+	display: inline-block;
+	margin-left: 0.35rem;
+	transition: transform 0.35s ease;
+}
+.tb-text-link a:hover span {
+	transform: translateX(0.35rem);
+}
+
+.tb-journal-section {
+	padding: clamp(5rem, 9vw, 8rem) clamp(1.5rem, 5vw, 4rem);
+}
+.tb-journal-section__header {
+	align-items: flex-end;
+	gap: 2rem;
+	margin-bottom: 3rem;
+}
+.tb-journal-section__header h2 {
+	margin: 1rem 0 0;
+	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(2.5rem, 4.5vw, 4.4rem);
+	line-height: 0.98;
+}
+.tb-journal-section__header .tb-text-link {
+	margin: 0 0 0.4rem;
+}
+.tb-journal-query .wp-block-post-template {
+	gap: clamp(1rem, 2vw, 2rem);
+}
+.tb-journal-card {
+	height: 100%;
+	overflow: hidden;
+	border: 1px solid rgba(15, 30, 53, 0.1);
+	border-radius: 0.35rem;
+	background: var(--wp--preset--color--base);
+	transition: transform 0.45s ease, border-color 0.45s ease;
+}
+.tb-journal-card::before {
+	display: block;
+	aspect-ratio: 4 / 3;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	content: "";
+}
+.tb-journal-query .wp-block-post:nth-child(3n + 1) .tb-journal-card::before {
+	background-image: url("../images/lwyl-farm-kitchen.jpg");
+}
+.tb-journal-query .wp-block-post:nth-child(3n + 2) .tb-journal-card::before {
+	background-image: url("../images/lwyl-navy-kitchen.jpg");
+}
+.tb-journal-query .wp-block-post:nth-child(3n + 3) .tb-journal-card::before {
+	background-image: url("../images/lwyl-garden-shed.jpg");
+}
+.tb-journal-card:has(.wp-block-post-featured-image img)::before {
+	display: none;
+}
+.tb-journal-card:hover {
+	transform: translateY(-0.35rem);
+	border-color: rgba(15, 30, 53, 0.24);
+}
+.tb-journal-card .wp-block-post-featured-image {
+	margin: 0;
+	overflow: hidden;
+}
+.tb-journal-card .wp-block-post-featured-image img {
+	transition: transform 0.7s ease;
+}
+.tb-journal-card:hover .wp-block-post-featured-image img {
+	transform: scale(1.025);
+}
+.tb-journal-card__content {
+	padding: 1.5rem 1.5rem 1.8rem;
+}
+.tb-journal-card__category {
+	margin: 0;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.68rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+.tb-journal-card__category a {
+	color: var(--wp--preset--color--coral);
+	text-decoration: none;
+}
+.tb-journal-card .wp-block-post-title {
+	margin: 0.75rem 0;
+	line-height: 1.15;
+}
+.tb-journal-card .wp-block-post-title a {
+	color: var(--wp--preset--color--charcoal);
+	text-decoration: none;
+}
+
+.tb-newsletter-feature {
+	display: grid;
+	grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+	min-height: 600px;
+}
+.tb-newsletter-feature__image {
+	min-height: inherit;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.tb-newsletter-feature__content {
+	align-self: center;
+	width: min(100%, 760px);
+	padding: clamp(4rem, 8vw, 7rem);
+}
+.tb-newsletter-feature__content h2 {
+	margin: 0.5rem 0 1rem;
+	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(2.5rem, 4vw, 4rem);
+	line-height: 1;
+}
+.tb-newsletter-feature__content > p:not(.tb-script-accent, .tb-newsletter-feature__privacy) {
+	max-width: 590px;
+	line-height: 1.75;
+}
+.tb-newsletter-feature .tb-newsletter-fields {
+	justify-content: flex-start;
+}
+.tb-newsletter-feature .tb-newsletter-input {
+	border-color: rgba(15, 30, 53, 0.2);
+	background: var(--wp--preset--color--alabaster);
+}
+.tb-newsletter-feature .tb-newsletter-submit {
+	background: var(--wp--preset--color--charcoal);
+}
+.tb-newsletter-feature .tb-newsletter-submit:hover {
+	background: var(--wp--preset--color--coral);
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-newsletter-feature .tb-newsletter-status[data-state="error"] {
+	color: #9d2431;
+}
+.tb-newsletter-feature .tb-newsletter-status[data-state="success"] {
+	color: var(--wp--preset--color--sage);
+}
+.tb-newsletter-feature__privacy {
+	margin: 0.75rem 0 0;
+	color: var(--wp--preset--color--graphite);
+	font-size: 0.75rem;
+}
+
+.tb-closing-cta {
+	position: relative;
+	overflow: hidden;
+	padding: clamp(5rem, 9vw, 8rem) 1.5rem;
+}
+.tb-closing-cta::before,
+.tb-closing-cta::after {
+	position: absolute;
+	width: 230px;
+	height: 230px;
+	border: 1px solid rgba(216, 167, 177, 0.22);
+	border-radius: 50%;
+	content: "";
+}
+.tb-closing-cta::before {
+	top: -140px;
+	left: -70px;
+}
+.tb-closing-cta::after {
+	right: -70px;
+	bottom: -150px;
+}
+.tb-closing-cta__inner {
+	position: relative;
+	z-index: 1;
+}
+.tb-closing-cta .tb-script-accent {
+	margin-bottom: 1rem;
+	text-align: center;
+}
+.tb-closing-cta h2 {
+	margin-top: 0;
+	line-height: 1.03;
+}
+.tb-button-outline--light .wp-block-button__link {
+	border-color: rgba(250, 247, 242, 0.8);
+	color: var(--wp--preset--color--base);
+}
+.tb-button-outline--light .wp-block-button__link:hover {
+	border-color: var(--wp--preset--color--coral);
+	background: var(--wp--preset--color--coral);
+	color: var(--wp--preset--color--charcoal);
+}
+
+@media (max-width: 900px) {
+	.tb-brand-pillars__grid {
+		flex-direction: column;
+	}
+	.tb-brand-pillar,
+	.tb-brand-pillar:first-child,
+	.tb-brand-pillar:last-child {
+		padding: 1.75rem 0;
+		border-right: 0;
+		border-bottom: 1px solid rgba(250, 247, 242, 0.2);
+	}
+	.tb-brand-pillar:first-child {
+		padding-top: 0;
+	}
+	.tb-brand-pillar:last-child {
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+	.tb-editorial-feature,
+	.tb-story-quote,
+	.tb-newsletter-feature {
+		grid-template-columns: 1fr;
+		min-height: 0;
+	}
+	.tb-editorial-feature__image,
+	.tb-editorial-feature--photo-right .tb-editorial-feature__image,
+	.tb-story-quote__image,
+	.tb-newsletter-feature__image {
+		grid-column: 1;
+		grid-row: 1;
+		min-height: 440px;
+	}
+	.tb-editorial-feature__content,
+	.tb-editorial-feature--photo-right .tb-editorial-feature__content,
+	.tb-story-quote__content,
+	.tb-newsletter-feature__content {
+		grid-column: 1;
+		grid-row: 2;
+		justify-self: stretch;
+		width: 100%;
+	}
+	.tb-story-quote__image {
+		grid-row: 2;
+	}
+	.tb-story-quote__content {
+		grid-row: 1;
+	}
+	.tb-journal-section__header {
+		align-items: flex-start;
+	}
+}
+
+@media (max-width: 599px) {
+	.tb-editorial-feature__image,
+	.tb-editorial-feature--photo-right .tb-editorial-feature__image,
+	.tb-story-quote__image,
+	.tb-newsletter-feature__image {
+		min-height: 300px;
+	}
+	.tb-editorial-feature__content,
+	.tb-story-quote__content,
+	.tb-newsletter-feature__content {
+		padding: 3.5rem 1.5rem;
+	}
+	.tb-editorial-feature h2,
+	.tb-journal-section__header h2 {
+		font-size: clamp(2.4rem, 12vw, 3.25rem);
+	}
+	.tb-story-quote__quote p {
+		font-size: clamp(2.5rem, 13vw, 3.5rem);
+	}
+	.tb-journal-section {
+		padding: 4.5rem 1.25rem;
+	}
+	.tb-journal-query .wp-block-post-template {
+		grid-template-columns: 1fr;
+	}
+	.tb-newsletter-feature .tb-newsletter-fields {
+		flex-direction: column;
+	}
+	.tb-newsletter-feature .tb-newsletter-input,
+	.tb-newsletter-feature .tb-newsletter-submit {
+		flex-basis: auto;
+		width: 100%;
 	}
 }

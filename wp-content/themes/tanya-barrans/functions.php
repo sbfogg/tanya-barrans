@@ -25,17 +25,8 @@ add_action( 'wp_enqueue_scripts', function () {
 		true
 	);
 
-	// Progressive paintbrush animation for .tb-eyebrow labels.
-	wp_enqueue_script(
-		'tanya-barrans-paint-eyebrow',
-		get_theme_file_uri( 'assets/js/paint-eyebrow.js' ),
-		array(),
-		wp_get_theme()->get( 'Version' ),
-		true
-	);
-
-	// Newsletter signup form lives on the blog index only.
-	if ( is_home() ) {
+	// Newsletter signup form appears on the blog index and homepage.
+	if ( is_home() || is_front_page() ) {
 		wp_enqueue_script(
 			'tanya-barrans-newsletter',
 			get_theme_file_uri( 'assets/js/newsletter.js' ),
