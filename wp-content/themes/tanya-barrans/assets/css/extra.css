@@ -182,10 +182,11 @@ body {
    vanish, so use the blush secondary style here. */
 header.wp-block-template-part .wp-block-button__link {
 	background: var(--wp--preset--color--coral);
-	color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--charcoal);
 }
 header.wp-block-template-part .wp-block-button__link:hover {
 	background: var(--wp--preset--color--coral-deep);
+	color: var(--wp--preset--color--base);
 }
 
 /* Phone header: shrink the logos, hide the CTA button (it repeats on every page) */
@@ -275,7 +276,7 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	top: 0.75rem;
 	left: 0.75rem;
 	background: var(--wp--preset--color--coral);
-	color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--charcoal);
 	font-size: 0.6875rem;
 	font-weight: 600;
 	letter-spacing: 0.1em;
@@ -291,7 +292,7 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 .wpforms-container {
 	--wpforms-button-background-color: var(--wp--preset--color--coral);
 	--wpforms-button-background-color-alt: var(--wp--preset--color--coral-deep);
-	--wpforms-button-text-color: var(--wp--preset--color--base);
+	--wpforms-button-text-color: var(--wp--preset--color--charcoal);
 	--wpforms-button-text-color-alt: var(--wp--preset--color--base);
 	--wpforms-label-color: var(--wp--preset--color--ink);
 	--wpforms-field-border-color: var(--wp--preset--color--sand);
@@ -571,6 +572,92 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	color: var(--wp--preset--color--base);
 }
 
+/* The header was laid out for seven nav items; the sitemap brings it to nine,
+   two of them long ("Rooted in Renton", "Love Your Home"). At the default
+   1.5rem gap the row overflowed 1320px by a hair and wrapped "About Tanya"
+   and "Contact" onto a second line. Tighten progressively rather than
+   dropping items, and keep the CTA label on one line. */
+.tb-site-header .wp-block-navigation {
+	font-size: 0.74rem;
+	letter-spacing: 0.06em;
+}
+.tb-site-header .wp-block-navigation__container {
+	gap: 0.75rem;
+}
+.tb-site-header .wp-block-navigation-item__content {
+	white-space: nowrap;
+}
+.tb-site-header .tb-header-cta .wp-block-button__link {
+	white-space: nowrap;
+}
+
+/* Measured: brand (242) + nav (821) + CTA (185) + gaps needs ~1296px, so the
+   full row only fits above roughly 1350px. Step down deliberately rather than
+   letting it wrap or overflow:
+     >1366  full row with CTA
+     1201-1366  full row, CTA hidden (it repeats in the hero and footer)
+     <=1200  collapse to the overlay menu
+   WordPress collapses the nav block at 781px by default, which is far too
+   late for nine items. */
+/* Dropdown panels. The sitemap eventually wants these on Buy, Sell,
+   Neighborhoods and Resources, so style them once here. Square corners and an
+   ivory panel keep them consistent with the editorial header. */
+/* Core ships its own submenu background/border/width at equal specificity and
+   loads after this file, so these need the extra .wp-block-navigation to win. */
+.tb-site-header .wp-block-navigation .wp-block-navigation__submenu-container {
+	background-color: var(--wp--preset--color--alabaster);
+	border: 1px solid rgba(30, 36, 51, 0.12);
+	box-shadow: 0 14px 30px rgba(30, 36, 51, 0.12);
+	border-radius: 0;
+	padding-block: 0.35rem;
+	width: max-content;
+	min-width: 220px;
+}
+.tb-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	color: var(--wp--preset--color--charcoal);
+	padding: 0.6rem 1.15rem;
+	white-space: nowrap;
+}
+/* The animated underline belongs to the top-level row, not inside a panel. */
+.tb-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content::after {
+	display: none;
+}
+.tb-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover,
+.tb-site-header .wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content:focus-visible {
+	background-color: var(--wp--preset--color--sand);
+	color: var(--wp--preset--color--charcoal);
+}
+
+@media (max-width: 1400px) {
+	.tb-site-header__actions {
+		gap: 1.1rem;
+	}
+}
+
+@media (max-width: 1366px) {
+	.tb-site-header .tb-header-cta {
+		display: none;
+	}
+}
+
+@media (max-width: 1200px) {
+	.tb-site-header .wp-block-navigation__responsive-container-open:not(.always-shown) {
+		display: flex;
+	}
+	.tb-site-header .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+		display: none;
+	}
+	.tb-site-header .wp-block-navigation__responsive-container.is-menu-open {
+		background: var(--wp--preset--color--alabaster);
+		color: var(--wp--preset--color--charcoal);
+		padding: 2rem;
+	}
+	/* With the menu collapsed there is room for the CTA again. */
+	.tb-site-header .tb-header-cta {
+		display: block;
+	}
+}
+
 /* Image-led homepage hero. The approved image intentionally leaves quiet
    space on the left; a soft ivory wash preserves readable contrast without
    making the photography feel like a dark real-estate banner. */
@@ -749,17 +836,10 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 }
 
 @media (max-width: 1100px) {
-	.tb-site-header .tb-header-cta {
-		display: none;
-	}
+	/* Header nav is collapsed to the overlay menu at <=1200px, so the old
+	   font/gap squeeze and CTA hiding that used to live here are no longer
+	   needed and only fought the responsive ladder above. */
 	.tb-site-header__actions {
-		gap: 1rem;
-	}
-	.tb-site-header .wp-block-navigation {
-		font-size: 0.72rem;
-		letter-spacing: 0.07em;
-	}
-	.tb-site-header .wp-block-navigation__container {
 		gap: 1rem;
 	}
 	.tb-home-hero__content {

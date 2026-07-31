@@ -12,18 +12,18 @@
 			"defaultGradients": false,
 			"palette": [
 				{ "slug": "base", "color": "#FFFFFF", "name": "White" },
-				{ "slug": "alabaster", "color": "#FAF7F2", "name": "Warm Ivory" },
-				{ "slug": "sand", "color": "#E8DFD2", "name": "Linen" },
+				{ "slug": "alabaster", "color": "#FBF8F4", "name": "Warm Ivory" },
+				{ "slug": "sand", "color": "#DBC8B3", "name": "Linen" },
 				{ "slug": "ink", "color": "#465D7C", "name": "Modern Navy" },
-				{ "slug": "charcoal", "color": "#0F1E35", "name": "Dark Navy" },
-				{ "slug": "stone", "color": "#E8DFD2", "name": "Linen Light" },
-				{ "slug": "bronze", "color": "#6B7B5E", "name": "Sage" },
-				{ "slug": "coral", "color": "#D8A7B1", "name": "Dusty Blush" },
+				{ "slug": "charcoal", "color": "#1E2433", "name": "Ink Navy" },
+				{ "slug": "stone", "color": "#DBC8B3", "name": "Linen" },
+				{ "slug": "bronze", "color": "#6F8A74", "name": "Sage" },
+				{ "slug": "coral", "color": "#D6A3B5", "name": "Dusty Blush" },
 				{ "slug": "coral-deep", "color": "#465D7C", "name": "Modern Navy" },
-				{ "slug": "slate", "color": "#6B7B5E", "name": "Sage" },
+				{ "slug": "slate", "color": "#6F8A74", "name": "Sage" },
 				{ "slug": "muted", "color": "#2D2D2D", "name": "Graphite" },
-				{ "slug": "sound", "color": "#6B7B5E", "name": "Sage" },
-				{ "slug": "sage", "color": "#6B7B5E", "name": "Sage" },
+				{ "slug": "sound", "color": "#6F8A74", "name": "Sage" },
+				{ "slug": "sage", "color": "#6F8A74", "name": "Sage" },
 				{ "slug": "graphite", "color": "#2D2D2D", "name": "Graphite" }
 			],
 			"gradients": [
@@ -145,7 +145,7 @@
 				":hover": {
 					"color": {
 						"background": "var(--wp--preset--color--coral)",
-						"text": "var(--wp--preset--color--base)"
+						"text": "var(--wp--preset--color--charcoal)"
 					}
 				}
 			}
