@@ -26,26 +26,25 @@
 		<!-- wp:group {"className":"tb-home-hero__content tb-hero-arrive","layout":{"type":"default"}} -->
 		<div class="wp-block-group tb-home-hero__content tb-hero-arrive">
 
-			<!-- wp:paragraph {"className":"tb-script-accent"} -->
-			<p class="tb-script-accent">Helping you</p>
-			<!-- /wp:paragraph -->
-
+			<!-- The blueprint headline is a full sentence and the page may only
+			     carry one H1, so the script accent lives inside the heading
+			     rather than as a separate line above it. -->
 			<!-- wp:heading {"level":1,"className":"tb-home-hero__title"} -->
-			<h1 class="wp-block-heading tb-home-hero__title">Love Your Home<br>&amp; Where You Live</h1>
+			<h1 class="wp-block-heading tb-home-hero__title"><span class="tb-script-accent">Helping you</span>love your home<br>and where you live.</h1>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"className":"tb-home-hero__dek"} -->
-			<p class="tb-home-hero__dek">Local expertise. Real relationships.<br>Guiding you home with confidence.</p>
+			<p class="tb-home-hero__dek">Local knowledge, honest strategy, and useful inspiration for buying, selling, and creating a life you love in Renton and beyond.</p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:buttons {"className":"tb-home-hero__buttons","style":{"spacing":{"blockGap":"0.75rem","margin":{"top":"var:preset|spacing|40"}}}} -->
 			<div class="wp-block-buttons tb-home-hero__buttons" style="margin-top:var(--wp--preset--spacing--40)">
 				<!-- wp:button {"backgroundColor":"charcoal"} -->
-				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-background-color has-background wp-element-button" href="/blog/">Explore the Local Guide</a></div>
+				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-background-color has-background wp-element-button" href="/contact/">Let’s Talk About Your Next Move</a></div>
 				<!-- /wp:button -->
 
 				<!-- wp:button {"backgroundColor":"coral","textColor":"charcoal"} -->
-				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-color has-coral-background-color has-text-color has-background wp-element-button" href="/contact/">Buy or Sell With Tanya</a></div>
+				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-color has-coral-background-color has-text-color has-background wp-element-button" href="/rooted-in-renton/">Explore Renton</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->

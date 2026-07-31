@@ -712,6 +712,12 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	font-weight: 400;
 	line-height: 1;
 }
+/* The hero keeps a single H1 holding the whole blueprint sentence, so the
+   script accent sits inside the heading rather than as its own paragraph. */
+.tb-home-hero__title .tb-script-accent {
+	display: block;
+	margin: 0 0 0.1rem;
+}
 .tb-home-hero__title {
 	margin: 0;
 	color: var(--wp--preset--color--charcoal);
@@ -745,94 +751,142 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 /* Four clear pathways immediately connect lifestyle value to Tanya's real
    estate work. They read as one editorial band rather than four floating
    marketing cards. */
-.tb-pathways {
-	padding: clamp(2.5rem, 5vw, 4.5rem) max(1.25rem, calc((100% - 1320px) / 2));
-	border-top: 1px solid rgba(15, 30, 53, 0.08);
-	border-bottom: 1px solid rgba(15, 30, 53, 0.1);
+/* Three Ways Tanya Helps. The blueprint asks for editorial cards led by
+   photography rather than icons alone, so the old icon pathway styles are
+   replaced wholesale here. */
+.tb-ways {
+	padding: clamp(3rem, 6vw, 5.5rem) max(1.25rem, calc((100% - 1320px) / 2));
+	border-top: 1px solid rgba(30, 36, 51, 0.08);
+	border-bottom: 1px solid rgba(30, 36, 51, 0.1);
 }
-.tb-pathways__grid {
-	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: 0;
-}
-.tb-pathway {
-	position: relative;
-	min-width: 0;
-	padding: 0.25rem clamp(1.3rem, 2.6vw, 2.5rem);
-	border-right: 1px solid rgba(15, 30, 53, 0.12);
-	text-align: center;
-}
-.tb-pathway:last-child {
-	border-right: 0;
-}
-.tb-pathway__icon {
-	display: grid;
-	place-items: center;
-	width: 62px;
-	height: 62px;
-	margin: 0 auto 1rem;
+.tb-ways__title {
+	margin: 0 0 clamp(2rem, 4vw, 3rem);
 	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+	line-height: 1.1;
 }
-.tb-pathway__icon svg {
+.tb-ways__grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: clamp(1.5rem, 3vw, 2.75rem);
+}
+/* These groups use WordPress's flow layout, which adds margin-block-start to
+   every child after the first. Inside a grid that pushes columns 2 and 3 down
+   by 24px, so clear it. */
+.tb-ways__grid > *,
+.tb-rooted__grid > * {
+	margin-block: 0;
+}
+.tb-way {
+	min-width: 0;
+}
+.tb-way__photo {
 	display: block;
 	width: 100%;
-	height: 100%;
-	fill: none;
-	stroke: currentColor;
-	stroke-width: 1.35;
-	stroke-linecap: round;
-	stroke-linejoin: round;
+	/* height:auto is required, otherwise the img height attribute wins and
+	   aspect-ratio never governs, leaving 1125px-tall cards. */
+	height: auto;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	margin-bottom: 1.4rem;
 }
-.tb-pathway--home .tb-pathway__icon {
-	color: var(--wp--preset--color--coral);
-}
-.tb-pathway--local .tb-pathway__icon {
-	color: var(--wp--preset--color--sage);
-}
-.tb-pathway--buy .tb-pathway__icon {
-	color: var(--wp--preset--color--ink);
-}
-.tb-pathway--sell .tb-pathway__icon {
+.tb-way__title {
+	margin: 0 0 0.6rem;
 	color: var(--wp--preset--color--charcoal);
+	font-size: clamp(1.3rem, 2vw, 1.65rem);
+	line-height: 1.15;
 }
-.tb-pathway__title {
-	margin: 0 0 0.75rem;
-	color: var(--wp--preset--color--charcoal);
-	font-size: clamp(1.35rem, 2vw, 1.75rem);
-	line-height: 1.05;
-}
-.tb-pathway__copy {
-	max-width: 260px;
-	min-height: 5.25em;
-	margin: 0 auto;
+.tb-way__copy {
+	margin: 0;
 	color: var(--wp--preset--color--graphite);
-	font-size: 0.825rem;
+	font-size: 0.9rem;
 	line-height: 1.75;
 }
-.tb-pathway__link {
-	margin: 1.15rem 0 0;
+.tb-way__link {
+	margin: 1.1rem 0 0;
 	font-size: 0.7rem;
 	font-weight: 600;
 	letter-spacing: 0.15em;
 	text-transform: uppercase;
 }
-.tb-pathway__link a {
-	color: var(--wp--preset--color--coral);
+.tb-way__link a {
+	color: var(--wp--preset--color--ink);
 	text-decoration: none;
 }
-.tb-pathway__link a span {
+.tb-way__link a span {
 	display: inline-block;
 	margin-left: 0.25rem;
 	transition: transform 0.3s ease;
 }
-.tb-pathway__link a:hover span {
+.tb-way__link a:hover span {
 	transform: translateX(4px);
 }
-.tb-pathway.tb-reveal {
+.tb-way.tb-reveal {
 	transform: translateY(20px);
 }
-.tb-pathway.tb-reveal.is-visible {
+.tb-way.tb-reveal.is-visible {
 	transform: translateY(0);
+}
+
+/* Rooted in Renton teaser: local photograph beside editorial text on a navy
+   band, so the series reads as its own destination rather than another card. */
+.tb-rooted {
+	padding: clamp(3rem, 6vw, 5.5rem) max(1.25rem, calc((100% - 1320px) / 2));
+}
+.tb-rooted__grid {
+	display: grid;
+	grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+	gap: clamp(2rem, 5vw, 4.5rem);
+	align-items: center;
+}
+.tb-rooted__photo {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 3;
+	object-fit: cover;
+}
+.tb-rooted__eyebrow {
+	margin: 0 0 0.9rem;
+	color: var(--wp--preset--color--coral);
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+.tb-rooted__title {
+	margin: 0 0 1.1rem;
+	color: var(--wp--preset--color--base);
+	font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+	line-height: 1.08;
+}
+.tb-rooted__copy {
+	margin: 0;
+	max-width: 46ch;
+	color: var(--wp--preset--color--sand);
+	font-size: 0.95rem;
+	line-height: 1.8;
+}
+.tb-rooted__content.tb-reveal {
+	transform: translateY(20px);
+}
+.tb-rooted__content.tb-reveal.is-visible {
+	transform: translateY(0);
+}
+
+/* Three across down to tablet, then stack. Two columns would leave an orphan. */
+@media (max-width: 860px) {
+	.tb-ways__grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2.5rem;
+	}
+	.tb-way__photo {
+		aspect-ratio: 16 / 10;
+	}
+	.tb-rooted__grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 2rem;
+	}
 }
 
 @media (max-width: 1100px) {
@@ -844,18 +898,6 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	}
 	.tb-home-hero__content {
 		width: min(580px, 54%);
-	}
-	.tb-pathways__grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		row-gap: 2.5rem;
-	}
-	.tb-pathway:nth-child(2) {
-		border-right: 0;
-	}
-	.tb-pathway:nth-child(3),
-	.tb-pathway:nth-child(4) {
-		padding-top: 2.5rem;
-		border-top: 1px solid rgba(15, 30, 53, 0.1);
 	}
 }
 
@@ -909,9 +951,6 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	.tb-home-hero__buttons {
 		justify-content: center;
 	}
-	.tb-pathway__copy {
-		min-height: 0;
-	}
 }
 
 @media (max-width: 599px) {
@@ -933,26 +972,9 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	.tb-home-hero__buttons .wp-block-button__link {
 		width: 100%;
 	}
-	.tb-pathways {
+	.tb-ways,
+	.tb-rooted {
 		padding-inline: 1.25rem;
-	}
-	.tb-pathways__grid {
-		grid-template-columns: 1fr;
-	}
-	.tb-pathway,
-	.tb-pathway:nth-child(2),
-	.tb-pathway:nth-child(3),
-	.tb-pathway:nth-child(4) {
-		padding: 2rem 0;
-		border-right: 0;
-		border-top: 1px solid rgba(15, 30, 53, 0.1);
-	}
-	.tb-pathway:first-child {
-		padding-top: 0;
-		border-top: 0;
-	}
-	.tb-pathway:last-child {
-		padding-bottom: 0;
 	}
 }
 
