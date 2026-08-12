@@ -298,6 +298,36 @@ function tanya_contact_submit( WP_REST_Request $request ) {
 }
 
 /**
+ * Google Analytics 4.
+ *
+ * The measurement ID is not a secret — it ships in the page source of every
+ * public page — so it lives here rather than in wp-config.php.
+ *
+ * The tag is gated on the environment type. Local and staging installs must
+ * never report into Tanya's property: development traffic would land in the
+ * same reports as real visitors and quietly corrupt the numbers she makes
+ * decisions from. wp-config.php sets WP_ENVIRONMENT_TYPE to 'local' here,
+ * and WordPress defaults to 'production' when nothing is set, so the tag
+ * switches itself on when the site is deployed without further changes.
+ */
+add_action( 'wp_head', function () {
+	$measurement_id = apply_filters( 'tanya_ga4_measurement_id', 'G-K9H4JX6HTY' );
+
+	if ( ! $measurement_id || 'production' !== wp_get_environment_type() ) {
+		return;
+	}
+	?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo rawurlencode( $measurement_id ); ?>"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', <?php echo wp_json_encode( $measurement_id ); ?>);
+</script>
+	<?php
+}, 20 );
+
+/**
  * Per-page SEO overrides, keyed by page slug.
  *
  * Without these, <title> falls back to the page's short admin title ("Buy")
