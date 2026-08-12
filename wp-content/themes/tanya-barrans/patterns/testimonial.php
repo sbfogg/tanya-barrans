@@ -23,20 +23,24 @@
 		<blockquote class="wp-block-quote tb-story-quote__quote"><p>By the end, you felt like family.</p></blockquote>
 		<!-- /wp:quote -->
 
+		<?php
+		/*
+		 * The review below is quoted verbatim and contiguously from Christian
+		 * Herzberger's public Google review of Tanya Barrans Realtor. Do not
+		 * paraphrase, trim mid-sentence, or reattribute it — it is a real
+		 * client's words. Replace only with another genuine review.
+		 */
+		?>
 		<!-- wp:paragraph {"textColor":"charcoal"} -->
-		<p class="has-charcoal-color has-text-color">The best real estate relationships do not end when the keys change hands. Tanya’s favorite messages are the ones that speak to feeling supported, understood, and cared for through the entire process.</p>
+		<p class="has-charcoal-color has-text-color">“Tanya did an amazing job selling our home. She made sure it was picture ready for getting the maximum possible price for the market. When we ran into snags she went above and beyond to fix them for us. She was available for any questions or concerns we may have had. When it came time to negotiate, she got the best price for us.”</p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:paragraph {"className":"tb-story-quote__attribution","textColor":"charcoal","fontSize":"small"} -->
+		<p class="tb-story-quote__attribution has-charcoal-color has-text-color has-small-font-size">Christian Herzberger · Google review</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"className":"tb-text-link"} -->
-		<?php
-		/*
-		 * This is Google's write-a-review URL, so the label asks for a review
-		 * rather than promising reviews to read. Swap in the public profile URL
-		 * and restore a "read the reviews" label once it is confirmed. Kept as a
-		 * PHP comment so it is not emitted into the rendered page.
-		 */
-		?>
-		<p class="tb-text-link"><a href="https://g.page/r/CTDpOcL-7SDkEAE/review" target="_blank" rel="noopener noreferrer">Worked with Tanya? Leave a Google review <span aria-hidden="true">→</span></a></p>
+		<p class="tb-text-link"><a href="https://g.page/r/CTDpOcL-7SDkEAE" target="_blank" rel="noopener noreferrer">Read Tanya’s Google reviews <span aria-hidden="true">→</span></a></p>
 		<!-- /wp:paragraph -->
 
 	</div>
