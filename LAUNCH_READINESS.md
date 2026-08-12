@@ -53,13 +53,25 @@ The homepage link points at Google's *write-a-review* URL, so its label now read
 
 ## 2. Lead capture — the site cannot convert without this
 
-### 2.1 Contact form destination — **TANYA**
+### 2.1 Contact form — **built and connected**
 
-There is currently **no contact form**. The Contact page offers email, phone, scheduling link, and social links, which is a working fallback but leaks anyone who prefers a form.
+The contact form is live on the Contact page and files submissions into **Follow Up Boss**. The blueprint fields are all present: name, email, phone, what the enquiry is about, timing, preferred contact method, and a message. Protections are server-side — REST nonce, honeypot, validation, and allow-lists on every choice field. The API key lives in `wp-config.php` and never reaches the browser.
 
-**Needed before building:** where a submission should go. Follow Up Boss is referenced across Notion but no integration is configured and no account access has been confirmed.
+Verified against the live account: a test lead was created through the real API, arrived assigned to Tanya and correctly tagged, and was then deleted. Direct email, phone, and the scheduling link remain on the page for anyone who prefers them.
 
-**Explicitly not doing without approval:** building a form that silently drops leads, or claiming a CRM integration that has not been tested end to end in the real account.
+**Still to do at launch:** submit the form once on the deployed site and confirm it lands in Follow Up Boss. The integration is proven against the API but has never run from production.
+
+#### The email fallback is weaker than it looks — **SEAN**, decide
+
+If Follow Up Boss cannot be reached, the form falls back to emailing Tanya with `wp_mail()` so a lead is never silently dropped. That safety net is thinner than the code implies, and it is worth understanding rather than trusting:
+
+- **WP Engine does not run mail servers.** PHP mail is not delivered on their platform without an external service.
+- **Shared hosts fare no better.** Mail sent straight from a web server usually fails SPF and DKIM checks and is filtered as spam.
+- **Tanya's email is Google Workspace**, which is strict about unauthenticated senders — the most likely outcome is silent filtering rather than a bounce.
+
+So in practice Follow Up Boss is not the primary path with a backup; it is close to the only path. That is acceptable because the CRM is the real destination and it is tested, but the fallback should not be described to Tanya as a guarantee.
+
+**The fix, when convenient:** route `wp_mail()` through an authenticated SMTP service. A free tier from Postmark, SendGrid, or Google Workspace SMTP is enough at this volume. **Not a launch blocker** — it only matters in the minutes when Follow Up Boss is down — but until it is done, a CRM outage means a lost enquiry.
 
 ### 2.2 Newsletter — **SEAN**, verify
 
@@ -127,7 +139,24 @@ Not installed. No tracking code of any kind is present. Needs a decision on prov
 
 No verification tag present. Needs the property to be created on the real domain, which means it follows domain selection.
 
-### 4.3 Domain and hosting — **resolved, pending purchase**
+### 4.3 Domain and hosting — **decided, pending purchase**
+
+**Hosting recommendation: WP Engine.** The reasoning is specific to this build rather than general reviews.
+
+WordPress.com is only viable on the **Business** plan, around $300/yr. Every tier below it forbids uploading a custom theme, and this site is a custom theme, so those plans cannot run it at all.
+
+Of the rest, WP Engine costs roughly $150/yr more than GoDaddy or Hostinger and earns it twice over here:
+
+- **LocalWP pushes to it in one click** — files, database and URL rewriting together. Everywhere else, each deploy is the manual export-upload-import-replace sequence in `deploy/DEPLOY.md`. Against 5–10 hours a week, that difference compounds.
+- **Staging is included and reports itself as staging.** Google Analytics only fires when the environment reports `production`, so on a generic host a staging copy would look like production and put test traffic into Tanya's real reports.
+
+This site is unusually light — 8 MB of files, a 232 KB database, and **zero plugins**, since the contact form, newsletter, analytics and SEO are all theme code. Much of what managed hosting charges for is plugin maintenance we will never need, so raw performance tiers are not the deciding factor. Workflow is.
+
+GoDaddy would work, but its cheap price is a first-term promotion that typically doubles on renewal, narrowing the gap while keeping the manual deploy. Having the domain there is not a reason — domain and hosting are independent, and pointing GoDaddy DNS at WP Engine takes minutes. If budget is the deciding factor, Hostinger is the better cheap option.
+
+One requirement for any host: the theme makes outbound API calls to Follow Up Boss and Flodesk, so unrestricted outbound HTTP is needed.
+
+---
 
 The domain is **`tanyabarrans.com`**, registered at GoDaddy with DNS managed there. It currently 301-forwards to `tanyab.johnlscott.com`. That forward is Tanya's own setting — John L Scott has no relationship with the domain, so switching it off needs no approval from the brokerage and is not a blocker.
 
