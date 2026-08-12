@@ -1278,12 +1278,13 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	stroke-width: 1;
 	opacity: 0.75;
 }
+/* Sized so both arcs sit inside the inner rule rather than crossing it. */
 .tb-stamp-arc {
 	fill: var(--wp--preset--color--base);
 	font-family: var(--wp--preset--font-family--sans);
-	font-size: 19px;
+	font-size: 15px;
 	font-weight: 600;
-	letter-spacing: 4px;
+	letter-spacing: 2.2px;
 }
 .tb-stamp-initial {
 	fill: var(--wp--preset--color--base);

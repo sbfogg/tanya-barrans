@@ -43,9 +43,18 @@
 			 */
 			?>
 			<svg class="tb-renton-stamp" viewBox="0 0 200 200" role="img" aria-label="Rooted in Renton, established 1901">
+				<?php
+				/*
+				 * Arc radii differ on purpose. Top text is set outside its
+				 * baseline and bottom text inside, so matching radii would
+				 * push the two lines into different bands. 66 and 77 make
+				 * both occupy the same ring of space and stay clear of the
+				 * inner rule at 83.
+				 */
+				?>
 				<defs>
-					<path id="tb-stamp-arc-top" d="M100,100 m-73,0 a73,73 0 1,1 146,0" />
-					<path id="tb-stamp-arc-bottom" d="M100,100 m-71,0 a71,71 0 1,0 142,0" />
+					<path id="tb-stamp-arc-top" d="M100,100 m-66,0 a66,66 0 1,1 132,0" />
+					<path id="tb-stamp-arc-bottom" d="M100,100 m-77,0 a77,77 0 1,0 154,0" />
 				</defs>
 				<circle class="tb-stamp-rim" cx="100" cy="100" r="98" />
 				<circle class="tb-stamp-body" cx="100" cy="100" r="91" />
@@ -56,12 +65,19 @@
 				<text class="tb-stamp-arc">
 					<textPath href="#tb-stamp-arc-bottom" startOffset="50%" text-anchor="middle">RENTON</textPath>
 				</text>
-				<text class="tb-stamp-initial" x="100" y="118" text-anchor="middle">R</text>
-				<text class="tb-stamp-est" x="52" y="104" text-anchor="middle">EST.</text>
-				<text class="tb-stamp-est" x="148" y="104" text-anchor="middle">1901</text>
-				<rect class="tb-stamp-rule" x="42" y="110" width="20" height="2" />
-				<rect class="tb-stamp-rule" x="138" y="110" width="20" height="2" />
-				<path class="tb-stamp-heart" d="M100 141c-5-4.6-9-7.6-9-11.6a4.6 4.6 0 0 1 9-1.9 4.6 4.6 0 0 1 9 1.9c0 4-4 7-9 11.6z" />
+				<?php
+				/*
+				 * The R and heart are positioned as one stack and optically
+				 * centred together, not individually: centring the R alone
+				 * leaves the pair sitting high once the heart is added.
+				 */
+				?>
+				<text class="tb-stamp-initial" x="100" y="114" text-anchor="middle">R</text>
+				<text class="tb-stamp-est" x="56" y="93" text-anchor="middle">EST.</text>
+				<text class="tb-stamp-est" x="144" y="93" text-anchor="middle">1901</text>
+				<rect class="tb-stamp-rule" x="46" y="99" width="20" height="2" />
+				<rect class="tb-stamp-rule" x="134" y="99" width="20" height="2" />
+				<path class="tb-stamp-heart" d="M100 137c-5-4.6-9-7.6-9-11.6a4.6 4.6 0 0 1 9-1.9 4.6 4.6 0 0 1 9 1.9c0 4-4 7-9 11.6z" />
 			</svg>
 			<h1 id="renton-title" class="tb-renton-title">Real places. Local stories. A deeper connection to Renton.</h1>
 			<p class="tb-renton-dek">The people, places and everyday details that make this city feel like home — written by someone who actually lives here.</p>
