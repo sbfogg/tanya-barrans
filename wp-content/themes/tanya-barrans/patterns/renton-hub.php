@@ -27,7 +27,36 @@
 	<!-- wp:html -->
 	<section class="tb-renton-hero" aria-labelledby="renton-title">
 		<div class="tb-page-shell tb-renton-hero__inner">
-			<p class="tb-renton-badge">Rooted in Renton</p>
+			<?php
+			/*
+			 * Typographic stand-in for the circular Rooted in Renton stamp.
+			 * The approved badge does not exist yet — the Brand Bible still
+			 * lists the primary logo suite as unfinished — so this is drawn
+			 * from type rather than imitating artwork nobody has seen. It is
+			 * deliberately simple to replace: swap this <svg> for an <img>
+			 * pointing at the real badge and the layout is unchanged.
+			 */
+			?>
+			<svg class="tb-renton-stamp" viewBox="0 0 200 200" role="img" aria-label="Rooted in Renton">
+				<defs>
+					<path id="tb-stamp-arc-top" d="M100,100 m-74,0 a74,74 0 1,1 148,0" />
+					<path id="tb-stamp-arc-bottom" d="M100,100 m-64,0 a64,64 0 1,0 128,0" />
+				</defs>
+				<circle cx="100" cy="100" r="95" />
+				<circle cx="100" cy="100" r="86" class="tb-renton-stamp__inner" />
+				<text class="tb-renton-stamp__arc">
+					<textPath href="#tb-stamp-arc-top" startOffset="50%" text-anchor="middle">ROOTED IN RENTON</textPath>
+				</text>
+				<text class="tb-renton-stamp__arc tb-renton-stamp__arc--low">
+					<textPath href="#tb-stamp-arc-bottom" startOffset="50%" text-anchor="middle">LOVE WHERE YOU LIVE</textPath>
+				</text>
+				<g class="tb-renton-stamp__mark">
+					<path d="M100 62 L114 92 L106 92 L120 122 L80 122 L94 92 L86 92 Z" />
+					<rect x="97" y="122" width="6" height="12" />
+					<circle cx="72" cy="100" r="2.5" />
+					<circle cx="128" cy="100" r="2.5" />
+				</g>
+			</svg>
 			<h1 id="renton-title" class="tb-renton-title">Real places. Local stories. A deeper connection to Renton.</h1>
 			<p class="tb-renton-dek">The people, places and everyday details that make this city feel like home — written by someone who actually lives here.</p>
 			<p class="tb-renton-hero__links">

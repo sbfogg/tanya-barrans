@@ -1206,18 +1206,50 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 .tb-renton-hero__inner {
 	max-width: 44rem;
 }
-.tb-renton-badge {
-	display: inline-block;
-	margin: 0 0 1.25rem;
-	padding: 0.5rem 1.1rem;
-	border: 1px solid var(--tb-renton-mustard);
-	border-radius: 999px;
+/* Circular Rooted in Renton stamp. Drawn from type until the approved badge
+   exists; sized so it reads as a stamp beside the headline rather than as an
+   oversized corporate logo, which the blueprint warns against. */
+.tb-renton-stamp {
+	display: block;
+	width: clamp(7rem, 11vw, 9.5rem);
+	height: auto;
+	margin: 0 0 1.75rem;
 	color: var(--tb-renton-mustard);
+	overflow: visible;
+}
+.tb-renton-stamp circle {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+}
+.tb-renton-stamp__inner {
+	stroke-width: 1;
+	opacity: 0.55;
+}
+.tb-renton-stamp__arc {
+	fill: currentColor;
 	font-family: var(--wp--preset--font-family--sans);
-	font-size: 0.75rem;
+	font-size: 17px;
 	font-weight: 600;
-	letter-spacing: 0.18em;
-	text-transform: uppercase;
+	letter-spacing: 3.2px;
+}
+.tb-renton-stamp__arc--low {
+	font-size: 13px;
+	letter-spacing: 2px;
+	opacity: 0.8;
+}
+.tb-renton-stamp__mark {
+	fill: currentColor;
+	stroke: none;
+}
+.tb-renton-stamp__mark circle {
+	fill: currentColor;
+	stroke: none;
+}
+/* On the dark hero the stamp sits on navy; anywhere lighter it inherits the
+   surrounding text colour so it never becomes mustard-on-white. */
+.tb-renton-hero .tb-renton-stamp {
+	color: var(--tb-renton-mustard);
 }
 .tb-renton-title {
 	margin: 0 0 1rem;
