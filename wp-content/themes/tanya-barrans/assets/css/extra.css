@@ -6,6 +6,28 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+/* Keyboard focus.
+   WordPress's navigation block ships no visible focus indicator, so anyone
+   tabbing through the header saw nothing move — a real barrier, and among
+   the most commonly cited accessibility failures.
+
+   :focus-visible means pointer users never see a ring, only keyboard users.
+   :where() keeps specificity at zero so the component-level focus styles
+   further down this file continue to win. */
+:where(a[href], button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+	outline: 3px solid var(--wp--preset--color--charcoal);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+/* Dark surfaces need a light ring instead, or the navy outline disappears
+   into the background it is meant to stand out against. */
+footer.wp-block-template-part :where(a[href], button):focus-visible,
+.has-charcoal-background-color :where(a[href], button):focus-visible,
+.has-ink-background-color :where(a[href], button):focus-visible,
+.tb-renton-hero :where(a[href], button):focus-visible {
+	outline-color: var(--wp--preset--color--base);
+}
+
 /* --------------------------------------------------------------------------
    Journal landing page and reusable article template
    -------------------------------------------------------------------------- */
@@ -945,12 +967,23 @@ body {
 
 /* Eyebrow labels remain readable without JavaScript. When motion is
    available, reveal.js gives each one a restrained left-to-right entrance. */
+/* Dusty Blush on Warm Ivory measures 2.03:1, below the 3:1 WCAG needs even
+   for large text, so the eyebrow used a deeper rose on light backgrounds
+   (3.9:1). On navy the original blush reaches 7.3:1 and reads better, so the
+   colour is a variable that dark sections set back. */
 .tb-eyebrow {
+	--tb-eyebrow-color: #B0687F;
 	font-size: 1.75rem;
 	font-weight: 700;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--wp--preset--color--coral);
+	color: var(--tb-eyebrow-color);
+}
+.has-charcoal-background-color .tb-eyebrow,
+.has-ink-background-color .tb-eyebrow,
+.tb-renton-hero .tb-eyebrow,
+footer.wp-block-template-part .tb-eyebrow {
+	--tb-eyebrow-color: var(--wp--preset--color--coral);
 }
 .tb-motion-ready .tb-eyebrow {
 	opacity: 0;
@@ -1036,8 +1069,17 @@ footer.wp-block-template-part {
    on the dark ink footer background. Give them a light "stone" tone that
    reads clearly, brightening to white on hover. Social icons are excluded so
    their own styling stays intact. */
-footer.wp-block-template-part a:not(.tb-social-icon) {
-	color: var(--wp--preset--color--stone);
+/* Linen on the footer's navy measures 4.15:1, just under the 4.5:1 needed for
+   body text. A slightly lighter linen clears it at 5.1:1 while keeping the
+   warm tone that distinguishes secondary footer text from the headings. */
+footer.wp-block-template-part {
+	--tb-footer-secondary: #E8DFD2;
+}
+footer.wp-block-template-part a:not(.tb-social-icon),
+footer.wp-block-template-part .has-stone-color {
+	/* WordPress emits its colour utility classes (.has-stone-color) with
+	   !important, so overriding one needs !important in return. */
+	color: var(--tb-footer-secondary) !important;
 }
 footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	color: var(--wp--preset--color--base);
