@@ -886,6 +886,51 @@ body {
 	}
 }
 
+/* Supporting review cards beneath the featured client quote. */
+.tb-quote-row-section {
+	padding-block: var(--wp--preset--spacing--60);
+}
+.tb-quote-row {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: var(--wp--preset--spacing--40);
+}
+.tb-quote-card {
+	margin: 0;
+	padding: var(--wp--preset--spacing--40);
+	background: var(--wp--preset--color--base);
+	border-radius: 12px;
+	border-top: 3px solid var(--wp--preset--color--coral);
+	box-shadow: 0 8px 24px rgba(70, 93, 124, 0.08);
+}
+.tb-quote-card blockquote {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+.tb-quote-card blockquote p {
+	margin: 0;
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: 1.35rem;
+	line-height: 1.5;
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-quote-card figcaption {
+	margin-top: var(--wp--preset--spacing--30);
+	font-size: 0.9375rem;
+	font-weight: 600;
+	color: var(--wp--preset--color--ink);
+}
+/* The source sits under the name so the attribution reads as one unit. */
+.tb-quote-card figcaption span {
+	display: block;
+	font-weight: 400;
+	font-size: 0.8125rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--muted);
+}
+
 /* Subtle lift on cards (blog grid, service columns). Rounded corners and
    soft navy-tinted shadows per the boutique/editorial brand direction. */
 .tb-card {

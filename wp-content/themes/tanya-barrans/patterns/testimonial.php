@@ -52,3 +52,39 @@
 
 </div>
 <!-- /wp:group -->
+
+<?php
+/*
+ * Two further genuine Google reviews, chosen to tell different stories from
+ * the featured seller review above: a first-time buyer, and a buyer who had
+ * already spent months with another agent.
+ *
+ * Both are quoted verbatim. Margo Hooper's review is complete. Bernice
+ * Manriquez's is an excerpt — a contiguous, unaltered run of sentences from
+ * the middle of a longer review, marked with a leading ellipsis. Nothing is
+ * paraphrased, tidied, or recombined. Replace only with other real reviews.
+ */
+?>
+<!-- wp:group {"align":"full","className":"tb-quote-row-section","backgroundColor":"alabaster","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull tb-quote-row-section has-alabaster-background-color has-background">
+	<div class="tb-page-shell">
+		<div class="tb-quote-row">
+
+			<figure class="tb-quote-card tb-reveal">
+				<blockquote>
+					<p>“Tanya was patient with me as I searched for my first home in a market that seemed impossible for a single mom. She was motivated and encouraging when I wanted to give up. And now, I own my own home!”</p>
+				</blockquote>
+				<figcaption>Margo Hooper <span>Google review</span></figcaption>
+			</figure>
+
+			<figure class="tb-quote-card tb-reveal">
+				<blockquote>
+					<p>“…After working with a different agent for four months with no success, we decided to reach out to Tanya. We asked her to help us find a house. We gave her only a week. She helped us find the perfect house in the right neighborhood in 4 days!”</p>
+				</blockquote>
+				<figcaption>Bernice Manriquez <span>Google review</span></figcaption>
+			</figure>
+
+		</div>
+	</div>
+</div>
+<!-- /wp:group -->
