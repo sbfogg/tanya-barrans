@@ -1185,6 +1185,130 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	gap: 0.75rem;
 	justify-content: center;
 }
+/* Contact form */
+.tb-contact-form-section {
+	/* .tb-page-shell sizes itself as min(100% - 2 * gutter, 1200px), so it
+	   needs --tb-page-gutter to be in scope. That variable is otherwise only
+	   set on the buyer, seller and journal page wrappers; without it here the
+	   shell computed to full width and the fields sat flush against the
+	   section edges. */
+	--tb-page-gutter: clamp(1.25rem, 4vw, 3rem);
+	padding-block: var(--wp--preset--spacing--60);
+}
+.tb-contact-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.25rem;
+	margin-top: var(--wp--preset--spacing--40);
+}
+.tb-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	margin: 0;
+}
+.tb-field--full {
+	grid-column: 1 / -1;
+}
+.tb-field label {
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ink);
+}
+.tb-required {
+	color: var(--wp--preset--color--coral-deep);
+}
+.tb-optional {
+	font-weight: 400;
+	text-transform: none;
+	letter-spacing: 0;
+	color: var(--wp--preset--color--muted);
+}
+.tb-field input,
+.tb-field select,
+.tb-field textarea {
+	box-sizing: border-box;
+	width: 100%;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 1rem;
+	padding: 0.8rem 1rem;
+	border: 1px solid var(--wp--preset--color--sand);
+	border-radius: 3px;
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--graphite);
+}
+.tb-field textarea {
+	resize: vertical;
+	min-height: 8rem;
+}
+.tb-field input:focus,
+.tb-field select:focus,
+.tb-field textarea:focus {
+	outline: none;
+	border-color: var(--wp--preset--color--ink);
+	box-shadow: 0 0 0 2px rgba(70, 93, 124, 0.25);
+}
+/* Honeypot — out of view and out of the tab order. */
+.tb-contact-hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.tb-contact-consent {
+	margin-top: var(--wp--preset--spacing--30);
+	font-size: 0.875rem;
+	color: var(--wp--preset--color--muted);
+}
+.tb-contact-submit {
+	margin-top: var(--wp--preset--spacing--30);
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	padding: 1rem 2rem;
+	border: none;
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	cursor: pointer;
+	transition: background 0.2s ease, opacity 0.2s ease;
+}
+.tb-contact-submit:hover {
+	background: var(--wp--preset--color--coral);
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-contact-submit:disabled,
+.tb-contact-submit.is-loading {
+	opacity: 0.6;
+	cursor: default;
+}
+.tb-contact-status {
+	min-height: 1.4rem;
+	margin-top: 0.85rem;
+	font-size: 0.9375rem;
+}
+.tb-contact-status[data-state="error"] {
+	color: #A3364B;
+	font-weight: 600;
+}
+.tb-contact-status[data-state="success"] {
+	color: #2F6B45;
+	font-weight: 600;
+}
+.tb-contact-status[data-state="pending"] {
+	color: var(--wp--preset--color--muted);
+}
+@media (max-width: 781px) {
+	.tb-contact-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
 .tb-newsletter-input {
 	flex: 1 1 200px;
 	min-width: 0;

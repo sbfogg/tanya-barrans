@@ -25,6 +25,25 @@ add_action( 'wp_enqueue_scripts', function () {
 		true
 	);
 
+	// Contact form script loads only on the page that carries the form.
+	if ( is_page( 'contact' ) ) {
+		wp_enqueue_script(
+			'tanya-barrans-contact-form',
+			get_theme_file_uri( 'assets/js/contact-form.js' ),
+			array(),
+			wp_get_theme()->get( 'Version' ),
+			true
+		);
+		wp_localize_script(
+			'tanya-barrans-contact-form',
+			'tanyaContact',
+			array(
+				'endpoint' => esc_url_raw( rest_url( 'tanya/v1/contact' ) ),
+				'nonce'    => wp_create_nonce( 'wp_rest' ),
+			)
+		);
+	}
+
 	// Newsletter signup form appears on the blog index and homepage.
 	if ( is_home() || is_front_page() || is_single() ) {
 		wp_enqueue_script(
@@ -116,6 +135,166 @@ function tanya_newsletter_subscribe( WP_REST_Request $request ) {
 	}
 
 	return new WP_REST_Response( array( 'message' => 'We could not add you right now. Please try again in a moment.' ), 502 );
+}
+
+/**
+ * Contact form — server-side handling.
+ *
+ * The browser POSTs here; this endpoint validates, then files the lead in
+ * Follow Up Boss using the key in wp-config.php (TANYA_FUB_API_KEY). That key
+ * is admin-level on a CRM holding real client records, so it never leaves the
+ * server. Guards: WP REST nonce, a honeypot, server-side validation, and
+ * allow-lists on every choice field.
+ *
+ * Lead safety is the priority: if Follow Up Boss cannot be reached, the
+ * submission is emailed to Tanya instead and the visitor is still told it went
+ * through, because the lead did reach a real destination. Only if both paths
+ * fail does the visitor see an error — and that error hands them the direct
+ * email and phone so the enquiry is never simply swallowed.
+ */
+add_action( 'rest_api_init', function () {
+	register_rest_route(
+		'tanya/v1',
+		'/contact',
+		array(
+			'methods'             => 'POST',
+			'callback'            => 'tanya_contact_submit',
+			'permission_callback' => '__return_true',
+		)
+	);
+} );
+
+/** Allowed values for the choice fields, mirrored in the form markup. */
+function tanya_contact_choices() {
+	return array(
+		'interest' => array( 'Buying', 'Selling', 'Both buying and selling', 'A question about the area', 'Something else' ),
+		'timing'   => array( 'As soon as possible', 'In the next 3 months', 'In the next 6-12 months', 'Just exploring for now' ),
+		'contact'  => array( 'Email', 'Phone call', 'Text message' ),
+	);
+}
+
+function tanya_contact_submit( WP_REST_Request $request ) {
+	$fail = function ( $message, $code = 400 ) {
+		return new WP_REST_Response( array( 'message' => $message ), $code );
+	};
+
+	$nonce = $request->get_header( 'X-WP-Nonce' );
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
+		return $fail( 'Your session expired. Please refresh the page and try again.', 403 );
+	}
+
+	// Honeypot: bots fill hidden fields. Report success so they move on.
+	if ( '' !== trim( (string) $request->get_param( 'website' ) ) ) {
+		return new WP_REST_Response( array( 'message' => 'Thanks — your message is on its way to Tanya.' ), 200 );
+	}
+
+	$name    = sanitize_text_field( (string) $request->get_param( 'name' ) );
+	$email   = sanitize_email( (string) $request->get_param( 'email' ) );
+	$phone   = sanitize_text_field( (string) $request->get_param( 'phone' ) );
+	$message = sanitize_textarea_field( (string) $request->get_param( 'message' ) );
+
+	if ( '' === $name ) {
+		return $fail( 'Please add your name so Tanya knows who she is replying to.', 422 );
+	}
+	if ( ! $email || ! is_email( $email ) ) {
+		return $fail( 'Please enter a valid email address.', 422 );
+	}
+
+	// Choice fields fall back to a neutral value rather than trusting input.
+	$choices  = tanya_contact_choices();
+	$pick     = function ( $value, $allowed, $default ) {
+		$value = sanitize_text_field( (string) $value );
+		return in_array( $value, $allowed, true ) ? $value : $default;
+	};
+	$interest = $pick( $request->get_param( 'interest' ), $choices['interest'], 'Not specified' );
+	$timing   = $pick( $request->get_param( 'timing' ), $choices['timing'], 'Not specified' );
+	$prefers  = $pick( $request->get_param( 'contact_method' ), $choices['contact'], 'Email' );
+
+	// Follow Up Boss takes a single message body, so the structured answers are
+	// summarised into it rather than lost.
+	$summary = sprintf(
+		"%s\n\n— Looking to: %s\n— Timing: %s\n— Prefers to be contacted by: %s\n— Phone: %s\n\nSent from the website contact form.",
+		'' !== $message ? $message : '(no message provided)',
+		$interest,
+		$timing,
+		$prefers,
+		'' !== $phone ? $phone : 'not provided'
+	);
+
+	$parts      = preg_split( '/\s+/', $name, 2 );
+	$first_name = $parts[0];
+	$last_name  = isset( $parts[1] ) ? $parts[1] : '';
+
+	$filed = false;
+
+	if ( defined( 'TANYA_FUB_API_KEY' ) && TANYA_FUB_API_KEY ) {
+		$person = array(
+			'firstName' => $first_name,
+			'emails'    => array( array( 'value' => $email ) ),
+			'tags'      => array( 'Website Lead' ),
+		);
+		if ( '' !== $last_name ) {
+			$person['lastName'] = $last_name;
+		}
+		if ( '' !== $phone ) {
+			$person['phones'] = array( array( 'value' => $phone ) );
+		}
+
+		$response = wp_remote_post(
+			'https://api.followupboss.com/v1/events',
+			array(
+				'timeout' => 15,
+				'headers' => array(
+					'Authorization' => 'Basic ' . base64_encode( TANYA_FUB_API_KEY . ':' ),
+					'Content-Type'  => 'application/json',
+					'X-System'      => 'TanyaBarransWebsite',
+				),
+				'body'    => wp_json_encode(
+					array(
+						'source'  => 'Tanya Barrans Website',
+						'system'  => 'TanyaBarransWebsite',
+						'type'    => 'Inquiry',
+						'message' => $summary,
+						'person'  => $person,
+					)
+				),
+			)
+		);
+
+		if ( ! is_wp_error( $response ) ) {
+			$code = wp_remote_retrieve_response_code( $response );
+			if ( $code >= 200 && $code < 300 ) {
+				$filed = true;
+			} else {
+				error_log( 'Follow Up Boss rejected a website lead. HTTP ' . $code );
+			}
+		} else {
+			error_log( 'Follow Up Boss unreachable: ' . $response->get_error_message() );
+		}
+	}
+
+	// Backup path so a CRM outage never costs a lead.
+	if ( ! $filed ) {
+		$sent = wp_mail(
+			'tanya@tanyabarrans.com',
+			sprintf( 'Website enquiry from %s', $name ),
+			sprintf( "%s\n\nName: %s\nEmail: %s\n", $summary, $name, $email ),
+			array( 'Content-Type: text/plain; charset=UTF-8', 'Reply-To: ' . $name . ' <' . $email . '>' )
+		);
+		if ( $sent ) {
+			$filed = true;
+			error_log( 'Website lead delivered by email fallback rather than Follow Up Boss.' );
+		}
+	}
+
+	if ( ! $filed ) {
+		return $fail( 'Something went wrong sending your message. Please email tanya@tanyabarrans.com or call (425) 537-4728 and it will reach her directly.', 502 );
+	}
+
+	return new WP_REST_Response(
+		array( 'message' => 'Thanks — your message is on its way. Tanya usually replies within one business day.' ),
+		200
+	);
 }
 
 /**
