@@ -1217,39 +1217,47 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	color: var(--tb-renton-mustard);
 	overflow: visible;
 }
-.tb-renton-stamp circle {
+/* The cream rim keeps the navy disc legible on a navy hero as well as on a
+   photograph, which is how the badge appears in the approved reference. */
+.tb-stamp-rim {
+	fill: var(--wp--preset--color--alabaster);
+}
+.tb-stamp-body {
+	fill: var(--wp--preset--color--charcoal);
+	stroke: var(--tb-renton-mustard);
+	stroke-width: 3;
+}
+.tb-stamp-ring {
 	fill: none;
-	stroke: currentColor;
-	stroke-width: 2;
-}
-.tb-renton-stamp__inner {
+	stroke: var(--tb-renton-mustard);
 	stroke-width: 1;
-	opacity: 0.55;
+	opacity: 0.75;
 }
-.tb-renton-stamp__arc {
-	fill: currentColor;
+.tb-stamp-arc {
+	fill: var(--wp--preset--color--base);
 	font-family: var(--wp--preset--font-family--sans);
-	font-size: 17px;
+	font-size: 19px;
 	font-weight: 600;
-	letter-spacing: 3.2px;
+	letter-spacing: 4px;
 }
-.tb-renton-stamp__arc--low {
+.tb-stamp-initial {
+	fill: var(--wp--preset--color--base);
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: 74px;
+	font-weight: 600;
+}
+.tb-stamp-est {
+	fill: var(--wp--preset--color--base);
+	font-family: var(--wp--preset--font-family--sans);
 	font-size: 13px;
-	letter-spacing: 2px;
-	opacity: 0.8;
+	font-weight: 600;
+	letter-spacing: 1px;
 }
-.tb-renton-stamp__mark {
-	fill: currentColor;
-	stroke: none;
+.tb-stamp-rule {
+	fill: var(--tb-renton-mustard);
 }
-.tb-renton-stamp__mark circle {
-	fill: currentColor;
-	stroke: none;
-}
-/* On the dark hero the stamp sits on navy; anywhere lighter it inherits the
-   surrounding text colour so it never becomes mustard-on-white. */
-.tb-renton-hero .tb-renton-stamp {
-	color: var(--tb-renton-mustard);
+.tb-stamp-heart {
+	fill: var(--tb-renton-mustard);
 }
 .tb-renton-title {
 	margin: 0 0 1rem;

@@ -29,33 +29,39 @@
 		<div class="tb-page-shell tb-renton-hero__inner">
 			<?php
 			/*
-			 * Typographic stand-in for the circular Rooted in Renton stamp.
-			 * The approved badge does not exist yet — the Brand Bible still
-			 * lists the primary logo suite as unfinished — so this is drawn
-			 * from type rather than imitating artwork nobody has seen. It is
-			 * deliberately simple to replace: swap this <svg> for an <img>
-			 * pointing at the real badge and the layout is unchanged.
+			 * The Rooted in Renton stamp, redrawn in SVG from the approved
+			 * visual direction in the Rooted in Renton Website Blueprint
+			 * (approved 31 July 2026): navy disc, gold ring, ROOTED IN over
+			 * the top, RENTON beneath, a serif R at the centre flanked by
+			 * EST. 1901, and a small gold heart.
+			 *
+			 * Vector rather than a bitmap so it stays sharp at any size and
+			 * carries no photo background — the badge in the reference sits
+			 * on a hero photo and cannot be cleanly lifted out of it. If the
+			 * original artwork is exported from Canva later, swap this <svg>
+			 * for an <img> and the layout is unchanged.
 			 */
 			?>
-			<svg class="tb-renton-stamp" viewBox="0 0 200 200" role="img" aria-label="Rooted in Renton">
+			<svg class="tb-renton-stamp" viewBox="0 0 200 200" role="img" aria-label="Rooted in Renton, established 1901">
 				<defs>
-					<path id="tb-stamp-arc-top" d="M100,100 m-74,0 a74,74 0 1,1 148,0" />
-					<path id="tb-stamp-arc-bottom" d="M100,100 m-64,0 a64,64 0 1,0 128,0" />
+					<path id="tb-stamp-arc-top" d="M100,100 m-73,0 a73,73 0 1,1 146,0" />
+					<path id="tb-stamp-arc-bottom" d="M100,100 m-71,0 a71,71 0 1,0 142,0" />
 				</defs>
-				<circle cx="100" cy="100" r="95" />
-				<circle cx="100" cy="100" r="86" class="tb-renton-stamp__inner" />
-				<text class="tb-renton-stamp__arc">
-					<textPath href="#tb-stamp-arc-top" startOffset="50%" text-anchor="middle">ROOTED IN RENTON</textPath>
+				<circle class="tb-stamp-rim" cx="100" cy="100" r="98" />
+				<circle class="tb-stamp-body" cx="100" cy="100" r="91" />
+				<circle class="tb-stamp-ring" cx="100" cy="100" r="83" />
+				<text class="tb-stamp-arc">
+					<textPath href="#tb-stamp-arc-top" startOffset="50%" text-anchor="middle">ROOTED IN</textPath>
 				</text>
-				<text class="tb-renton-stamp__arc tb-renton-stamp__arc--low">
-					<textPath href="#tb-stamp-arc-bottom" startOffset="50%" text-anchor="middle">LOVE WHERE YOU LIVE</textPath>
+				<text class="tb-stamp-arc">
+					<textPath href="#tb-stamp-arc-bottom" startOffset="50%" text-anchor="middle">RENTON</textPath>
 				</text>
-				<g class="tb-renton-stamp__mark">
-					<path d="M100 62 L114 92 L106 92 L120 122 L80 122 L94 92 L86 92 Z" />
-					<rect x="97" y="122" width="6" height="12" />
-					<circle cx="72" cy="100" r="2.5" />
-					<circle cx="128" cy="100" r="2.5" />
-				</g>
+				<text class="tb-stamp-initial" x="100" y="118" text-anchor="middle">R</text>
+				<text class="tb-stamp-est" x="52" y="104" text-anchor="middle">EST.</text>
+				<text class="tb-stamp-est" x="148" y="104" text-anchor="middle">1901</text>
+				<rect class="tb-stamp-rule" x="42" y="110" width="20" height="2" />
+				<rect class="tb-stamp-rule" x="138" y="110" width="20" height="2" />
+				<path class="tb-stamp-heart" d="M100 141c-5-4.6-9-7.6-9-11.6a4.6 4.6 0 0 1 9-1.9 4.6 4.6 0 0 1 9 1.9c0 4-4 7-9 11.6z" />
 			</svg>
 			<h1 id="renton-title" class="tb-renton-title">Real places. Local stories. A deeper connection to Renton.</h1>
 			<p class="tb-renton-dek">The people, places and everyday details that make this city feel like home — written by someone who actually lives here.</p>
