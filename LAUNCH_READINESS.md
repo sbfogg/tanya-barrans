@@ -127,9 +127,15 @@ Not installed. No tracking code of any kind is present. Needs a decision on prov
 
 No verification tag present. Needs the property to be created on the real domain, which means it follows domain selection.
 
-### 4.3 Domain and redirects — **TANYA**
+### 4.3 Domain and hosting — **resolved, pending purchase**
 
-The site runs at `tanya-barrans.local`. No production domain has been recorded, and no redirect map exists for any URLs that already rank.
+The domain is **`tanyabarrans.com`**, registered at GoDaddy with DNS managed there. It currently 301-forwards to `tanyab.johnlscott.com`. That forward is Tanya's own setting — John L Scott has no relationship with the domain, so switching it off needs no approval from the brokerage and is not a blocker.
+
+Tanya does not pay for GoDaddy hosting, only the domain renewal, so there was nowhere to deploy. **The decision is WP Engine**, pending purchase of the plan. That also supplies the WP Engine ID that LocalWP needs, which resolves the Live Link error seen on 12 August.
+
+Sequence: buy the plan, create an install, push from LocalWP, verify on the temporary WP Engine address, then point GoDaddy DNS at WP Engine and disable the forward. Going live is that last step and nothing before it is public.
+
+No redirect map is needed. Nothing currently lives on `tanyabarrans.com` to preserve — it has only ever forwarded.
 
 ### 4.4 Metadata and canonical — done
 
