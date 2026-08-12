@@ -1188,6 +1188,11 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 .tb-newsletter-input {
 	flex: 1 1 200px;
 	min-width: 0;
+	/* Inputs default to content-box, so the horizontal padding and border
+	   were added on top of the width flex had already assigned, pushing the
+	   field past its container and giving the page a few pixels of
+	   horizontal scroll on phones. */
+	box-sizing: border-box;
 	font-family: var(--wp--preset--font-family--sans);
 	font-size: 1rem;
 	padding: 0.85rem 1rem;
