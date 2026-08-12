@@ -7,6 +7,389 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   Journal landing page and reusable article template
+   -------------------------------------------------------------------------- */
+.tb-journal-page,
+.tb-article-page {
+	--tb-page-gutter: clamp(1.25rem, 4vw, 3rem);
+	--tb-journal-section: clamp(4rem, 7vw, 6.5rem);
+}
+
+.tb-journal-page { overflow-x: clip; }
+
+.tb-journal-hero {
+	position: relative;
+	min-height: clamp(31rem, 66vh, 44rem);
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	padding: clamp(3rem, 7vw, 5rem) var(--tb-page-gutter);
+}
+
+.tb-journal-hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, rgba(30, 36, 51, 0.08), rgba(30, 36, 51, 0.18));
+}
+
+.tb-journal-hero__image {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.tb-journal-hero__panel {
+	position: relative;
+	z-index: 1;
+	width: min(100%, 650px);
+	padding: clamp(2.25rem, 5vw, 4rem);
+	background: rgba(251, 248, 244, 0.94);
+	box-shadow: 0 22px 65px rgba(30, 36, 51, 0.16);
+	text-align: center;
+}
+
+.tb-journal-hero__panel h1 {
+	margin: 0;
+	font-size: clamp(3rem, 6vw, 5rem);
+	line-height: 0.98;
+}
+
+.tb-journal-hero__panel > p:last-child {
+	max-width: 500px;
+	margin: 1.4rem auto 0;
+	font-size: 1.05rem;
+}
+
+.tb-journal-topics {
+	border-block: 1px solid rgba(30, 36, 51, 0.16);
+	background: var(--wp--preset--color--base);
+}
+
+.tb-journal-topics .tb-page-shell {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.tb-journal-topics a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.55rem;
+	min-height: 74px;
+	padding: 0.9rem;
+	border-right: 1px solid rgba(30, 36, 51, 0.14);
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.tb-journal-topics a:first-child { border-left: 1px solid rgba(30, 36, 51, 0.14); }
+.tb-journal-topics a span { color: var(--wp--preset--color--sage); font-size: 1rem; }
+
+.tb-journal-content {
+	padding: var(--tb-journal-section) var(--tb-page-gutter);
+}
+
+.tb-journal-content > * + * { margin-top: var(--tb-journal-section); }
+.tb-journal-feature-query .wp-block-post-template,
+.tb-journal-card-query .wp-block-post-template {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tb-journal-feature {
+	display: grid;
+	grid-template-columns: minmax(0, 1.25fr) minmax(20rem, 0.75fr);
+	min-height: 34rem;
+	border: 1px solid rgba(30, 36, 51, 0.18);
+	background: var(--wp--preset--color--base);
+}
+
+.tb-journal-feature__media,
+.tb-journal-card-new__media,
+.tb-article-hero {
+	position: relative;
+	overflow: hidden;
+	background-color: var(--wp--preset--color--sand);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.tb-journal-feature__media {
+	min-height: 34rem;
+	background-image: url(/wp-content/themes/tanya-barrans/assets/images/lwyl-front-door.jpg);
+}
+
+.tb-journal-feature__media .wp-block-post-featured-image,
+.tb-journal-card-new__media .wp-block-post-featured-image,
+.tb-article-hero .wp-block-post-featured-image {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.tb-journal-feature__media img,
+.tb-journal-card-new__media img,
+.tb-article-hero img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.tb-journal-feature__content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: clamp(2rem, 5vw, 4.25rem);
+}
+
+.tb-journal-label,
+.tb-journal-label a {
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.tb-journal-feature__content .wp-block-post-title {
+	margin: 0.75rem 0 1.2rem;
+	font-size: clamp(2.7rem, 5vw, 4.5rem);
+	line-height: 0.98;
+}
+
+.tb-journal-feature__excerpt { margin: 0; line-height: 1.75; }
+.tb-journal-feature__excerpt .wp-block-post-excerpt__more-link {
+	display: inline-block;
+	margin-top: 1.2rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+.tb-journal-date { margin-top: 1.2rem; color: var(--wp--preset--color--graphite); font-size: 0.75rem; }
+
+.tb-editorial-heading {
+	display: grid;
+	grid-template-columns: minmax(2rem, 1fr) auto minmax(2rem, 1fr);
+	gap: 1.2rem;
+	align-items: center;
+	margin-bottom: clamp(2rem, 4vw, 3rem);
+	text-align: center;
+}
+.tb-editorial-heading span { height: 1px; background: rgba(30, 36, 51, 0.28); }
+.tb-editorial-heading h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 3.4rem); }
+
+.tb-journal-card-query .wp-block-post-template { gap: 1.25rem; }
+.tb-journal-card-new {
+	overflow: hidden;
+	border: 1px solid rgba(30, 36, 51, 0.17);
+	background: var(--wp--preset--color--base);
+	transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.tb-journal-card-new:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 16px 38px rgba(30, 36, 51, 0.1);
+}
+.tb-journal-card-new__media {
+	aspect-ratio: 4 / 3;
+	background-image: url(/wp-content/themes/tanya-barrans/assets/images/lwyl-living-room.jpg);
+}
+.tb-journal-card-query .wp-block-post:nth-child(2n) .tb-journal-card-new__media {
+	background-image: url(/wp-content/themes/tanya-barrans/assets/images/lwyl-coffee-bar.jpg);
+}
+.tb-journal-card-query .wp-block-post:nth-child(3n) .tb-journal-card-new__media {
+	background-image: url(/wp-content/themes/tanya-barrans/assets/images/lwyl-garden-shed.jpg);
+}
+.tb-journal-card-new__content { padding: 1.5rem; }
+.tb-journal-card-new .wp-block-post-title {
+	margin: 0.45rem 0 0.7rem;
+	font-size: clamp(1.65rem, 3vw, 2.15rem);
+	line-height: 1.02;
+}
+.tb-journal-card-new__excerpt { margin: 0; font-size: 0.92rem; line-height: 1.65; }
+.tb-journal-card-new__excerpt .wp-block-post-excerpt__more-link,
+.tb-journal-read-link {
+	display: block;
+	margin-top: 1rem;
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+.tb-journal-card-new--compact .tb-journal-card-new__media { aspect-ratio: 3 / 2; }
+.tb-query-empty { display: none; }
+.tb-journal-latest-section:has(.tb-query-empty) { display: none; }
+
+.tb-journal-page .tb-newsletter-feature,
+.tb-article-page .tb-newsletter-feature {
+	width: min(calc(100% - (2 * var(--tb-page-gutter))), 1200px);
+	min-height: 420px;
+	margin: 0 auto var(--tb-journal-section);
+	grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 1.3fr);
+	background: var(--wp--preset--color--sand);
+}
+.tb-journal-page .tb-newsletter-feature__content,
+.tb-article-page .tb-newsletter-feature__content { padding: clamp(2.5rem, 5vw, 4.5rem); }
+
+.tb-journal-tanya-cta {
+	padding-block: clamp(2.5rem, 5vw, 4rem);
+	background: var(--wp--preset--color--sage);
+	color: var(--wp--preset--color--base);
+}
+.tb-journal-tanya-cta__inner {
+	display: grid;
+	grid-template-columns: 9rem minmax(0, 1fr) auto;
+	gap: clamp(1.5rem, 4vw, 3rem);
+	align-items: center;
+}
+.tb-journal-tanya-cta img {
+	width: 9rem;
+	height: 9rem;
+	border: 5px solid rgba(255, 255, 255, 0.75);
+	border-radius: 50%;
+	object-fit: cover;
+}
+.tb-journal-tanya-cta h2 { margin: 0 0 0.5rem; color: var(--wp--preset--color--base); font-size: clamp(2.2rem, 4vw, 3.4rem); }
+.tb-journal-tanya-cta p:not(.tb-page-kicker) { margin: 0; max-width: 680px; }
+
+/* Article hierarchy shared by every Journal post. */
+.tb-article-header {
+	padding: clamp(4.5rem, 9vw, 8rem) var(--tb-page-gutter) clamp(3rem, 6vw, 5rem);
+	text-align: center;
+}
+.tb-article-title {
+	max-width: 920px;
+	margin: 0.8rem auto 1.25rem;
+	font-size: clamp(3.2rem, 7vw, 6rem);
+	line-height: 0.96;
+}
+.tb-article-dek {
+	max-width: 720px;
+	margin-inline: auto;
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+	line-height: 1.7;
+}
+.tb-article-dek .wp-block-post-excerpt__more-text { display: none; }
+.tb-article-meta {
+	gap: 0.8rem 1.5rem;
+	margin-top: 1.5rem;
+	color: var(--wp--preset--color--graphite);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+.tb-article-meta p { margin: 0; }
+.tb-article-hero {
+	min-height: clamp(22rem, 55vw, 44rem);
+	margin-bottom: clamp(3.5rem, 7vw, 6rem);
+	background-image: url(/wp-content/themes/tanya-barrans/assets/images/lwyl-living-room.jpg);
+}
+.tb-article-body {
+	padding-inline: var(--tb-page-gutter);
+	padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+.tb-article-body .wp-block-post-content { font-size: 1.08rem; line-height: 1.85; }
+.tb-article-body .wp-block-post-content > h2 { margin-top: 3.5rem; font-size: clamp(2.35rem, 5vw, 3.5rem); line-height: 1.08; }
+.tb-article-body .wp-block-post-content > h3 { margin-top: 2.5rem; }
+.tb-article-body .wp-block-post-content > p:first-child { font-size: 1.22rem; line-height: 1.8; }
+.tb-article-body .wp-block-quote {
+	margin-block: 3rem;
+	padding: 1.5rem 0 1.5rem 2rem;
+}
+.tb-article-body figcaption { color: var(--wp--preset--color--graphite); font-size: 0.78rem; }
+
+.tb-article-explore {
+	padding-block: var(--tb-journal-section);
+	background: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--base);
+	text-align: center;
+}
+.tb-article-explore h2 { margin: 0 0 2.5rem; color: var(--wp--preset--color--base); font-size: clamp(2.5rem, 5vw, 4rem); }
+.tb-article-explore__links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid rgba(255,255,255,0.25); }
+.tb-article-explore__links a {
+	display: flex;
+	min-height: 10rem;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1.5rem;
+	border-right: 1px solid rgba(255,255,255,0.25);
+	color: var(--wp--preset--color--base);
+	text-decoration: none;
+}
+.tb-article-explore__links a:last-child { border-right: 0; }
+.tb-article-explore__links span { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.tb-article-explore__links strong { margin-top: 0.55rem; font-family: var(--wp--preset--font-family--serif); font-size: 1.75rem; font-weight: 600; }
+
+.tb-article-page .tb-newsletter-feature { margin-block: var(--tb-journal-section); }
+.tb-article-author { padding-block: var(--tb-journal-section); background: var(--wp--preset--color--alabaster); }
+.tb-article-author__inner {
+	display: grid;
+	grid-template-columns: minmax(14rem, 0.7fr) minmax(0, 1.3fr);
+	gap: clamp(2.5rem, 7vw, 6rem);
+	align-items: center;
+}
+.tb-article-author img { width: 100%; max-height: 34rem; object-fit: cover; object-position: center 25%; }
+.tb-article-author h2 { margin: 0 0 1rem; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.02; }
+.tb-article-author .tb-page-actions { align-items: center; }
+.tb-article-navigation { padding: 2.5rem var(--tb-page-gutter) 4rem; }
+.tb-article-navigation .wp-block-post-navigation-link { max-width: 44%; font-family: var(--wp--preset--font-family--serif); font-size: 1.25rem; }
+.tb-journal-back-link { margin-top: 2.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+@media (max-width: 900px) {
+	.tb-journal-topics .tb-page-shell { overflow-x: auto; grid-template-columns: repeat(5, minmax(10rem, 1fr)); }
+	.tb-journal-feature { grid-template-columns: 1fr; }
+	.tb-journal-feature__media { min-height: 28rem; }
+	.tb-journal-card-query .wp-block-post-template { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.tb-journal-tanya-cta__inner { grid-template-columns: 7rem 1fr; }
+	.tb-journal-tanya-cta img { width: 7rem; height: 7rem; }
+	.tb-journal-tanya-cta .tb-page-button { grid-column: 2; justify-self: start; }
+	.tb-article-explore__links { grid-template-columns: 1fr; }
+	.tb-article-explore__links a { min-height: 7rem; border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.25); }
+	.tb-article-explore__links a:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 599px) {
+	.tb-journal-hero { min-height: 38rem; place-items: end center; padding: 1rem; }
+	.tb-journal-hero__image { object-position: 45% center; }
+	.tb-journal-hero__panel { padding: 2rem 1.25rem; }
+	.tb-journal-hero__panel h1 { font-size: clamp(2.7rem, 14vw, 3.8rem); }
+	.tb-journal-topics .tb-page-shell { width: 100%; padding-inline: 0.5rem; }
+	.tb-journal-feature__media { min-height: 20rem; }
+	.tb-journal-feature__content { padding: 2rem 1.25rem 2.5rem; }
+	.tb-journal-feature__content .wp-block-post-title { font-size: 2.7rem; }
+	.tb-editorial-heading { gap: 0.75rem; }
+	.tb-journal-card-query .wp-block-post-template { grid-template-columns: 1fr; }
+	.tb-journal-page .tb-newsletter-feature,
+	.tb-article-page .tb-newsletter-feature { width: calc(100% - 2rem); grid-template-columns: 1fr; min-height: 0; }
+	.tb-journal-page .tb-newsletter-feature__image,
+	.tb-article-page .tb-newsletter-feature__image { min-height: 16rem; }
+	.tb-journal-page .tb-newsletter-feature__content,
+	.tb-article-page .tb-newsletter-feature__content { padding: 2.5rem 1.25rem; }
+	.tb-journal-tanya-cta__inner { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+	.tb-journal-tanya-cta .tb-page-button { grid-column: 1; justify-self: stretch; }
+	.tb-article-header { padding-top: 4rem; }
+	.tb-article-title { font-size: clamp(3rem, 15vw, 4rem); }
+	.tb-article-hero { width: calc(100% - 2rem); min-height: 16rem; }
+	.tb-article-author__inner { grid-template-columns: 1fr; }
+	.tb-article-author img { max-height: 25rem; }
+	.tb-article-navigation .wp-block-post-navigation-link { max-width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
    Buyer and seller hub reference system
    -------------------------------------------------------------------------- */
 .tb-buyer-page,

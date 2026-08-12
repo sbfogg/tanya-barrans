@@ -1,27 +1,78 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|60","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"720px","wideSize":"1320px"}} -->
-<main class="wp-block-group" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"tagName":"main","className":"tb-article-page","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
+<main class="wp-block-group tb-article-page">
 
-	<!-- wp:group {"style":{"spacing":{"blockGap":"0.75rem","margin":{"bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"720px"}} -->
-	<div class="wp-block-group" style="margin-bottom:var(--wp--preset--spacing--40)">
-		<!-- wp:post-terms {"term":"category","className":"tb-eyebrow"} /-->
-		<!-- wp:post-title {"level":1,"fontSize":"xx-large"} /-->
-		<!-- wp:post-date {"textColor":"muted","fontSize":"small"} /-->
+	<!-- wp:group {"className":"tb-article-header","layout":{"type":"constrained","contentSize":"920px"}} -->
+	<header class="wp-block-group tb-article-header">
+		<!-- wp:post-terms {"term":"category","className":"tb-journal-label"} /-->
+		<!-- wp:post-title {"level":1,"className":"tb-article-title"} /-->
+		<!-- wp:post-excerpt {"moreText":"","excerptLength":32,"className":"tb-article-dek"} /-->
+		<!-- wp:group {"className":"tb-article-meta","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
+		<div class="wp-block-group tb-article-meta">
+			<!-- wp:paragraph --><p>From Tanya Barrans</p><!-- /wp:paragraph -->
+			<!-- wp:post-date /-->
+		</div>
+		<!-- /wp:group -->
+	</header>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"tb-article-hero","layout":{"type":"constrained","contentSize":"1200px"}} -->
+	<div class="wp-block-group tb-article-hero">
+		<!-- wp:post-featured-image {"aspectRatio":"16/9","sizeSlug":"full"} /-->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:post-featured-image {"aspectRatio":"16/9","align":"wide","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|50"}}}} /-->
+	<!-- wp:group {"className":"tb-article-body","layout":{"type":"constrained","contentSize":"740px","wideSize":"1200px"}} -->
+	<div class="wp-block-group tb-article-body">
+		<!-- wp:post-content {"layout":{"type":"constrained","contentSize":"740px","wideSize":"1200px"}} /-->
+	</div>
+	<!-- /wp:group -->
 
-	<!-- wp:post-content {"align":"full","layout":{"type":"constrained","contentSize":"720px","wideSize":"1320px"}} /-->
+	<!-- wp:html -->
+	<aside class="tb-article-explore" aria-labelledby="article-explore-title">
+		<div class="tb-page-shell">
+			<p class="tb-page-kicker">Keep exploring</p>
+			<h2 id="article-explore-title">Continue loving where you live.</h2>
+			<div class="tb-article-explore__links">
+				<a href="/rooted-in-renton/"><span>Local guides</span><strong>Explore Rooted in Renton</strong></a>
+				<a href="/buy/"><span>Planning a move</span><strong>Visit the Buyer Hub</strong></a>
+				<a href="/sell/"><span>Thinking about selling</span><strong>Visit the Seller Hub</strong></a>
+			</div>
+		</div>
+	</aside>
+	<!-- /wp:html -->
 
-	<!-- wp:separator {"className":"tb-rule","style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
-	<hr class="wp-block-separator has-alpha-channel-opacity tb-rule" style="margin-top:var(--wp--preset--spacing--50)"/>
-	<!-- /wp:separator -->
+	<!-- wp:pattern {"slug":"tanya-barrans/newsletter"} /-->
 
-	<!-- wp:paragraph {"fontSize":"small"} -->
-	<p class="has-small-font-size"><a href="/blog/">← Back to all posts</a></p>
-	<!-- /wp:paragraph -->
+	<!-- wp:html -->
+	<section class="tb-article-author" aria-labelledby="article-author-title">
+		<div class="tb-page-shell tb-article-author__inner">
+			<img src="/wp-content/uploads/2026/07/about-main.jpg" alt="Tanya Barrans, Renton real estate broker" width="934" height="1400" loading="lazy">
+			<div>
+				<p class="tb-page-kicker">Meet Tanya</p>
+				<h2 id="article-author-title">Local perspective. Honest guidance.</h2>
+				<p>Tanya Barrans helps people make thoughtful decisions about their homes, their neighborhoods, and their next move across Renton and the South Sound.</p>
+				<div class="tb-page-actions">
+					<a class="tb-page-button tb-page-button--primary" href="/about/">More About Tanya</a>
+					<a class="tb-text-link" href="/contact/">Ask Tanya a question <span aria-hidden="true">&rarr;</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /wp:html -->
+
+	<!-- wp:group {"className":"tb-article-navigation","layout":{"type":"constrained","contentSize":"1200px"}} -->
+	<nav class="wp-block-group tb-article-navigation" aria-label="Article navigation">
+		<!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+		<div class="wp-block-group">
+			<!-- wp:post-navigation-link {"type":"previous","label":"Previous story","showTitle":true,"linkLabel":true} /-->
+			<!-- wp:post-navigation-link {"type":"next","label":"Next story","showTitle":true,"linkLabel":true} /-->
+		</div>
+		<!-- /wp:group -->
+		<!-- wp:paragraph {"align":"center","className":"tb-journal-back-link"} --><p class="has-text-align-center tb-journal-back-link"><a href="/blog/">Back to the Journal</a></p><!-- /wp:paragraph -->
+	</nav>
+	<!-- /wp:group -->
 
 </main>
 <!-- /wp:group -->

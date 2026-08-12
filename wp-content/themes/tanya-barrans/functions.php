@@ -26,7 +26,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	);
 
 	// Newsletter signup form appears on the blog index and homepage.
-	if ( is_home() || is_front_page() ) {
+	if ( is_home() || is_front_page() || is_single() ) {
 		wp_enqueue_script(
 			'tanya-barrans-newsletter',
 			get_theme_file_uri( 'assets/js/newsletter.js' ),
@@ -126,6 +126,8 @@ add_action( 'wp_head', function () {
 
 	if ( is_front_page() ) {
 		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, Maple Valley, and nearby communities with honest advice and local expertise.';
+	} elseif ( is_home() ) {
+		$description = 'Explore the Love Where You Live Journal for practical home guidance, Renton neighborhood stories, local recommendations, and honest real estate advice from Tanya Barrans.';
 	} elseif ( is_singular() ) {
 		$post = get_queried_object();
 		if ( $post instanceof WP_Post ) {
@@ -144,3 +146,13 @@ add_action( 'wp_head', function () {
 		echo '<meta name="description" content="' . esc_attr( $description ) . '" />' . "\n";
 	}
 }, 1 );
+
+// The WordPress posts page is stored as "Blog" in the local database, but the
+// public-facing publication name is the Tanya-approved Journal title.
+add_filter( 'document_title_parts', function ( $title ) {
+	if ( is_home() ) {
+		$title['title'] = 'The Love Where You Live Journal';
+	}
+
+	return $title;
+} );
