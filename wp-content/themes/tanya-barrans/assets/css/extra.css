@@ -6,6 +6,399 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+/* --------------------------------------------------------------------------
+   Buyer and seller hub reference system
+   -------------------------------------------------------------------------- */
+.tb-buyer-page,
+.tb-seller-page {
+	--tb-page-gutter: clamp(1.25rem, 4vw, 3rem);
+	--tb-page-section: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.tb-page-shell {
+	width: min(100% - (2 * var(--tb-page-gutter)), 1200px);
+	margin-inline: auto;
+}
+
+.tb-page-kicker {
+	margin: 0 0 1rem;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.16em;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+
+.tb-page-hero {
+	position: relative;
+	min-height: clamp(38rem, 78vh, 52rem);
+	display: grid;
+	align-items: end;
+	overflow: hidden;
+	color: var(--wp--preset--color--base);
+}
+
+.tb-page-hero__image,
+.tb-page-hero__overlay {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.tb-page-hero__image {
+	object-fit: cover;
+	object-position: center;
+}
+
+.tb-page-hero__overlay {
+	background: linear-gradient(90deg, rgba(30, 36, 51, 0.88) 0%, rgba(30, 36, 51, 0.66) 48%, rgba(30, 36, 51, 0.12) 100%);
+}
+
+.tb-page-hero__content {
+	position: relative;
+	z-index: 1;
+	padding-block: clamp(5rem, 11vw, 9rem);
+}
+
+.tb-page-hero__content > * {
+	max-width: 740px;
+}
+
+.tb-page-hero h1 {
+	margin: 0;
+	color: var(--wp--preset--color--base);
+	font-size: clamp(3rem, 7vw, 5.75rem);
+	line-height: 0.98;
+}
+
+.tb-page-hero__dek {
+	margin: 1.5rem 0 0;
+	max-width: 660px;
+	font-size: clamp(1.05rem, 2vw, 1.3rem);
+	line-height: 1.65;
+}
+
+.tb-page-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.85rem;
+	margin-top: 2rem;
+}
+
+.tb-page-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50px;
+	padding: 0.9rem 1.4rem;
+	border: 1px solid transparent;
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	line-height: 1.35;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.tb-page-button--primary {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+}
+
+.tb-page-button--primary:hover,
+.tb-page-button--primary:focus-visible {
+	background: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--base);
+}
+
+.tb-page-button--secondary {
+	border-color: rgba(255, 255, 255, 0.75);
+	background: rgba(251, 248, 244, 0.12);
+	color: var(--wp--preset--color--base);
+}
+
+.tb-page-button--secondary:hover,
+.tb-page-button--secondary:focus-visible {
+	background: var(--wp--preset--color--alabaster);
+	color: var(--wp--preset--color--charcoal);
+}
+
+.tb-page-section {
+	padding-block: var(--tb-page-section);
+}
+
+.tb-page-section--ivory { background: var(--wp--preset--color--alabaster); }
+.tb-page-section--white { background: var(--wp--preset--color--base); }
+.tb-page-section--linen { background: var(--wp--preset--color--sand); }
+.tb-page-section--homebot { background: #f2f5f7; }
+.tb-page-section--navy {
+	background: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--base);
+}
+
+.tb-page-intro {
+	max-width: 760px;
+	margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.tb-page-intro h2,
+.tb-two-column-section__intro h2,
+.tb-homebot-copy h2,
+.tb-page-final-cta h2 {
+	margin: 0 0 1.15rem;
+	font-size: clamp(2.35rem, 5vw, 4rem);
+	line-height: 1.05;
+}
+
+.tb-page-intro > p:last-child,
+.tb-two-column-section__intro > p:last-child,
+.tb-homebot-copy > p {
+	font-size: 1.05rem;
+	line-height: 1.75;
+}
+
+.tb-page-intro--light h2,
+.tb-page-section--navy h3 {
+	color: var(--wp--preset--color--base);
+}
+
+.tb-proof-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	border-block: 1px solid rgba(30, 36, 51, 0.18);
+}
+
+.tb-proof-item {
+	padding: 2rem;
+	border-right: 1px solid rgba(30, 36, 51, 0.18);
+}
+
+.tb-proof-item:last-child { border-right: 0; }
+.tb-proof-item > span,
+.tb-process-list > li > span {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	color: var(--wp--preset--color--ink);
+}
+
+.tb-proof-item h3 {
+	margin: 0.8rem 0 0.6rem;
+}
+
+.tb-proof-item p { margin: 0; }
+
+.tb-strategy-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	border-block: 1px solid rgba(30, 36, 51, 0.18);
+}
+
+.tb-strategy-card {
+	padding: clamp(1.75rem, 4vw, 2.75rem);
+	border-right: 1px solid rgba(30, 36, 51, 0.18);
+}
+
+.tb-strategy-card:last-child { border-right: 0; }
+.tb-strategy-card > span,
+.tb-pricing-evidence article > span {
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ink);
+}
+.tb-strategy-card h3 { margin: 0.8rem 0 0.65rem; }
+.tb-strategy-card p { margin: 0; }
+
+.tb-process-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tb-process-list li {
+	display: grid;
+	grid-template-columns: 4rem minmax(0, 1fr);
+	gap: 1.5rem;
+	padding-block: 1.65rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tb-process-list > li > span { color: var(--wp--preset--color--coral); }
+.tb-process-list h3 { margin: 0 0 0.3rem; }
+.tb-process-list p { margin: 0; color: rgba(255, 255, 255, 0.78); }
+
+.tb-match-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.tb-match-card {
+	min-height: 12rem;
+	padding: 1.75rem;
+	background: var(--wp--preset--color--alabaster);
+	border-top: 4px solid var(--wp--preset--color--sage);
+}
+
+.tb-match-card h3 { margin: 0 0 0.65rem; }
+.tb-match-card p { margin: 0; }
+
+.tb-preparation-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1px;
+	background: rgba(30, 36, 51, 0.18);
+	border: 1px solid rgba(30, 36, 51, 0.18);
+}
+
+.tb-preparation-item {
+	min-height: 11rem;
+	padding: 1.75rem;
+	background: var(--wp--preset--color--sand);
+}
+
+.tb-preparation-item h3 { margin: 0 0 0.65rem; }
+.tb-preparation-item p { margin: 0; }
+.tb-section-action { margin-top: 2.5rem; }
+.tb-text-link {
+	font-weight: 600;
+	text-underline-offset: 0.3em;
+}
+
+.tb-text-link span { display: inline-block; transition: transform 180ms ease; }
+.tb-text-link:hover span { transform: translateX(0.25rem); }
+
+.tb-two-column-section,
+.tb-homebot-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+	gap: clamp(3rem, 8vw, 7rem);
+	align-items: start;
+}
+
+.tb-topic-list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid rgba(30, 36, 51, 0.22);
+}
+
+.tb-topic-list li {
+	padding: 1rem 0;
+	border-bottom: 1px solid rgba(30, 36, 51, 0.22);
+}
+
+.tb-topic-list li:nth-child(odd) { padding-right: 1rem; }
+.tb-topic-list li:nth-child(even) { padding-left: 1rem; border-left: 1px solid rgba(30, 36, 51, 0.22); }
+
+.tb-pricing-evidence {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	border-top: 1px solid rgba(30, 36, 51, 0.22);
+}
+
+.tb-pricing-evidence article {
+	padding: 1.4rem 1.4rem 1.4rem 0;
+	border-bottom: 1px solid rgba(30, 36, 51, 0.22);
+}
+
+.tb-pricing-evidence article:nth-child(even) {
+	padding-left: 1.4rem;
+	border-left: 1px solid rgba(30, 36, 51, 0.22);
+}
+
+.tb-pricing-evidence h3 { margin: 0.55rem 0 0.4rem; }
+.tb-pricing-evidence p { margin: 0; }
+
+.tb-homebot-layout { align-items: center; }
+.tb-homebot-frame-wrap {
+	min-height: 680px;
+	overflow: hidden;
+	background: var(--wp--preset--color--base);
+	box-shadow: 0 18px 55px rgba(30, 36, 51, 0.12);
+}
+
+.tb-homebot-frame {
+	display: block;
+	width: 100%;
+	height: 680px;
+	border: 0;
+}
+
+.tb-page-final-cta {
+	padding-block: clamp(4.5rem, 9vw, 7rem);
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--base);
+	text-align: center;
+}
+
+.tb-page-final-cta h2 { color: var(--wp--preset--color--base); }
+.tb-page-final-cta p:not(.tb-page-kicker) { font-size: 1.08rem; }
+.tb-page-actions--center { justify-content: center; }
+.tb-page-button--light {
+	background: var(--wp--preset--color--alabaster);
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-page-button--ghost {
+	border-color: rgba(255, 255, 255, 0.65);
+	color: var(--wp--preset--color--base);
+}
+.tb-page-button--light:hover,
+.tb-page-button--light:focus-visible,
+.tb-page-button--ghost:hover,
+.tb-page-button--ghost:focus-visible {
+	background: var(--wp--preset--color--coral);
+	border-color: var(--wp--preset--color--coral);
+	color: var(--wp--preset--color--charcoal);
+}
+
+@media (max-width: 900px) {
+	.tb-proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.tb-proof-item:nth-child(2) { border-right: 0; }
+	.tb-proof-item:nth-child(-n + 2) { border-bottom: 1px solid rgba(30, 36, 51, 0.18); }
+	.tb-match-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.tb-preparation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.tb-two-column-section,
+	.tb-homebot-layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 599px) {
+	.tb-page-hero { min-height: 42rem; }
+	.tb-page-hero--buyer .tb-page-hero__image { object-position: 58% center; }
+	.tb-page-hero--seller .tb-page-hero__image { object-position: center 48%; }
+	.tb-page-hero__overlay { background: linear-gradient(180deg, rgba(30, 36, 51, 0.28) 0%, rgba(30, 36, 51, 0.9) 70%); }
+	.tb-page-hero__content { padding-block: 5rem 3.5rem; }
+	.tb-page-actions,
+	.tb-page-actions .tb-page-button { width: 100%; }
+	.tb-proof-grid,
+	.tb-strategy-grid,
+	.tb-match-grid,
+	.tb-preparation-grid,
+	.tb-topic-list { grid-template-columns: 1fr; }
+	.tb-proof-item { border-right: 0; border-bottom: 1px solid rgba(30, 36, 51, 0.18); }
+	.tb-proof-item:last-child { border-bottom: 0; }
+	.tb-strategy-card { border-right: 0; border-bottom: 1px solid rgba(30, 36, 51, 0.18); }
+	.tb-strategy-card:last-child { border-bottom: 0; }
+	.tb-topic-list li:nth-child(odd),
+	.tb-topic-list li:nth-child(even) { padding-inline: 0; border-left: 0; }
+	.tb-pricing-evidence { grid-template-columns: 1fr; }
+	.tb-pricing-evidence article,
+	.tb-pricing-evidence article:nth-child(even) { padding-inline: 0; border-left: 0; }
+	.tb-process-list li { grid-template-columns: 2.75rem minmax(0, 1fr); gap: 0.75rem; }
+	.tb-homebot-frame-wrap,
+	.tb-homebot-frame { min-height: 620px; height: 620px; }
+}
+
 /* Hero entrance — plays once on page load, distinct from the scroll-reveal
    system (.tb-reveal): a slower, softer settle rather than a snappy
    scale+slide, since the hero is already in view and doesn't need a
