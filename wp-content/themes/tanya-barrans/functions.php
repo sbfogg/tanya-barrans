@@ -118,13 +118,70 @@ function tanya_newsletter_subscribe( WP_REST_Request $request ) {
 	return new WP_REST_Response( array( 'message' => 'We could not add you right now. Please try again in a moment.' ), 502 );
 }
 
-// Basic SEO: output a meta description per page. Uses the page/post excerpt
-// when available, falls back to a sensible site-wide default on the home
-// page and anywhere else without one.
+/**
+ * Per-page SEO overrides, keyed by page slug.
+ *
+ * Without these, <title> falls back to the page's short admin title ("Buy")
+ * and the description below stitches a heading onto the first line of body
+ * copy, which reads as a fragment in search results. Each value here
+ * describes something the page already contains; none of them assert
+ * credentials, awards, transaction volume, or performance figures.
+ *
+ * Titles omit "Tanya Barrans" because WordPress appends the site name as
+ * the second title part; including it here renders it twice.
+ *
+ * @return array<string, array{title: string, description: string}>
+ */
+function tanya_page_seo_overrides() {
+	return array(
+		'buy'     => array(
+			'title'       => 'Buying a Home in Renton and the Puget Sound',
+			'description' => 'Plan your home purchase with Tanya Barrans: how the process works step by step, what to expect along the way, and a low-pressure way to explore your buying power before you talk to anyone.',
+		),
+		'sell'    => array(
+			'title'       => 'Selling Your Home in Renton and the Puget Sound',
+			'description' => 'Thinking about selling? See how Tanya Barrans prepares, prices, and markets a home, and get a starting value range for yours before you commit to anything.',
+		),
+		'about'   => array(
+			'title'       => 'About Tanya',
+			'description' => 'Meet Tanya Barrans, a Renton-area broker with John L Scott who builds her business on relationships, local knowledge, and honest guidance for buyers and sellers.',
+		),
+		'contact' => array(
+			'title'       => 'Contact Tanya',
+			'description' => 'Get in touch with Tanya Barrans by email or phone, or schedule a no-pressure conversation about buying, selling, or getting to know the Renton area.',
+		),
+	);
+}
+
+/**
+ * Look up the SEO override for whichever page is being rendered.
+ *
+ * @return array{title: string, description: string}|null
+ */
+function tanya_current_page_seo_override() {
+	if ( ! is_page() ) {
+		return null;
+	}
+
+	$post = get_queried_object();
+	if ( ! $post instanceof WP_Post ) {
+		return null;
+	}
+
+	$overrides = tanya_page_seo_overrides();
+
+	return isset( $overrides[ $post->post_name ] ) ? $overrides[ $post->post_name ] : null;
+}
+
+// Basic SEO: output a meta description per page. Prefers a curated override,
+// then the page/post excerpt, and falls back to a sensible site-wide default.
 add_action( 'wp_head', function () {
 	$description = '';
+	$override    = tanya_current_page_seo_override();
 
-	if ( is_front_page() ) {
+	if ( $override ) {
+		$description = $override['description'];
+	} elseif ( is_front_page() ) {
 		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, Maple Valley, and nearby communities with honest advice and local expertise.';
 	} elseif ( is_home() ) {
 		$description = 'Explore the Love Where You Live Journal for practical home guidance, Renton neighborhood stories, local recommendations, and honest real estate advice from Tanya Barrans.';
@@ -147,11 +204,45 @@ add_action( 'wp_head', function () {
 	}
 }, 1 );
 
+/**
+ * Canonical URL for the posts page.
+ *
+ * Core's rel_canonical() only fires on is_singular(), so the Journal index —
+ * a static page assigned as the posts page — shipped without a canonical at
+ * all. Paged views point at themselves rather than page one, so the archive
+ * pages are not treated as duplicates of each other.
+ */
+add_action( 'wp_head', function () {
+	if ( ! is_home() || is_front_page() ) {
+		return;
+	}
+
+	$posts_page_id = (int) get_option( 'page_for_posts' );
+	if ( ! $posts_page_id ) {
+		return;
+	}
+
+	$paged     = (int) get_query_var( 'paged' );
+	$canonical = $paged > 1 ? get_pagenum_link( $paged ) : get_permalink( $posts_page_id );
+
+	if ( $canonical ) {
+		echo '<link rel="canonical" href="' . esc_url( $canonical ) . '" />' . "\n";
+	}
+} );
+
 // The WordPress posts page is stored as "Blog" in the local database, but the
-// public-facing publication name is the Tanya-approved Journal title.
+// public-facing publication name is the Tanya-approved Journal title. Core
+// pages with a curated title use it in place of the short admin title.
 add_filter( 'document_title_parts', function ( $title ) {
 	if ( is_home() ) {
 		$title['title'] = 'The Love Where You Live Journal';
+
+		return $title;
+	}
+
+	$override = tanya_current_page_seo_override();
+	if ( $override ) {
+		$title['title'] = $override['title'];
 	}
 
 	return $title;
