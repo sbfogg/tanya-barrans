@@ -28,7 +28,15 @@
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"className":"tb-text-link"} -->
-		<p class="tb-text-link"><a href="https://g.page/r/CTDpOcL-7SDkEAE/review" target="_blank" rel="noopener noreferrer">Read Tanya’s Google reviews <span aria-hidden="true">→</span></a></p>
+		<?php
+		/*
+		 * This is Google's write-a-review URL, so the label asks for a review
+		 * rather than promising reviews to read. Swap in the public profile URL
+		 * and restore a "read the reviews" label once it is confirmed. Kept as a
+		 * PHP comment so it is not emitted into the rendered page.
+		 */
+		?>
+		<p class="tb-text-link"><a href="https://g.page/r/CTDpOcL-7SDkEAE/review" target="_blank" rel="noopener noreferrer">Worked with Tanya? Leave a Google review <span aria-hidden="true">→</span></a></p>
 		<!-- /wp:paragraph -->
 
 	</div>
