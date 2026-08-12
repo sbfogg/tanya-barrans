@@ -43,8 +43,18 @@
 				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-background-color has-background wp-element-button" href="/contact/">Let’s Talk About Your Next Move</a></div>
 				<!-- /wp:button -->
 
+				<?php
+				/*
+				 * This button is the approved layout's secondary hero CTA and
+				 * is intended to read "Explore Renton" pointing at
+				 * /rooted-in-renton/. That page is withheld until it meets the
+				 * blueprint's launch minimum, so the button points at the
+				 * Journal — a real, populated destination — in the meantime.
+				 * Restoring it is a one-line change to this href and label.
+				 */
+				?>
 				<!-- wp:button {"backgroundColor":"coral","textColor":"charcoal"} -->
-				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-color has-coral-background-color has-text-color has-background wp-element-button" href="/rooted-in-renton/">Explore Renton</a></div>
+				<div class="wp-block-button"><a class="wp-block-button__link has-charcoal-color has-coral-background-color has-text-color has-background wp-element-button" href="/blog/">Read the Journal</a></div>
 				<!-- /wp:button -->
 			</div>
 			<!-- /wp:buttons -->

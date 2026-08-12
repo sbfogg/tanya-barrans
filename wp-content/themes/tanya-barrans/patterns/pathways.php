@@ -65,7 +65,7 @@
 			<p class="tb-way__copy">Home projects, garden ideas, local guides, and practical homeowner resources.</p>
 			<!-- /wp:paragraph -->
 			<!-- wp:paragraph {"className":"tb-way__link"} -->
-			<p class="tb-way__link"><a href="/love-your-home/">Browse the Journal <span aria-hidden="true">&rarr;</span></a></p>
+			<p class="tb-way__link"><a href="/blog/">Browse the Journal <span aria-hidden="true">&rarr;</span></a></p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:group -->
