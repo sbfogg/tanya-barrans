@@ -1185,6 +1185,236 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	gap: 0.75rem;
 	justify-content: center;
 }
+/* --------------------------------------------------------------------------
+   Rooted in Renton — the sub-brand used on the Renton hub only.
+
+   Mustard #D99F3A measures 6.62:1 against Ink Navy but only 2.34:1 against
+   white, so it is used for text solely on the dark hero and CTA bands. On
+   light sections it appears as rules, borders and fills, never as body copy.
+   -------------------------------------------------------------------------- */
+.tb-renton-page,
+.tb-hoods-page {
+	--tb-page-gutter: clamp(1.25rem, 4vw, 3rem);
+	--tb-renton-mustard: #D99F3A;
+}
+.tb-renton-hero,
+.tb-renton-cta {
+	background: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--base);
+	padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.tb-renton-hero__inner {
+	max-width: 44rem;
+}
+.tb-renton-badge {
+	display: inline-block;
+	margin: 0 0 1.25rem;
+	padding: 0.5rem 1.1rem;
+	border: 1px solid var(--tb-renton-mustard);
+	border-radius: 999px;
+	color: var(--tb-renton-mustard);
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+}
+.tb-renton-title {
+	margin: 0 0 1rem;
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: clamp(2.25rem, 5vw, 3.5rem);
+	line-height: 1.15;
+	color: var(--wp--preset--color--base);
+}
+.tb-renton-dek {
+	margin: 0 0 2rem;
+	font-size: 1.125rem;
+	color: var(--wp--preset--color--stone);
+}
+.tb-renton-hero__links,
+.tb-renton-cta__links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1.25rem;
+	margin: 0;
+}
+.tb-renton-button {
+	display: inline-block;
+	padding: 0.9rem 1.75rem;
+	background: var(--tb-renton-mustard);
+	color: var(--wp--preset--color--charcoal);
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	text-decoration: none;
+	border-radius: 2px;
+	transition: background 0.2s ease;
+}
+.tb-renton-button:hover {
+	background: #E9B45A;
+}
+.tb-renton-link {
+	color: var(--tb-renton-mustard);
+	font-weight: 600;
+	text-decoration: none;
+}
+.tb-renton-link:hover {
+	text-decoration: underline;
+}
+.tb-renton-featured,
+.tb-renton-latest {
+	padding-block: clamp(3rem, 6vw, 5rem);
+}
+.tb-renton-latest {
+	background: var(--wp--preset--color--alabaster);
+}
+.tb-renton-feature-card {
+	margin-top: 1.5rem;
+}
+.tb-renton-feature-card img,
+.tb-renton-card img {
+	border-radius: 8px;
+}
+.tb-renton-kicker {
+	margin: 1rem 0 0.4rem;
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+.tb-renton-kicker a {
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+}
+.tb-renton-date {
+	color: var(--wp--preset--color--muted);
+	font-size: 0.875rem;
+}
+.tb-renton-card__body {
+	padding: 0 1rem 1.25rem;
+}
+.tb-renton-empty {
+	margin: 1.5rem 0;
+	padding: 1.5rem 1.75rem;
+	border-left: 3px solid var(--tb-renton-mustard);
+	background: var(--wp--preset--color--alabaster);
+	color: var(--wp--preset--color--muted);
+}
+/* Topic bar between the featured story and the grid. */
+.tb-renton-topics {
+	border-block: 1px solid var(--wp--preset--color--sand);
+	padding-block: 1rem;
+}
+.tb-renton-topics .tb-page-shell {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem 1.75rem;
+}
+.tb-renton-topics a {
+	font-family: var(--wp--preset--font-family--sans);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ink);
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+	padding-bottom: 2px;
+}
+.tb-renton-topics a:hover,
+.tb-renton-topics a:focus-visible {
+	border-bottom-color: var(--tb-renton-mustard);
+}
+.tb-renton-cta h2 {
+	margin: 0 0 0.75rem;
+	color: var(--wp--preset--color--base);
+}
+.tb-renton-cta p {
+	color: var(--wp--preset--color--stone);
+}
+.tb-renton-button--light {
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--charcoal);
+}
+.tb-renton-button--light:hover {
+	background: var(--tb-renton-mustard);
+}
+
+/* Neighborhoods index */
+.tb-hoods {
+	padding-block: clamp(3rem, 6vw, 5rem);
+}
+.tb-hoods__dek {
+	max-width: 42rem;
+}
+.tb-hoods-grid {
+	list-style: none;
+	margin: var(--wp--preset--spacing--50) 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+	gap: 1.25rem;
+}
+.tb-hoods-card {
+	border: 1px solid var(--wp--preset--color--sand);
+	border-radius: 10px;
+	padding: 1.5rem;
+	background: var(--wp--preset--color--base);
+}
+.tb-hoods-card a {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+.tb-hoods-card--live {
+	border-color: var(--wp--preset--color--ink);
+}
+.tb-hoods-card--live:hover {
+	box-shadow: 0 10px 28px rgba(70, 93, 124, 0.16);
+}
+.tb-hoods-card__tag {
+	display: inline-block;
+	margin-bottom: 0.6rem;
+	padding: 0.3rem 0.7rem;
+	border-radius: 999px;
+	background: var(--wp--preset--color--charcoal);
+	color: #D99F3A;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+.tb-hoods-card__name {
+	display: block;
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: 1.5rem;
+	color: var(--wp--preset--color--ink);
+}
+.tb-hoods-card__copy {
+	display: block;
+	margin-top: 0.35rem;
+	color: var(--wp--preset--color--muted);
+	font-size: 0.9375rem;
+}
+.tb-hoods-card__go {
+	display: inline-block;
+	margin-top: 0.9rem;
+	font-weight: 600;
+	font-size: 0.875rem;
+	color: var(--wp--preset--color--ink);
+}
+.tb-hoods-card--soon {
+	background: var(--wp--preset--color--alabaster);
+	border-style: dashed;
+}
+.tb-hoods-card--soon .tb-hoods-card__name {
+	color: var(--wp--preset--color--muted);
+}
+
 /* Contact form */
 .tb-contact-form-section {
 	/* .tb-page-shell sizes itself as min(100% - 2 * gutter, 1200px), so it
