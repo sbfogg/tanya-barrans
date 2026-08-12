@@ -2,6 +2,8 @@
 /*
 !/.gitignore
 !/README.md
+!/AGENTS.md
+!/IMAGE_SPECS.md
 !/db-backups/
 !/wp-content/
 /wp-content/*
