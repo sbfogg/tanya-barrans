@@ -1289,7 +1289,7 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 .tb-stamp-initial {
 	fill: var(--wp--preset--color--base);
 	font-family: var(--wp--preset--font-family--serif);
-	font-size: 74px;
+	font-size: 62px;
 	font-weight: 600;
 }
 .tb-stamp-est {

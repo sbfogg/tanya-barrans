@@ -53,8 +53,8 @@
 				 */
 				?>
 				<defs>
-					<path id="tb-stamp-arc-top" d="M100,100 m-66,0 a66,66 0 1,1 132,0" />
-					<path id="tb-stamp-arc-bottom" d="M100,100 m-77,0 a77,77 0 1,0 154,0" />
+					<path id="tb-stamp-arc-top" d="M100,100 m-70,0 a70,70 0 1,1 140,0" />
+					<path id="tb-stamp-arc-bottom" d="M100,100 m-80,0 a80,80 0 1,0 160,0" />
 				</defs>
 				<circle class="tb-stamp-rim" cx="100" cy="100" r="98" />
 				<circle class="tb-stamp-body" cx="100" cy="100" r="91" />
@@ -72,12 +72,12 @@
 				 * leaves the pair sitting high once the heart is added.
 				 */
 				?>
-				<text class="tb-stamp-initial" x="100" y="114" text-anchor="middle">R</text>
-				<text class="tb-stamp-est" x="56" y="93" text-anchor="middle">EST.</text>
-				<text class="tb-stamp-est" x="144" y="93" text-anchor="middle">1901</text>
-				<rect class="tb-stamp-rule" x="46" y="99" width="20" height="2" />
-				<rect class="tb-stamp-rule" x="134" y="99" width="20" height="2" />
-				<path class="tb-stamp-heart" d="M100 137c-5-4.6-9-7.6-9-11.6a4.6 4.6 0 0 1 9-1.9 4.6 4.6 0 0 1 9 1.9c0 4-4 7-9 11.6z" />
+				<text class="tb-stamp-initial" x="100" y="111" text-anchor="middle">R</text>
+				<text class="tb-stamp-est" x="56" y="95" text-anchor="middle">EST.</text>
+				<text class="tb-stamp-est" x="144" y="95" text-anchor="middle">1901</text>
+				<rect class="tb-stamp-rule" x="46" y="101" width="20" height="2" />
+				<rect class="tb-stamp-rule" x="134" y="101" width="20" height="2" />
+				<path class="tb-stamp-heart" d="M100 131c-5-4.6-9-7.6-9-11.6a4.6 4.6 0 0 1 9-1.9 4.6 4.6 0 0 1 9 1.9c0 4-4 7-9 11.6z" />
 			</svg>
 			<h1 id="renton-title" class="tb-renton-title">Real places. Local stories. A deeper connection to Renton.</h1>
 			<p class="tb-renton-dek">The people, places and everyday details that make this city feel like home — written by someone who actually lives here.</p>
