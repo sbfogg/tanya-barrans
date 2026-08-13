@@ -138,6 +138,82 @@ function tanya_newsletter_subscribe( WP_REST_Request $request ) {
 }
 
 /**
+ * Send WordPress email through authenticated SMTP.
+ *
+ * Left alone, PHP hands mail to the web server, which sends it from a shared
+ * hosting IP that is not listed in tanyabarrans.com's SPF record and cannot
+ * sign it with DKIM. Google Workspace receives that domain's mail, so it sees
+ * a message claiming to come from the same domain it is delivering to,
+ * arriving from an unknown server — the shape of a phishing attempt. It gets
+ * quarantined or dropped.
+ *
+ * The casualties are password resets and the contact form's fallback. Both
+ * fail silently, which is the worst way to fail: someone requests a reset,
+ * is told to check their email, and nothing ever arrives.
+ *
+ * Authenticating as a real mailbox fixes it, because the message is then sent
+ * and signed by the domain's actual mail provider.
+ *
+ * Credentials live in wp-config.php, never in this repository. While they are
+ * absent every hook here returns untouched and WordPress behaves exactly as
+ * it does today, so this is safe to ship before the mailbox exists.
+ */
+function tanya_smtp_configured() {
+	foreach ( array( 'TANYA_SMTP_HOST', 'TANYA_SMTP_USER', 'TANYA_SMTP_PASS' ) as $constant ) {
+		if ( ! defined( $constant ) || ! constant( $constant ) ) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function tanya_mail_from_name() {
+	if ( defined( 'TANYA_SMTP_FROM_NAME' ) && TANYA_SMTP_FROM_NAME ) {
+		return TANYA_SMTP_FROM_NAME;
+	}
+	return get_bloginfo( 'name' );
+}
+
+// Gmail refuses a From address that is not the authenticated mailbox or one of
+// its verified aliases, so the sender must match the account we log in as.
+add_filter( 'wp_mail_from', function ( $email ) {
+	return tanya_smtp_configured() ? TANYA_SMTP_USER : $email;
+} );
+
+add_filter( 'wp_mail_from_name', function ( $name ) {
+	return tanya_smtp_configured() ? tanya_mail_from_name() : $name;
+} );
+
+add_action( 'phpmailer_init', function ( $mailer ) {
+	if ( ! tanya_smtp_configured() ) {
+		return;
+	}
+
+	$port = defined( 'TANYA_SMTP_PORT' ) ? (int) TANYA_SMTP_PORT : 587;
+
+	$mailer->isSMTP();
+	$mailer->Host       = TANYA_SMTP_HOST;
+	$mailer->Port       = $port;
+	$mailer->SMTPAuth   = true;
+	$mailer->Username   = TANYA_SMTP_USER;
+	$mailer->Password   = TANYA_SMTP_PASS;
+	// 465 is implicit TLS; 587 upgrades with STARTTLS. Both are encrypted.
+	$mailer->SMTPSecure = ( 465 === $port ) ? 'ssl' : 'tls';
+} );
+
+/**
+ * Record delivery failures.
+ *
+ * The whole problem this addresses is mail failing without anyone noticing,
+ * so a failure that leaves no trace would simply recreate it in a new place.
+ */
+add_action( 'wp_mail_failed', function ( $error ) {
+	if ( is_wp_error( $error ) ) {
+		error_log( 'Website email failed to send: ' . $error->get_error_message() );
+	}
+} );
+
+/**
  * Contact form — server-side handling.
  *
  * The browser POSTs here; this endpoint validates, then files the lead in
