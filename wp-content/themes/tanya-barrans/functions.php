@@ -310,10 +310,52 @@ function tanya_contact_submit( WP_REST_Request $request ) {
  * and WordPress defaults to 'production' when nothing is set, so the tag
  * switches itself on when the site is deployed without further changes.
  */
+/**
+ * Should analytics run on this request?
+ *
+ * WordPress reports 'production' whenever WP_ENVIRONMENT_TYPE is unset, which
+ * is the right default for a live site — analytics work on a new host with no
+ * configuration at all. The same default is the trap: a staging or development
+ * copy that nobody configured also calls itself production, and quietly files
+ * test traffic alongside real visitors. That is close to impossible to spot
+ * later, because the numbers simply look higher than they should.
+ *
+ * An explicit WP_ENVIRONMENT_TYPE is therefore trusted completely — hosts that
+ * set it properly, including WP Engine, need no help. The hostname is only
+ * consulted when nothing was set, purely to catch the forgotten-staging case.
+ */
+function tanya_should_load_analytics() {
+	// An explicit setting is authoritative; never second-guess it.
+	if ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE ) {
+		return 'production' === wp_get_environment_type();
+	}
+
+	if ( 'production' !== wp_get_environment_type() ) {
+		return false;
+	}
+
+	// Nothing was configured, so fall back to what the hostname suggests.
+	$host = isset( $_SERVER['HTTP_HOST'] )
+		? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) )
+		: '';
+
+	if ( '' === $host ) {
+		return true;
+	}
+
+	foreach ( array( 'localhost', '.local', '.test', 'staging.', 'stage.', 'dev.' ) as $marker ) {
+		if ( false !== strpos( $host, $marker ) ) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 add_action( 'wp_head', function () {
 	$measurement_id = apply_filters( 'tanya_ga4_measurement_id', 'G-K9H4JX6HTY' );
 
-	if ( ! $measurement_id || 'production' !== wp_get_environment_type() ) {
+	if ( ! $measurement_id || ! tanya_should_load_analytics() ) {
 		return;
 	}
 	?>
