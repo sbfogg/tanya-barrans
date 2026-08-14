@@ -1,6 +1,6 @@
 # Launch Readiness — Baseline Go-Live
 
-**Status as of 2026-08-11.** Verified against the running site, the repository at commit `612321e`, and the Tanya-approved Notion sources.
+**Status as of 2026-08-13.** Verified against the deployed staging site, the repository, and the Tanya-approved Notion sources.
 
 This is the minimum required to put the site in front of the public without embarrassment or legal exposure. It is deliberately *not* the full vision. Anything that can safely grow after launch is listed at the bottom rather than treated as a blocker.
 
@@ -18,17 +18,42 @@ Each item says who has to move next. Nothing here is waiting on a decision that 
 
 ---
 
+## 0. Deployment status — the site is now hosted
+
+**The site is deployed and running on Hostinger staging:**
+`https://salmon-otter-516624.hostingersite.com`
+
+Nothing is public. `tanyabarrans.com` still forwards to John L Scott, and no visitor can reach the staging address unless given the URL.
+
+| Piece | State |
+|---|---|
+| Hosting | Hostinger Business (Unlimited), US Massachusetts, paid through 2030-08-13 |
+| WordPress | Installed; theme, uploads and database imported |
+| Theme active | Tanya Barrans Real Estate 0.3.4 |
+| Pages verified | All 9 public pages + `wp-login.php` return 200, no PHP warnings |
+| Desktop / mobile | Passes at 1440 px and 390 px |
+| Contact form → Follow Up Boss | **Verified working from production** |
+| SSH / WP-CLI | Enabled and working |
+
+### Two deployment facts that must not be forgotten
+
+**1. `siteurl` and `home` currently point at the staging URL.** They were changed in the database so staging could be tested. **At go-live both must be set back to `https://tanyabarrans.com`.** Nothing in `wp-config.php` overrides them — it is a single database change.
+
+**2. Images on `/about/` and `/contact/` are broken on staging only.** Four images are referenced by absolute `tanyabarrans.com` URLs. The files exist and are correct; they resolve the moment DNS switches. Not a defect, do not "fix" them.
+
+---
+
 ## 1. Legal and trust — hard blockers
 
 These carry real risk. The site should not go live without them.
 
-### 1.1 Privacy policy — **TANYA**
+### 1.1 Privacy policy — **written and published; TANYA to read**
 
-The footer link was removed because `/privacy-policy/` returned a 404. The page exists in the database but is still unedited WordPress boilerplate: it contains "Suggested text:" tutorial markers and lists the local development address as the site address.
+Replaced with real copy on 12 August 2026 and verified live on staging: ~5,600 characters across nine sections — who runs the site, what is collected and when, who it is shared with, retention, choices, security, children, changes, and contact. No WordPress boilerplate or "Suggested text:" markers remain, and the footer link is restored.
 
-**Needed:** approved privacy policy copy. A real policy is expected once the site collects anything — the newsletter signup, and any contact form, both qualify.
+It describes what the site *actually* does: the Follow Up Boss contact form, the Flodesk newsletter, and GA4.
 
-**Then:** publish the page and restore the footer link (a one-line change).
+**Still needed from Tanya:** a read-through and confirmation it matches how she handles client data. It is accurate about the website, but only she can confirm the business practices around it. **Not a hard blocker any more** — a real, accurate policy is published.
 
 ### 1.2 Brokerage and legal disclosures — **SEAN**, verify
 
@@ -59,7 +84,19 @@ The contact form is live on the Contact page and files submissions into **Follow
 
 Verified against the live account: a test lead was created through the real API, arrived assigned to Tanya and correctly tagged, and was then deleted. Direct email, phone, and the scheduling link remain on the page for anyone who prefers them.
 
-**Still to do at launch:** submit the form once on the deployed site and confirm it lands in Follow Up Boss. The integration is proven against the API but has never run from production.
+**Verified from production on 2026-08-13.** A live submission from the deployed staging site was accepted by Follow Up Boss — the endpoint returned success and the error log recorded neither a rejection nor a fallback. This item is closed.
+
+**One security follow-up — SEAN:** the Follow Up Boss API key was pasted into a working transcript during deployment. It is admin-level on a CRM holding real client records. **Generate a replacement in Follow Up Boss and revoke the old one before launch.**
+
+#### SMTP — built, not yet configured — **TANYA**, then **SEAN**
+
+SMTP support is now built into the theme. It activates only when `TANYA_SMTP_HOST`, `TANYA_SMTP_USER` and `TANYA_SMTP_PASS` are all defined, and failures are written to the error log.
+
+**It is not configured on production.** The constants are present but commented out, because the Gmail app password does not exist yet. Creating one requires **2-Step Verification on Tanya's Google account** — that is the blocker and it sits with Tanya.
+
+**Consequence until then:** `wp_mail()` falls back to plain PHP mail, which Google is likely to filter silently. **WordPress password resets will not arrive.** Anyone locked out of `/wp-admin` needs a database-level reset. Worth doing before launch rather than discovering it later.
+
+The analysis below explains why unauthenticated mail from a web server fails, and it is still accurate.
 
 #### The email fallback is weaker than it looks — **SEAN**, decide
 
@@ -73,9 +110,13 @@ So in practice Follow Up Boss is not the primary path with a backup; it is close
 
 **The fix, when convenient:** route `wp_mail()` through an authenticated SMTP service. A free tier from Postmark, SendGrid, or Google Workspace SMTP is enough at this volume. **Not a launch blocker** — it only matters in the minutes when Follow Up Boss is down — but until it is done, a CRM outage means a lost enquiry.
 
-### 2.2 Newsletter — **SEAN**, verify
+### 2.2 Newsletter — **SEAN**, key needs re-entering on production
 
-The Flodesk integration is built and the API key is configured locally. Needs one real end-to-end test submission, and confirmation the key is present in the production environment at launch.
+The Flodesk integration is built and the key works locally. **On production the key is malformed** — a newline was introduced while pasting a 232-character value into `nano`, which is valid PHP and passes `php -l` but corrupts the key.
+
+**Effect:** newsletter signups fail silently but *gracefully* — the integration block is skipped, nothing errors, and no visitor sees a failure. Not a launch blocker, but the signup form does nothing until fixed.
+
+**Fix:** re-enter the key as a single unbroken line — edit locally and upload, or use `nano -w`. Then submit one real test and confirm it reaches Flodesk.
 
 ### 2.3 Homebot — **SEAN**, verify
 
@@ -85,9 +126,11 @@ Both hubs embed the correct live Homebot experiences (buyer `hmbt.co/YgFMRD`, se
 
 ## 3. Content — no public path may lead somewhere empty
 
-### 3.1 Navigation — done
+### 3.1 Navigation — done, one addition pending structure
 
-Trimmed from eleven items to six: Home, Buy, Sell, Blog, About Tanya, Contact. Every remaining item leads to real content. Neighborhoods, Love Your Home, Rooted in Renton, and Resources remain published and reachable by URL so work can continue; they are simply withheld from public navigation until each is useful.
+Trimmed from eleven items to six: Home, Buy, Sell, Blog, About Tanya, Contact. Every remaining item leads to real content.
+
+**Neighborhoods has since been added back** and is live in the deployed navigation, per Tanya's direction that Renton should sit nested beneath it as a dropdown. **The dropdown structure itself is not built yet** — Neighborhoods currently resolves to a single page. Building that hierarchy is outstanding (see 3.3). Neighborhoods, Love Your Home, Rooted in Renton, and Resources remain published and reachable by URL so work can continue; they are simply withheld from public navigation until each is useful.
 
 ### 3.2 Remaining CTAs that point at empty pages — **SEAN**, pending direction
 
@@ -110,10 +153,12 @@ The blueprint states plainly: **"Do not launch this section empty."** It sets th
 
 The Master Content Calendar currently holds **one** Rooted item — "LAUNCH 3 — Rooted in Renton Starts Here," a Reel, status *Not started*, waiting on Tanya, originally due 5 August.
 
-Two brand assets are also missing, and neither can be invented:
+**Both previously-missing brand assets are now resolved:**
 
-- **The circular Rooted badge.** The Brand Bible's "Assets Still to Finalize" checklist has *Primary logo suite* unchecked.
-- **The exact mustard value.** The approved Love Where You Live palette contains no mustard at all — the Rooted section is specified as navy-and-mustard, but that colour exists only inside an approved reference image, not as a recorded hex code.
+- **The circular Rooted badge** has been built in the theme, redrawn from the approved reference in the Notion blueprint — navy disc, gold rings, "ROOTED IN / RENTON" on arced text paths, serif R, EST. 1901, gold heart, cream rim. It is live in `patterns/renton-hub.php`.
+- **The mustard value is `#D99F3A`**, supplied by Tanya on 2026-08-13.
+
+What remains outstanding here is **content**, not artwork.
 
 **This is not a launch blocker** provided Rooted stays out of public navigation, which it now is. It becomes one the moment any public CTA points at it.
 
@@ -131,17 +176,34 @@ Usable but not aligned with the approved About blueprint. Needs a real portrait 
 
 ## 4. Technical and measurement
 
-### 4.1 Analytics — **TANYA**, then **SEAN**
+### 4.1 Analytics — **installed, verify after go-live**
 
-Not installed. No tracking code of any kind is present. Needs a decision on provider (GA4 or a privacy-friendly alternative such as Plausible) and on the consent approach, since that interacts with the privacy policy above.
+GA4 is installed with Tanya's measurement ID **`G-K9H4JX6HTY`**, in theme code — no plugin.
+
+It deliberately stays off anywhere that looks like a test site: it requires `wp_get_environment_type()` to report `production`, then additionally refuses to fire on hostnames containing `localhost`, `.local`, `.test`, `staging.`, `stage.` or `dev.`. **Seeing nothing in GA4 on the staging URL is correct behaviour, not a fault.**
+
+**At go-live:** load a page on `tanyabarrans.com`, then check **GA4 → Realtime**. The visit should appear within about 30 seconds. That is the first moment analytics is expected to work.
 
 ### 4.2 Search Console — **TANYA**, then **SEAN**
 
 No verification tag present. Needs the property to be created on the real domain, which means it follows domain selection.
 
-### 4.3 Domain and hosting — **decided, pending purchase**
+### 4.3 Domain and hosting — **decided and purchased: Hostinger**
 
-**Hosting recommendation: WP Engine.** The reasoning is specific to this build rather than general reviews.
+> **This section's original recommendation (WP Engine) was superseded on 2026-08-13.** Hostinger Business was purchased and the site is deployed. The reasoning below is kept because it still explains what was traded away.
+>
+> **Why the decision changed:** the WP Engine case rested on one-click LocalWP deploys and a staging environment that reports itself as staging. Weighed against roughly $150/yr more on a site that is essentially a low-traffic blog, maintained by one developer who fixes his own bugs, that convenience did not justify the cost. The analytics concern turned out to be a non-issue: WordPress defaults `wp_get_environment_type()` to `production`, and the theme's own hostname check keeps GA4 off on `.hostingersite.com` addresses regardless.
+>
+> **What was accepted in exchange:** every deploy is the manual export-upload-import sequence in `deploy/DEPLOY.md`, and there is no push-button staging. Both proved workable — see the deployment notes below.
+
+**Lessons from the actual deployment**, worth knowing before the next one:
+
+- **Hostinger's CDN caches aggressively and independently of the origin.** After the database import the site served the old fresh-install pages for over an hour. Nothing on the server fixed it — not `wp cache flush`, not deleting cache directories, not the object-cache drop-in. The fix is **hPanel → Performance → CDN → Flush cache**. Expect to need this after any large content change.
+- **The hPanel file editor does not load reliably.** It returned an empty stub every time. Use SSH.
+- **`wp-config.php` is not in git**, so API keys never travel with a deployment and must be added by hand on the server each time.
+- **Do not paste long API keys into `nano` without `-w`.** It inserts a real newline mid-string, which is valid PHP and passes `php -l`, but silently corrupts the key.
+
+The original WP Engine reasoning follows.
 
 WordPress.com is only viable on the **Business** plan, around $300/yr. Every tier below it forbids uploading a custom theme, and this site is a custom theme, so those plans cannot run it at all.
 
@@ -160,9 +222,9 @@ One requirement for any host: the theme makes outbound API calls to Follow Up Bo
 
 The domain is **`tanyabarrans.com`**, registered at GoDaddy with DNS managed there. It currently 301-forwards to `tanyab.johnlscott.com`. That forward is Tanya's own setting — John L Scott has no relationship with the domain, so switching it off needs no approval from the brokerage and is not a blocker.
 
-Tanya does not pay for GoDaddy hosting, only the domain renewal, so there was nowhere to deploy. **The decision is WP Engine**, pending purchase of the plan. That also supplies the WP Engine ID that LocalWP needs, which resolves the Live Link error seen on 12 August.
+Tanya does not pay for GoDaddy hosting, only the domain renewal. **Hostinger Business was purchased on 2026-08-13** and the site is deployed to its staging address.
 
-Sequence: buy the plan, create an install, push from LocalWP, verify on the temporary WP Engine address, then point GoDaddy DNS at WP Engine and disable the forward. Going live is that last step and nothing before it is public.
+Remaining sequence: finish the items below, set `siteurl`/`home` back to `https://tanyabarrans.com`, add `tanyabarrans.com` to the Hostinger site, point GoDaddy DNS at Hostinger, and **turn off Domain Forwarding** — that last switch is what makes the site public. Nothing before it is visible to anyone.
 
 No redirect map is needed. Nothing currently lives on `tanyabarrans.com` to preserve — it has only ever forwarded.
 
@@ -212,7 +274,7 @@ Run against the real domain once the above is settled:
 - [ ] Both Homebot flows complete on desktop and mobile
 - [ ] Contact and newsletter submissions arrive at the correct destination
 - [ ] No console errors or PHP warnings
-- [ ] Focus states, labels, heading order, alt text, colour contrast, reduced motion
+- [x] Focus states, labels, heading order, alt text, colour contrast, reduced motion — **accessibility pass completed 2026-08-13.** A WCAG 2.1 AA review found only two real defects, both fixed: eyebrow text failing contrast on light backgrounds, and footer links failing contrast against navy. A visible `:focus-visible` outline was added across all interactive elements. Re-run on the real domain to confirm nothing regressed.
 - [ ] No horizontal overflow *(currently 3 px on mobile from the newsletter input — minor, outstanding)*
 - [ ] Brokerage disclosure, contact details, and legal links present
 - [ ] No placeholder copy anywhere
@@ -227,13 +289,17 @@ Deliberately excluded from the baseline so they do not delay it: Rooted in Rento
 
 ## The short version for Tanya
 
-Six decisions unblock nearly everything:
+**As of 2026-08-13 the site is built, hosted, and running on a private staging address.** Hosting is paid for. The contact form files real leads into Follow Up Boss, verified from the live server. Analytics, the privacy policy, and the accessibility pass are all done.
 
-1. **Privacy policy copy** — hard legal blocker.
-2. **Where contact form submissions should go** — the site cannot capture leads without it.
-3. **The stats and testimonial** — approve, correct, or remove.
-4. **The public Google reviews URL.**
-5. **Analytics provider and the production domain.**
-6. **Rooted in Renton** — confirm it is deliberately a post-launch section, so the homepage links pointing at it can be withheld for now.
+Four of the original six decisions are now closed: privacy policy (written), lead destination (Follow Up Boss, working), analytics and domain (GA4 on `tanyabarrans.com`), and Rooted in Renton (confirmed post-launch, staying out of navigation).
 
-Items 1 and 2 are the only true hard blockers. Everything else either has a safe interim state already in place, or can grow after launch.
+**What still needs Tanya:**
+
+1. **Real client testimonials.** The homepage quote is still placeholder text and cannot ship. Two or three from her Google reviews is enough.
+2. **The credibility stats** — "10+ years", "100%", "5★". Approve as accurate, correct, or remove.
+3. **The public Google reviews URL**, so the link can read "Read Tanya's Google reviews".
+4. **2-Step Verification on her Google account**, so a Gmail app password can be created. Without it, website password resets never arrive.
+
+**What still needs Sean:** re-enter the Flodesk key on production, rotate the Follow Up Boss key, build the Neighborhoods → Renton structure, withhold the four CTAs pointing at thin pages, and run final QA on the real domain.
+
+**Going live is one switch** — point the domain at Hostinger and turn off the GoDaddy forward. Nothing before that moment is visible to anyone.
