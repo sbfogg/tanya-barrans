@@ -908,3 +908,162 @@ add_filter( 'robots_txt', function ( $output, $public ) {
 
 	return $rules;
 }, 9999, 2 );
+
+/**
+ * Record changes to settings, plugins, and the active theme.
+ *
+ * WordPress keeps revisions for content — pages, posts, templates, menus —
+ * so anything edited in the admin already has a history with an author and a
+ * timestamp against it. Options have none. `wp_options` is overwritten in
+ * place, so a changed site address, a newly activated plugin, or a flipped
+ * indexing setting leaves no trace whatsoever.
+ *
+ * That gap is not theoretical. During deployment `active_plugins` changed
+ * twice in a single day and analytics silently reported a staging copy as
+ * production; both were found days later, by accident, and neither could be
+ * dated afterwards because nothing recorded them.
+ *
+ * Only options that can actually break something are watched, so the log
+ * stays short enough that reading it is realistic.
+ *
+ * Entries go to the PHP error log, which sits outside the web root and is
+ * therefore not publicly readable — unlike anything written under uploads.
+ * Read them with:
+ *
+ *     grep tanya-audit ~/.logs/error_log_*
+ *
+ * @return string[]
+ */
+function tanya_audited_options() {
+	return apply_filters(
+		'tanya_audited_options',
+		array(
+			// Break these and the site moves, disappears from search, or dies.
+			'siteurl',
+			'home',
+			'blog_public',
+			'permalink_structure',
+			'template',
+			'stylesheet',
+			'active_plugins',
+
+			// Quieter, but each one has caused a real support question.
+			'blogname',
+			'blogdescription',
+			'admin_email',
+			'show_on_front',
+			'page_on_front',
+			'page_for_posts',
+			'users_can_register',
+			'default_role',
+			'timezone_string',
+		)
+	);
+}
+
+/**
+ * Render a value short enough to sit on one log line.
+ *
+ * Serialised arrays such as active_plugins are unreadable raw, and a long
+ * value would push the useful part of the line out of view.
+ *
+ * @param mixed $value Value to render.
+ * @return string
+ */
+function tanya_audit_value( $value ) {
+	if ( is_array( $value ) || is_object( $value ) ) {
+		$value = wp_json_encode( $value );
+	}
+
+	$value = trim( (string) $value );
+
+	if ( '' === $value ) {
+		return '(empty)';
+	}
+
+	return strlen( $value ) > 140 ? substr( $value, 0, 137 ) . '...' : $value;
+}
+
+/**
+ * Write one audit line.
+ *
+ * The user matters as much as the change: "who moved the site address" is the
+ * question being asked, and WordPress cannot answer it after the fact.
+ *
+ * @param string $what   Short description of what happened.
+ * @param string $detail Optional before/after or identifier.
+ */
+function tanya_audit_log( $what, $detail = '' ) {
+	$user = function_exists( 'wp_get_current_user' ) ? wp_get_current_user() : null;
+	$who  = ( $user && $user->exists() ) ? $user->user_login : 'system/cron';
+
+	error_log( sprintf( '[tanya-audit] %s | %s%s', $who, $what, '' !== $detail ? ' | ' . $detail : '' ) );
+}
+
+add_action(
+	'updated_option',
+	function ( $option, $old_value, $value ) {
+		if ( ! in_array( $option, tanya_audited_options(), true ) ) {
+			return;
+		}
+
+		// WordPress fires this on autosave-style rewrites where nothing moved.
+		if ( $old_value === $value ) {
+			return;
+		}
+
+		tanya_audit_log(
+			"option changed: {$option}",
+			tanya_audit_value( $old_value ) . '  ->  ' . tanya_audit_value( $value )
+		);
+	},
+	10,
+	3
+);
+
+add_action(
+	'added_option',
+	function ( $option, $value ) {
+		if ( ! in_array( $option, tanya_audited_options(), true ) ) {
+			return;
+		}
+
+		tanya_audit_log( "option added: {$option}", tanya_audit_value( $value ) );
+	},
+	10,
+	2
+);
+
+add_action(
+	'deleted_option',
+	function ( $option ) {
+		if ( ! in_array( $option, tanya_audited_options(), true ) ) {
+			return;
+		}
+
+		tanya_audit_log( "option deleted: {$option}" );
+	}
+);
+
+// Plugin and theme changes are the ones most likely to be made by someone
+// following an AI's suggestion, and the ones least likely to be remembered.
+add_action(
+	'activated_plugin',
+	function ( $plugin ) {
+		tanya_audit_log( 'plugin ACTIVATED', $plugin );
+	}
+);
+
+add_action(
+	'deactivated_plugin',
+	function ( $plugin ) {
+		tanya_audit_log( 'plugin deactivated', $plugin );
+	}
+);
+
+add_action(
+	'switch_theme',
+	function ( $new_name ) {
+		tanya_audit_log( 'THEME SWITCHED', $new_name );
+	}
+);
