@@ -387,7 +387,10 @@ function tanya_contact_submit( WP_REST_Request $request ) {
  * switches itself on when the site is deployed without further changes.
  */
 /**
- * Should analytics run on this request?
+ * Is this the real, public site rather than a copy of it?
+ *
+ * Analytics and robots.txt both hang off this answer: the live site should
+ * report traffic and invite crawlers, and every copy of it should do neither.
  *
  * WordPress reports 'production' whenever WP_ENVIRONMENT_TYPE is unset, which
  * is the right default for a live site — analytics work on a new host with no
@@ -400,7 +403,7 @@ function tanya_contact_submit( WP_REST_Request $request ) {
  * set it properly, including WP Engine, need no help. The hostname is only
  * consulted when nothing was set, purely to catch the forgotten-staging case.
  */
-function tanya_should_load_analytics() {
+function tanya_is_public_site() {
 	// An explicit setting is authoritative; never second-guess it.
 	if ( defined( 'WP_ENVIRONMENT_TYPE' ) && WP_ENVIRONMENT_TYPE ) {
 		return 'production' === wp_get_environment_type();
@@ -419,7 +422,25 @@ function tanya_should_load_analytics() {
 		return true;
 	}
 
-	foreach ( array( 'localhost', '.local', '.test', 'staging.', 'stage.', 'dev.' ) as $marker ) {
+	// Host-provided preview domains belong here as much as ".local" does. The
+	// original list missed them, so the Hostinger staging copy called itself
+	// production and filed test traffic into the real analytics property for
+	// several days before anyone noticed — exactly the failure the comment
+	// above warns about.
+	$markers = array(
+		'localhost',
+		'.local',
+		'.test',
+		'staging.',
+		'stage.',
+		'dev.',
+		'.hostingersite.com',
+		'.wpengine.com',
+		'.instawp.xyz',
+		'.temp.domains',
+	);
+
+	foreach ( $markers as $marker ) {
 		if ( false !== strpos( $host, $marker ) ) {
 			return false;
 		}
@@ -431,7 +452,7 @@ function tanya_should_load_analytics() {
 add_action( 'wp_head', function () {
 	$measurement_id = apply_filters( 'tanya_ga4_measurement_id', 'G-K9H4JX6HTY' );
 
-	if ( ! $measurement_id || ! tanya_should_load_analytics() ) {
+	if ( ! $measurement_id || ! tanya_is_public_site() ) {
 		return;
 	}
 	?>
@@ -850,3 +871,40 @@ add_filter( 'wp_robots', function ( $robots ) {
 
 	return $robots;
 } );
+
+/**
+ * Take control of robots.txt.
+ *
+ * The staging copy was serving a robots.txt that disallowed Googlebot from
+ * the entire site. No such file exists in the web root, so it is injected
+ * further up the stack -- which means it would have been carried onto the
+ * real domain with nobody able to find the file responsible. A site nobody
+ * can crawl is invisible, and the failure is completely silent.
+ *
+ * Filtering it here settles the question in code that lives in the repo.
+ * Priority is deliberately late so this wins over whatever the host adds.
+ *
+ * Copies of the site are closed to everyone rather than only to Google:
+ * duplicate content on a preview domain competes with the real site.
+ */
+add_filter( 'robots_txt', function ( $output, $public ) {
+	// A site explicitly marked private in Settings keeps WordPress's answer.
+	if ( ! $public ) {
+		return $output;
+	}
+
+	if ( ! tanya_is_public_site() ) {
+		return "User-agent: *\nDisallow: /\n";
+	}
+
+	$rules = "User-agent: *\n";
+	$rules .= "Disallow: /wp-admin/\n";
+	$rules .= "Allow: /wp-admin/admin-ajax.php\n";
+
+	// Nothing here is secret, but neither belongs in search results.
+	$rules .= "Disallow: /wp-json/\n";
+	$rules .= "Disallow: /author/\n";
+	$rules .= "\nSitemap: " . esc_url_raw( home_url( '/wp-sitemap.xml' ) ) . "\n";
+
+	return $rules;
+}, 9999, 2 );
