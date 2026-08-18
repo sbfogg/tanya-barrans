@@ -176,13 +176,45 @@ Usable but not aligned with the approved About blueprint. Needs a real portrait 
 
 ## 4. Technical and measurement
 
-### 4.1 Analytics — **installed, verify after go-live**
+### 4.1 Analytics — **installed, one incident to clean up**
 
 GA4 is installed with Tanya's measurement ID **`G-K9H4JX6HTY`**, in theme code — no plugin.
 
-It deliberately stays off anywhere that looks like a test site: it requires `wp_get_environment_type()` to report `production`, then additionally refuses to fire on hostnames containing `localhost`, `.local`, `.test`, `staging.`, `stage.` or `dev.`. **Seeing nothing in GA4 on the staging URL is correct behaviour, not a fault.**
+It stays off anywhere that is not the real public site, via `tanya_is_public_site()`: it requires `wp_get_environment_type()` to report `production`, then refuses to fire on hostnames containing `localhost`, `.local`, `.test`, `staging.`, `stage.`, `dev.`, `.hostingersite.com`, `.wpengine.com`, `.instawp.xyz` or `.temp.domains`.
+
+> **⚠ It did not do this between 13 and 18 August 2026.** The marker list was written before a host had been chosen and never included `.hostingersite.com`, so the staging site reported itself as production. Every page load during deployment and testing — automated checks and manual browsing — was recorded in Tanya's live GA4 property.
+>
+> **Cleanup — SEAN:** in GA4, either add a filter excluding the hostname `salmon-otter-516624.hostingersite.com`, or treat 13–18 August as invalid. The property had no real traffic yet so the damage is contained, but any pre-launch baseline drawn from those dates is wrong.
+>
+> Fixed in the same commit that took ownership of `robots.txt`. Verified: zero `gtag` tags across the staging site afterwards.
 
 **At go-live:** load a page on `tanyabarrans.com`, then check **GA4 → Realtime**. The visit should appear within about 30 seconds. That is the first moment analytics is expected to work.
+
+### 4.1a robots.txt — **SEAN**, verify on launch day
+
+**This is the single item most capable of making the launch pointless, and it cannot be settled before DNS switches.**
+
+The staging site serves a `robots.txt` that disallows Googlebot from the entire site:
+
+```
+User-agent: Googlebot
+Disallow: /
+```
+
+There is **no `robots.txt` file in the web root** — Hostinger's CDN intercepts the path and injects this before the request reaches WordPress. Proven by comparing two URLs: `/?robots=1` (WordPress's own handler) returns the theme's rules, while `/robots.txt` returns Hostinger's. A doubled `Content-Type` header on the latter confirms the injection.
+
+This is preview-domain protection and *should* stop applying on a real custom domain. That is an expectation, not a verified fact.
+
+The theme now owns `robots.txt` through the `robots_txt` filter at priority 9999, so WordPress produces the right answer as soon as a request actually reaches it — closed to all crawlers on any copy of the site, and proper rules plus the sitemap on production.
+
+**The launch-day test**, immediately after DNS switches:
+
+```bash
+curl -s https://tanyabarrans.com/robots.txt
+curl -s "https://tanyabarrans.com/?robots=1"
+```
+
+**Identical output means WordPress is in control and the site is crawlable.** If they differ, the CDN is still intercepting — that is a support ticket with Hostinger, and until it is resolved the site will not be indexed by Google at all.
 
 ### 4.2 Search Console — **TANYA**, then **SEAN**
 
@@ -232,9 +264,17 @@ No redirect map is needed. Nothing currently lives on `tanyabarrans.com` to pres
 
 The Journal index had no canonical URL; it now has one, and paged views point at themselves. Buy, Sell, About, and Contact have intent-specific titles and unique descriptions. One H1 per page across all changed surfaces.
 
-### 4.5 Structured data — **SEAN**, after content
+### 4.5 Structured data and social sharing — **done**
 
-Add only where visible content substantiates it. Not appropriate until the claims above are verified.
+An SEO audit on 18 August found both missing from the theme entirely. Both are now live and verified on staging.
+
+**Structured data.** A `RealEstateAgent` node carrying Tanya's name, phone, email, logo, both social profiles, `memberOf` John L Scott, and the four areas served — linked to `WebSite`, and to `BlogPosting` on single posts, through a shared `@id` graph so Google reads one entity rather than several unrelated ones. Validated by parsing the emitted JSON.
+
+Two deliberate omissions, on the same principle as everywhere else in this document: **no rating or review markup**, which must come from a verified source rather than being hand-written, and **no postal address**, because none is published on the site and a fabricated one is actively harmful in local results.
+
+**Open Graph and Twitter cards.** Previously every share to Facebook, Instagram, or Messages rendered as a bare grey link. Now 8 Open Graph and 4 Twitter tags per page, `summary_large_image`, with articles using their own featured image and everything else falling back to the Love Where You Live hero.
+
+**Also fixed in the same pass:** four meta descriptions ran past Google's truncation point and two pages (the Renton hub and Neighborhoods) shared an identical 23-character fallback — all nine pages now carry unique descriptions of 104–124 characters. The About and Contact pages each had two `H1`s; the duplicates are demoted to `H2` with no visual change, since both already carried an explicit font-size class. The author archive, a contentless duplicate of the Journal index, is now `noindex` and dropped from the sitemap.
 
 ---
 
