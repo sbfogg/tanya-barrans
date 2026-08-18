@@ -461,21 +461,33 @@ add_action( 'wp_head', function () {
  */
 function tanya_page_seo_overrides() {
 	return array(
-		'buy'     => array(
+		'buy'            => array(
 			'title'       => 'Buying a Home in Renton and the Puget Sound',
-			'description' => 'Plan your home purchase with Tanya Barrans: how the process works step by step, what to expect along the way, and a low-pressure way to explore your buying power before you talk to anyone.',
+			'description' => 'How buying a home works step by step, and a low-pressure way to explore your buying power before you talk to anyone.',
 		),
-		'sell'    => array(
+		'sell'           => array(
 			'title'       => 'Selling Your Home in Renton and the Puget Sound',
-			'description' => 'Thinking about selling? See how Tanya Barrans prepares, prices, and markets a home, and get a starting value range for yours before you commit to anything.',
+			'description' => 'How Tanya Barrans prepares, prices, and markets a home, plus a starting value range for yours before you commit to anything.',
 		),
-		'about'   => array(
+		'about'          => array(
 			'title'       => 'About Tanya',
-			'description' => 'Meet Tanya Barrans, a Renton-area broker with John L Scott who builds her business on relationships, local knowledge, and honest guidance for buyers and sellers.',
+			'description' => 'Meet Tanya Barrans, a Renton-area broker with John L Scott who works on relationships, local knowledge, and honest guidance.',
 		),
-		'contact' => array(
+		'contact'        => array(
 			'title'       => 'Contact Tanya',
-			'description' => 'Get in touch with Tanya Barrans by email or phone, or schedule a no-pressure conversation about buying, selling, or getting to know the Renton area.',
+			'description' => 'Reach Tanya Barrans by email or phone, or schedule a no-pressure conversation about buying, selling, or the Renton area.',
+		),
+		'renton'         => array(
+			'title'       => 'Rooted in Renton',
+			'description' => 'Local stories, neighborhood guides, and the places that make Renton worth living in, from broker Tanya Barrans.',
+		),
+		'neighborhoods'  => array(
+			'title'       => 'Neighborhoods',
+			'description' => 'Explore the neighborhoods around Renton and the Puget Sound to work out where you actually want to live.',
+		),
+		'privacy-policy' => array(
+			'title'       => 'Privacy Policy',
+			'description' => 'What this website collects, why it is collected, and how it is used, including the contact form and newsletter signup.',
 		),
 	);
 }
@@ -572,9 +584,9 @@ function tanya_meta_description() {
 	if ( $override ) {
 		$description = $override['description'];
 	} elseif ( is_front_page() ) {
-		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, Maple Valley, and nearby communities with honest advice and local expertise.';
+		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, and Maple Valley.';
 	} elseif ( is_home() ) {
-		$description = 'Explore the Love Where You Live Journal for practical home guidance, Renton neighborhood stories, local recommendations, and honest real estate advice from Tanya Barrans.';
+		$description = 'Practical home guidance, Renton neighborhood stories, and local recommendations from the Love Where You Live Journal.';
 	} elseif ( is_singular() ) {
 		$post = get_queried_object();
 		if ( $post instanceof WP_Post ) {
@@ -822,3 +834,19 @@ add_action( 'wp_head', function () {
 		. wp_json_encode( $payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
 		. '</script>' . "\n";
 }, 3 );
+
+// The author archive at /author/tanyabarrans/ lists the same posts as the
+// Journal index with no unique content of its own, so it competes with the
+// page we actually want ranked. Drop it from the submitted sitemap and mark
+// it noindex; a one-author site has no use for it.
+add_filter( 'wp_sitemaps_add_provider', function ( $provider, $name ) {
+	return 'users' === $name ? false : $provider;
+}, 10, 2 );
+
+add_filter( 'wp_robots', function ( $robots ) {
+	if ( is_author() ) {
+		$robots['noindex'] = true;
+	}
+
+	return $robots;
+} );
