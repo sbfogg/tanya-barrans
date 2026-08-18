@@ -1,6 +1,6 @@
 # Launch Readiness — Baseline Go-Live
 
-**Status as of 2026-08-13.** Verified against the deployed staging site, the repository, and the Tanya-approved Notion sources.
+**Status as of 2026-08-18.** Verified against the deployed staging site, the repository, and the Tanya-approved Notion sources.
 
 This is the minimum required to put the site in front of the public without embarrassment or legal exposure. It is deliberately *not* the full vision. Anything that can safely grow after launch is listed at the bottom rather than treated as a blocker.
 
@@ -59,20 +59,20 @@ It describes what the site *actually* does: the Follow Up Boss contact form, the
 
 The footer already carries "Brokered by John L Scott Real Estate. Each office is independently owned and operated," plus a real email and phone number. Needs a final read-through against brokerage requirements before launch.
 
-### 1.3 No placeholder or unverifiable claims — **TANYA**
+### 1.3 No placeholder or unverifiable claims — **resolved**
 
-Two items on the site are not yet substantiated:
+Both items are done, verified on the live staging site 2026-08-18:
 
-- The homepage testimonial is explicitly labelled placeholder text in the code and needs a real, approved client quote.
-- The credibility band shows "10+ years", "100%", and "5★". These are unverified. Either approve them as accurate, replace them with figures that are, or remove the band.
+- **Real testimonials are published.** Named Google reviews from Bernice Manriquez, Margo Hooper and Christian Herzberger replace the placeholder quote.
+- **The unverified credibility band is gone.** "10+ years", "100%" and "5★" no longer appear anywhere on the homepage.
 
-The Brand Bible is explicit on this point: do not invent brand facts, client results, or statistics.
+The Brand Bible principle held: nothing was invented to fill the gap, and the band was removed rather than guessed at.
 
-### 1.4 Google reviews link — **TANYA**
+**One placeholder remains**, and it is not a claim — it is instructional text about photography that was written into the Buy and Sell layouts and published by accident: one sentence on `/buy/`, two on `/sell/`, plus a "LIFESTYLE PHOTO PLACEHOLDER" label. Tanya is filling those sections as her photo library grows. Not a legal or trust issue, but it must not ship.
 
-The homepage link points at Google's *write-a-review* URL, so its label now reads "Worked with Tanya? Leave a Google review," which is honest but is a different CTA than intended.
+### 1.4 Google reviews link — **resolved**
 
-**Needed:** the public Google Business profile URL, so the link can read "Read Tanya's Google reviews" and go somewhere that shows them.
+The homepage now reads "Read Tanya's Google reviews" and links to `https://g.page/r/CTDpOcL-7SDkEAE`, which resolves to her Google Business Profile listing. Verified by following the redirect on 2026-08-18. Label and destination match.
 
 ---
 
@@ -346,19 +346,31 @@ Deliberately excluded from the baseline so they do not delay it: Rooted in Rento
 
 ---
 
-## The short version for Tanya
+## The short version — updated 2026-08-18
 
-**As of 2026-08-13 the site is built, hosted, and running on a private staging address.** Hosting is paid for. The contact form files real leads into Follow Up Boss, verified from the live server. Analytics, the privacy policy, and the accessibility pass are all done.
+**Every original hard blocker is cleared.** The privacy policy is written and published, the contact form files leads into Follow Up Boss and is verified from production, real named testimonials replace the placeholder, the unverified stats band is gone, the Google reviews link resolves correctly, analytics is installed, and hosting is bought and deployed.
 
-Four of the original six decisions are now closed: privacy policy (written), lead destination (Follow Up Boss, working), analytics and domain (GA4 on `tanyabarrans.com`), and Rooted in Renton (confirmed post-launch, staying out of navigation).
+Content has moved a long way too: **ten articles are published**, the Renton hub has real content, and Neighborhoods now carries Renton beneath it in the navigation. Structured data and social sharing tags are live across every page.
 
-**What still needs Tanya:**
+**Nothing on this list is urgent, because nothing is public.** These are all "before DNS switches", not "today".
 
-1. **Real client testimonials.** The homepage quote is still placeholder text and cannot ship. Two or three from her Google reviews is enough.
-2. **The credibility stats** — "10+ years", "100%", "5★". Approve as accurate, correct, or remove.
-3. **The public Google reviews URL**, so the link can read "Read Tanya's Google reviews".
-4. **2-Step Verification on her Google account**, so a Gmail app password can be created. Without it, website password resets never arrive.
+### Tanya
 
-**What still needs Sean:** re-enter the Flodesk key on production, rotate the Follow Up Boss key, build the Neighborhoods → Renton structure, withhold the four CTAs pointing at thin pages, and run final QA on the real domain.
+1. **Flodesk or Hostinger Reach** for the newsletter — running both splits the subscriber list in two.
+2. **2-Step Verification** on her Google account, so an app password exists and password resets can send.
+3. **Finish the Buy and Sell photo sections**, which clears the last placeholder text.
+
+### Sean
+
+4. **Re-enter the Flodesk key** on production — it is malformed, so signups go nowhere.
+5. **Rotate the Follow Up Boss key** — it passed through a working transcript.
+6. **Decide the four thin pages** — `/love-your-home/`, `/resources/`, `/listings/` and `/neighborhoods/` are indexable with almost no content. Finish them or set them noindex.
+7. **Launch day:** revert `siteurl`/`home` to `tanyabarrans.com`, verify `robots.txt` is not still CDN-injected, exclude the staging hostname from GA4.
 
 **Going live is one switch** — point the domain at Hostinger and turn off the GoDaddy forward. Nothing before that moment is visible to anyone.
+
+### A note on this document
+
+It drifted badly between 13 and 18 August, because the site kept changing while the document sat still. Testimonials and the stats band were listed as hard launch blockers for days after Tanya had already fixed them, which is worse than useless — it sends people to redo finished work.
+
+**Re-verify against the live site before acting on any section.** See `WORKFLOW.md` for why the site changes without the developer touching it.
