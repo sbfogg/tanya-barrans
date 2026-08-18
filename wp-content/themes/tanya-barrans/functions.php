@@ -500,31 +500,11 @@ function tanya_current_page_seo_override() {
 	return isset( $overrides[ $post->post_name ] ) ? $overrides[ $post->post_name ] : null;
 }
 
-// Basic SEO: output a meta description per page. Prefers a curated override,
-// then the page/post excerpt, and falls back to a sensible site-wide default.
+// Basic SEO: output a meta description per page. The description itself is
+// built by tanya_meta_description() so the social tags and structured data
+// below describe a page the same way its meta description does.
 add_action( 'wp_head', function () {
-	$description = '';
-	$override    = tanya_current_page_seo_override();
-
-	if ( $override ) {
-		$description = $override['description'];
-	} elseif ( is_front_page() ) {
-		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, Maple Valley, and nearby communities with honest advice and local expertise.';
-	} elseif ( is_home() ) {
-		$description = 'Explore the Love Where You Live Journal for practical home guidance, Renton neighborhood stories, local recommendations, and honest real estate advice from Tanya Barrans.';
-	} elseif ( is_singular() ) {
-		$post = get_queried_object();
-		if ( $post instanceof WP_Post ) {
-			$excerpt = has_excerpt( $post ) ? $post->post_excerpt : wp_strip_all_tags( $post->post_content );
-			$description = wp_trim_words( $excerpt, 30, '…' );
-		}
-	} elseif ( is_category() || is_tag() || is_archive() ) {
-		$description = trim( wp_strip_all_tags( term_description() ) );
-	}
-
-	if ( empty( $description ) ) {
-		$description = get_bloginfo( 'description' );
-	}
+	$description = tanya_meta_description();
 
 	if ( ! empty( $description ) ) {
 		echo '<meta name="description" content="' . esc_attr( $description ) . '" />' . "\n";
@@ -574,3 +554,271 @@ add_filter( 'document_title_parts', function ( $title ) {
 
 	return $title;
 } );
+
+/**
+ * The description used for this page, in one place.
+ *
+ * Prefers a curated override, then the page or post excerpt, and falls back
+ * to the site tagline. The meta description tag, the Open Graph tags, and the
+ * structured data all read from here so a page never describes itself three
+ * different ways.
+ *
+ * @return string
+ */
+function tanya_meta_description() {
+	$description = '';
+	$override    = tanya_current_page_seo_override();
+
+	if ( $override ) {
+		$description = $override['description'];
+	} elseif ( is_front_page() ) {
+		$description = 'Tanya Barrans is a Puget Sound real estate broker with John L Scott, serving Renton, Kent, Covington, Maple Valley, and nearby communities with honest advice and local expertise.';
+	} elseif ( is_home() ) {
+		$description = 'Explore the Love Where You Live Journal for practical home guidance, Renton neighborhood stories, local recommendations, and honest real estate advice from Tanya Barrans.';
+	} elseif ( is_singular() ) {
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post ) {
+			$excerpt     = has_excerpt( $post ) ? $post->post_excerpt : wp_strip_all_tags( $post->post_content );
+			$description = wp_trim_words( $excerpt, 30, '…' );
+		}
+	} elseif ( is_category() || is_tag() || is_archive() ) {
+		$description = trim( wp_strip_all_tags( term_description() ) );
+	}
+
+	if ( empty( $description ) ) {
+		$description = get_bloginfo( 'description' );
+	}
+
+	return $description;
+}
+
+/**
+ * Business facts shared by the social tags and the structured data.
+ *
+ * Every value here is already published on the site — the footer disclosure,
+ * the contact page, or the site description. Nothing asserts a credential,
+ * an award, a transaction volume, or a rating, because structured data that
+ * claims more than the page shows is worse than none at all. Review and
+ * rating markup is deliberately absent: it must come from a verified source
+ * rather than being hand-written.
+ *
+ * @return array<string, mixed>
+ */
+function tanya_business_facts() {
+	return apply_filters(
+		'tanya_business_facts',
+		array(
+			'name'      => 'Tanya Barrans',
+			'brokerage' => 'John L Scott Real Estate',
+			'telephone' => '+1-425-537-4728',
+			'email'     => 'tanya@tanyabarrans.com',
+			'areas'     => array( 'Renton', 'Kent', 'Covington', 'Maple Valley' ),
+			'profiles'  => array(
+				'https://www.facebook.com/tanyabarrans',
+				'https://www.instagram.com/tanyabarrans/',
+			),
+		)
+	);
+}
+
+/**
+ * Image used for link previews.
+ *
+ * Prefers the post's own featured image so a shared article carries its own
+ * artwork, and falls back to the Love Where You Live hero so a share never
+ * renders as a bare grey link.
+ *
+ * @return string
+ */
+function tanya_social_image_url() {
+	if ( is_singular() ) {
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post && has_post_thumbnail( $post ) ) {
+			$image = get_the_post_thumbnail_url( $post, 'full' );
+			if ( $image ) {
+				return $image;
+			}
+		}
+	}
+
+	return get_theme_file_uri( 'assets/images/lwyl-hero.jpg' );
+}
+
+/**
+ * Absolute URL of whatever is currently being rendered.
+ *
+ * Used for og:url and for the structured data identifiers, both of which need
+ * the real address of this page rather than the site root.
+ *
+ * @return string
+ */
+function tanya_current_url() {
+	if ( is_front_page() ) {
+		return home_url( '/' );
+	}
+
+	if ( is_home() ) {
+		$posts_page_id = (int) get_option( 'page_for_posts' );
+
+		return $posts_page_id ? get_permalink( $posts_page_id ) : home_url( '/' );
+	}
+
+	if ( is_singular() ) {
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post ) {
+			return get_permalink( $post );
+		}
+	}
+
+	global $wp;
+
+	return isset( $wp->request ) && $wp->request
+		? home_url( user_trailingslashit( $wp->request ) )
+		: home_url( '/' );
+}
+
+// Open Graph and Twitter card tags. Without these, every share of an article
+// to Facebook, Instagram, or Messages renders as a bare grey link with no
+// image, which matters for a brand built on shareable local content.
+add_action( 'wp_head', function () {
+	$description = tanya_meta_description();
+	$image       = tanya_social_image_url();
+	$is_article  = is_singular( 'post' );
+
+	$tags = array(
+		'og:type'      => $is_article ? 'article' : 'website',
+		'og:site_name' => get_bloginfo( 'name' ),
+		'og:title'     => wp_get_document_title(),
+		'og:url'       => tanya_current_url(),
+		'og:locale'    => get_locale(),
+	);
+
+	if ( $description ) {
+		$tags['og:description'] = $description;
+	}
+
+	if ( $image ) {
+		$tags['og:image']     = $image;
+		$tags['og:image:alt'] = $is_article
+			? get_the_title( get_queried_object_id() )
+			: 'Tanya Barrans, Puget Sound real estate';
+	}
+
+	if ( $is_article ) {
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post ) {
+			$tags['article:published_time'] = get_the_date( 'c', $post );
+			$tags['article:modified_time']  = get_the_modified_date( 'c', $post );
+		}
+	}
+
+	foreach ( $tags as $property => $content ) {
+		echo '<meta property="' . esc_attr( $property ) . '" content="' . esc_attr( $content ) . '" />' . "\n";
+	}
+
+	// summary_large_image is what turns a share into a full-width photo card
+	// rather than a thumbnail beside a line of text.
+	$twitter = array(
+		'twitter:card'  => 'summary_large_image',
+		'twitter:title' => wp_get_document_title(),
+	);
+
+	if ( $description ) {
+		$twitter['twitter:description'] = $description;
+	}
+
+	if ( $image ) {
+		$twitter['twitter:image'] = $image;
+	}
+
+	foreach ( $twitter as $name => $content ) {
+		echo '<meta name="' . esc_attr( $name ) . '" content="' . esc_attr( $content ) . '" />' . "\n";
+	}
+}, 2 );
+
+// Structured data. This is the main organic-search lever for a local agent:
+// it is what lets Google connect the site to a named person, a phone number,
+// and a service area for searches like "real estate agent Renton".
+add_action( 'wp_head', function () {
+	$facts    = tanya_business_facts();
+	$home     = home_url( '/' );
+	$agent_id = $home . '#agent';
+
+	$areas = array();
+	foreach ( $facts['areas'] as $area ) {
+		$areas[] = array(
+			'@type' => 'Place',
+			'name'  => $area,
+		);
+	}
+
+	// No postal address is published anywhere on the site. Inventing one would
+	// be both false and actively harmful in local search results, so the agent
+	// is described by the area it serves instead.
+	$agent = array(
+		'@type'      => 'RealEstateAgent',
+		'@id'        => $agent_id,
+		'name'       => $facts['name'],
+		'url'        => $home,
+		'image'      => get_theme_file_uri( 'assets/images/lwyl-hero.jpg' ),
+		'logo'       => get_theme_file_uri( 'assets/images/logo-tb-black.png' ),
+		'telephone'  => $facts['telephone'],
+		'email'      => $facts['email'],
+		'areaServed' => $areas,
+		'memberOf'   => array(
+			'@type' => 'Organization',
+			'name'  => $facts['brokerage'],
+		),
+		'sameAs'     => $facts['profiles'],
+	);
+
+	$graph = array(
+		$agent,
+		array(
+			'@type'      => 'WebSite',
+			'@id'        => $home . '#website',
+			'url'        => $home,
+			'name'       => get_bloginfo( 'name' ),
+			'publisher'  => array( '@id' => $agent_id ),
+			'inLanguage' => get_bloginfo( 'language' ),
+		),
+	);
+
+	if ( is_singular( 'post' ) ) {
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post ) {
+			$permalink = get_permalink( $post );
+			$article   = array(
+				'@type'            => 'BlogPosting',
+				'@id'              => $permalink . '#article',
+				'headline'         => get_the_title( $post ),
+				'datePublished'    => get_the_date( 'c', $post ),
+				'dateModified'     => get_the_modified_date( 'c', $post ),
+				'mainEntityOfPage' => array( '@id' => $permalink ),
+				'author'           => array( '@id' => $agent_id ),
+				'publisher'        => array( '@id' => $agent_id ),
+			);
+
+			$description = tanya_meta_description();
+			if ( $description ) {
+				$article['description'] = $description;
+			}
+
+			$image = tanya_social_image_url();
+			if ( $image ) {
+				$article['image'] = $image;
+			}
+
+			$graph[] = $article;
+		}
+	}
+
+	$payload = array(
+		'@context' => 'https://schema.org',
+		'@graph'   => $graph,
+	);
+
+	echo '<script type="application/ld+json">'
+		. wp_json_encode( $payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
+		. '</script>' . "\n";
+}, 3 );
