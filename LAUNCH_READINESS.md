@@ -244,7 +244,14 @@ Of the rest, WP Engine costs roughly $150/yr more than GoDaddy or Hostinger and 
 - **LocalWP pushes to it in one click** — files, database and URL rewriting together. Everywhere else, each deploy is the manual export-upload-import-replace sequence in `deploy/DEPLOY.md`. Against 5–10 hours a week, that difference compounds.
 - **Staging is included and reports itself as staging.** Google Analytics only fires when the environment reports `production`, so on a generic host a staging copy would look like production and put test traffic into Tanya's real reports.
 
-This site is unusually light — 8 MB of files, a 232 KB database, and **zero plugins**, since the contact form, newsletter, analytics and SEO are all theme code. Much of what managed hosting charges for is plugin maintenance we will never need, so raw performance tiers are not the deciding factor. Workflow is.
+This site is unusually light — 8 MB of files and a 232 KB database — and **nothing user-facing is powered by a plugin**: the contact form, newsletter, analytics and SEO are all theme code. Much of what managed hosting charges for is plugin maintenance we largely do not need, so raw performance tiers are not the deciding factor. Workflow is.
+
+> **Correction, 2026-08-18.** This section previously claimed "zero plugins" outright, and that was repeated in the client-facing summary. It is not literally true and has not been for some time. Plugin state has changed twice in a single day without the developer acting:
+>
+> - `wpforms-lite` was active this morning — a leftover from an early contact form attempt, rendering nothing — and has since been deactivated by someone else.
+> - **`hostinger-reach` is now active** and enqueues a stylesheet and script on *every* page for a subscription block that is not used anywhere. See 4.6.
+>
+> The architectural point stands: no plugin powers anything a visitor uses. The absolute claim does not. Check `active_plugins` before repeating it.
 
 GoDaddy would work, but its cheap price is a first-term promotion that typically doubles on renewal, narrowing the gap while keeping the manual deploy. Having the domain there is not a reason — domain and hosting are independent, and pointing GoDaddy DNS at WP Engine takes minutes. If budget is the deciding factor, Hostinger is the better cheap option.
 
@@ -277,6 +284,18 @@ Two deliberate omissions, on the same principle as everywhere else in this docum
 **Also fixed in the same pass:** four meta descriptions ran past Google's truncation point and two pages (the Renton hub and Neighborhoods) shared an identical 23-character fallback — all nine pages now carry unique descriptions of 104–124 characters. The About and Contact pages each had two `H1`s; the duplicates are demoted to `H2` with no visual change, since both already carried an explicit font-size class. The author archive, a contentless duplicate of the Journal index, is now `noindex` and dropped from the sitemap.
 
 ---
+
+### 4.6 Hostinger Reach overlaps Flodesk — **TANYA** to decide
+
+The `hostinger-reach` plugin is active and loads a stylesheet and script on every page of the site, for a subscription block that is not placed anywhere. Dead weight on every request.
+
+The larger question is not performance. **The site now has two email marketing systems.** The newsletter form visitors actually use posts to `tanya/v1/subscribe` and files subscribers into **Flodesk**, which is the approved tool and holds the existing list. Hostinger Reach is a second, parallel system that came with the hosting plan.
+
+Running both means subscribers end up split across two lists with no single view of the audience — the kind of problem that is cheap to avoid now and expensive to reconcile later.
+
+**Needed:** a decision from Tanya on which one is the newsletter platform. If it stays Flodesk, deactivate the plugin. If Reach replaces Flodesk, that is a larger change to the theme's newsletter endpoint and should be scoped separately, not slipped in before launch.
+
+Not a launch blocker either way. It is a launch *decision*.
 
 ## 5. Open conflicts to resolve
 
