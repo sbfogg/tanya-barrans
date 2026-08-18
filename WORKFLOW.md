@@ -130,6 +130,56 @@ Two pages, one heading each, three string replacements per page, anchored on `wp
 
 ---
 
+## Finding out what changed, and who changed it
+
+Three layers, three histories. Between them almost nothing is invisible any more.
+
+### Content — native WordPress revisions
+
+Pages, posts, **templates** and menus all keep revisions, with an author and a timestamp against each one. History goes back to 2026-07-06.
+
+In the admin: open the page or template and use the Revisions panel for a visual diff.
+
+From the database, which is faster when you do not yet know *what* changed:
+
+```sql
+SELECT r.post_date, u.display_name AS who, parent.post_type, parent.post_name,
+       LENGTH(r.post_content) AS len
+FROM wp_posts r
+JOIN wp_posts parent ON parent.ID = r.post_parent
+LEFT JOIN wp_users u ON u.ID = r.post_author
+WHERE r.post_type = 'revision'
+ORDER BY r.post_date DESC
+LIMIT 20;
+```
+
+This is what identified who introduced the placeholder text on the Buy layout, and when, after grepping the repository for it had turned up nothing — because it never lived in the repository at all.
+
+### Settings, plugins and theme — the audit log
+
+WordPress keeps no history for `wp_options`; it overwrites in place. `functions.php` fills that gap for the sixteen options that can actually break something, plus plugin activation, deactivation and theme switches.
+
+```bash
+grep tanya-audit ~/.logs/error_log_*
+```
+
+Each line carries the user, what changed, and before → after:
+
+```
+[tanya-audit] tanya | option changed: siteurl | https://staging...  ->  https://tanyabarrans.com
+[tanya-audit] tanya | plugin ACTIVATED | hostinger-reach/hostinger-reach.php
+```
+
+Add an option to `tanya_audited_options()` to watch it, or hook the `tanya_audited_options` filter. Resist watching everything: transients and cron writes would bury the entries that matter within a day.
+
+**Its one blind spot: direct SQL.** An `UPDATE wp_options` bypasses `updated_option` and records nothing — which is a further reason to keep database edits rare, narrow, and mentioned to whoever else is working.
+
+### Code — git
+
+`git log`, as normal, for everything the repository still owns.
+
+---
+
 ## Starting a session
 
 The site changes between sessions without the developer touching it. **Nothing from a previous session is a verified fact.**
