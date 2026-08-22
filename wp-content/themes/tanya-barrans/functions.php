@@ -611,8 +611,19 @@ function tanya_meta_description() {
 	} elseif ( is_singular() ) {
 		$post = get_queried_object();
 		if ( $post instanceof WP_Post ) {
-			$excerpt     = has_excerpt( $post ) ? $post->post_excerpt : wp_strip_all_tags( $post->post_content );
-			$description = wp_trim_words( $excerpt, 30, '…' );
+			$raw = has_excerpt( $post ) ? $post->post_excerpt : $post->post_content;
+			$raw = strip_shortcodes( $raw );
+
+			/*
+			 * Replace every tag and block comment with a space before stripping.
+			 * wp_strip_all_tags() removes them without leaving anything behind,
+			 * so text either side of a block boundary welds together: a listing
+			 * page described itself as "Featured Listing441 S 51st CourtRenton,
+			 * WA$515,00". Block themes hit this on every page.
+			 */
+			$raw = preg_replace( '/<[^>]*>/', ' ', $raw );
+
+			$description = html_entity_decode( wp_strip_all_tags( $raw ), ENT_QUOTES, 'UTF-8' );
 		}
 	} elseif ( is_category() || is_tag() || is_archive() ) {
 		$description = trim( wp_strip_all_tags( term_description() ) );
@@ -622,7 +633,7 @@ function tanya_meta_description() {
 		$description = get_bloginfo( 'description' );
 	}
 
-	return $description;
+	return tanya_trim_description( $description );
 }
 
 /**
@@ -1066,4 +1077,136 @@ add_action(
 	function ( $new_name ) {
 		tanya_audit_log( 'THEME SWITCHED', $new_name );
 	}
+);
+
+/**
+ * Keep a description inside the length a search engine will actually show.
+ *
+ * The fallback used wp_trim_words(), which counts words rather than
+ * characters. Pages whose opening lines carry long tokens — a street address,
+ * a run of place names — produced descriptions approaching 300 characters.
+ * Google shows roughly 160, so the tail was wasted and the part worth reading
+ * was pushed out of view. Trimming on a word boundary keeps it readable.
+ *
+ * @param string $description Raw description.
+ * @param int    $limit       Maximum characters before the ellipsis.
+ * @return string
+ */
+function tanya_trim_description( $description, $limit = 155 ) {
+	$description = trim( preg_replace( '/\s+/', ' ', (string) $description ) );
+
+	$length = function_exists( 'mb_strlen' ) ? mb_strlen( $description ) : strlen( $description );
+
+	if ( '' === $description || $length <= $limit ) {
+		return $description;
+	}
+
+	$cut = function_exists( 'mb_substr' ) ? mb_substr( $description, 0, $limit ) : substr( $description, 0, $limit );
+	$gap = strrpos( $cut, ' ' );
+
+	// Only honour the word boundary if it still leaves a usable sentence.
+	if ( false !== $gap && $gap > 60 ) {
+		$cut = function_exists( 'mb_substr' ) ? mb_substr( $cut, 0, $gap ) : substr( $cut, 0, $gap );
+	}
+
+	return rtrim( $cut, " ,.;:-" ) . '…';
+}
+
+/**
+ * Pages that exist but are not ready to be found.
+ *
+ * Three different problems, one answer:
+ *
+ * - The area pages (Kent, Covington, Maple Valley, Newcastle) are honest
+ *   stubs. Each says "the full guide is still being written" and invites a
+ *   suggestion. That is a fine holding page for someone who follows a link,
+ *   and poor material for a search result: four near-identical pages whose
+ *   only difference is the place name reads as thin content, and it is the
+ *   local searches these pages will eventually win that get devalued.
+ * - Living in Renton and Resources are empty. Everything they render is
+ *   header and footer.
+ * - The listing template is an internal working copy, titled "LISTING
+ *   TEMPLATE - Duplicate Me", which should never have been public at all.
+ *
+ * They stay published and reachable so work can continue and links keep
+ * working. They are simply withheld from search until each is worth finding.
+ * Remove a slug from this list the moment its page has real content.
+ *
+ * @return string[]
+ */
+function tanya_unfinished_pages() {
+	return apply_filters(
+		'tanya_unfinished_pages',
+		array(
+			'kent',
+			'covington',
+			'maple-valley',
+			'newcastle',
+			'living-in-renton',
+			'resources',
+			'listing-template-duplicate-me',
+		)
+	);
+}
+
+/**
+ * Resolve the unfinished slugs to post IDs.
+ *
+ * @return int[]
+ */
+function tanya_unfinished_page_ids() {
+	static $ids = null;
+
+	if ( null !== $ids ) {
+		return $ids;
+	}
+
+	$ids = array();
+
+	foreach ( tanya_unfinished_pages() as $slug ) {
+		$page = get_page_by_path( $slug );
+		if ( $page instanceof WP_Post ) {
+			$ids[] = (int) $page->ID;
+		}
+	}
+
+	return $ids;
+}
+
+// Tell search engines to skip them.
+add_filter(
+	'wp_robots',
+	function ( $robots ) {
+		$slugs = tanya_unfinished_pages();
+
+		if ( ! empty( $slugs ) && is_page( $slugs ) ) {
+			$robots['noindex'] = true;
+		}
+
+		return $robots;
+	}
+);
+
+// And keep them out of the sitemap, which would otherwise invite the crawl
+// that the tag above is trying to prevent.
+add_filter(
+	'wp_sitemaps_posts_query_args',
+	function ( $args, $post_type ) {
+		if ( 'page' !== $post_type ) {
+			return $args;
+		}
+
+		$ids = tanya_unfinished_page_ids();
+
+		if ( empty( $ids ) ) {
+			return $args;
+		}
+
+		$existing            = isset( $args['post__not_in'] ) ? (array) $args['post__not_in'] : array();
+		$args['post__not_in'] = array_merge( $existing, $ids );
+
+		return $args;
+	},
+	10,
+	2
 );
