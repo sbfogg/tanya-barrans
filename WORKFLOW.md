@@ -11,6 +11,20 @@ Neither group can see what the other is doing until it appears on the site. This
 
 ---
 
+## Which site is the real one
+
+> **`violet-wren-104886.hostingersite.com`** — updated 2026-08-22.
+
+There are two WordPress installs on the hosting plan. `salmon-otter-516624.hostingersite.com` was the original and is **abandoned**: it is a stale copy, missing the area pages, property listings and sales portfolio that exist only on violet-wren.
+
+**Deploy to violet-wren.** A theme file uploaded to salmon-otter reaches nothing and appears to do nothing, which is a very easy afternoon to lose. Check the path in every `scp` before running it.
+
+Both are currently unreachable to search engines, but a second full copy of the site is a duplicate-content risk the moment either becomes public. Decide whether salmon-otter gets deleted before launch.
+
+The template-override list below was measured on salmon-otter and has **not** been re-checked against violet-wren. Run the query in that section before relying on it.
+
+---
+
 ## The rule
 
 **The database owns everything the team can see. This repository owns code they cannot.**
@@ -78,7 +92,7 @@ php -l wp-content/themes/tanya-barrans/functions.php
 
 ```bash
 scp -P 65002 wp-content/themes/tanya-barrans/functions.php \
-  u370548507@82.197.83.94:~/domains/salmon-otter-516624.hostingersite.com/public_html/wp-content/themes/tanya-barrans/functions.php
+  u370548507@82.197.83.94:~/domains/violet-wren-104886.hostingersite.com/public_html/wp-content/themes/tanya-barrans/functions.php
 ```
 
 Then load the site and confirm it returns 200.
@@ -95,7 +109,7 @@ Say something in the group chat first. Not because it corrupts anything — diff
 
 ```bash
 ssh -p 65002 u370548507@82.197.83.94 \
-  "cd ~/domains/salmon-otter-516624.hostingersite.com/public_html && wp db export -" \
+  "cd ~/domains/violet-wren-104886.hostingersite.com/public_html && wp db export -" \
   > "db-backups/staging-$(date +%Y-%m-%d-%H%M).sql"
 ```
 

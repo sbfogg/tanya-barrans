@@ -21,7 +21,7 @@ Each item says who has to move next. Nothing here is waiting on a decision that 
 ## 0. Deployment status — the site is now hosted
 
 **The site is deployed and running on Hostinger staging:**
-`https://salmon-otter-516624.hostingersite.com`
+`https://violet-wren-104886.hostingersite.com`
 
 Nothing is public. `tanyabarrans.com` still forwards to John L Scott, and no visitor can reach the staging address unless given the URL.
 
@@ -184,7 +184,7 @@ It stays off anywhere that is not the real public site, via `tanya_is_public_sit
 
 > **⚠ It did not do this between 13 and 18 August 2026.** The marker list was written before a host had been chosen and never included `.hostingersite.com`, so the staging site reported itself as production. Every page load during deployment and testing — automated checks and manual browsing — was recorded in Tanya's live GA4 property.
 >
-> **Cleanup — SEAN:** in GA4, either add a filter excluding the hostname `salmon-otter-516624.hostingersite.com`, or treat 13–18 August as invalid. The property had no real traffic yet so the damage is contained, but any pre-launch baseline drawn from those dates is wrong.
+> **Cleanup — SEAN:** in GA4, exclude **both** staging hostnames — `salmon-otter-516624.hostingersite.com`, which is where the 13–18 August pollution came from, and `violet-wren-104886.hostingersite.com`, the current one — or treat 13–18 August as invalid. The property had no real traffic yet so the damage is contained, but any pre-launch baseline drawn from those dates is wrong.
 >
 > Fixed in the same commit that took ownership of `robots.txt`. Verified: zero `gtag` tags across the staging site afterwards.
 
