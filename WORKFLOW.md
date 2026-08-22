@@ -45,18 +45,23 @@ That is not how the project started. Until 2026-08-14 the repo was authoritative
 
 When someone edits a template in **Appearance → Editor**, WordPress saves a `wp_template` row in the database that **permanently shadows the theme file**. The file stays in git, keeps looking authoritative, and never renders again.
 
-As of 2026-08-18, seven templates are overridden:
+Measured on **violet-wren, 2026-08-22**. Thirteen templates are overridden:
 
 ```
-front-page   home   archive   single   page-buy   page-sell   page-renton
+archive      front-page   home         page-buy      page-covington
+page-kent    page-maple-valley         page-neighborhoods
+page-newcastle            page-renton  page-renton-parks-outdoors
+page-sell    single
 ```
 
 **Editing those files in this repo does nothing.** Change them in Appearance → Editor instead.
 
+Six of them did not exist a week ago. The area pages, the Neighborhoods index and the parks page were all built in the Site Editor between 20 and 21 August, and `page-neighborhoods` moved out of the repo's control in the process — it used to be safe to edit here. **Assume this list grows, and re-run the query below rather than trusting it.**
+
 These are still served from the repo and safe to edit here:
 
 ```
-404.html   index.html   page.html   page-neighborhoods.html   page-no-title.html
+404.html   index.html   page.html   page-no-title.html
 ```
 
 To check whether that list has grown:

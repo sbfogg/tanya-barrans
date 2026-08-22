@@ -1,6 +1,6 @@
 # Launch Readiness — Baseline Go-Live
 
-**Status as of 2026-08-18.** Verified against the deployed staging site, the repository, and the Tanya-approved Notion sources.
+**Status as of 2026-08-22.** Verified against the live staging site, its database, the audit log, and the repository.
 
 This is the minimum required to put the site in front of the public without embarrassment or legal exposure. It is deliberately *not* the full vision. Anything that can safely grow after launch is listed at the bottom rather than treated as a blocker.
 
@@ -29,11 +29,17 @@ Nothing is public. `tanyabarrans.com` still forwards to John L Scott, and no vis
 |---|---|
 | Hosting | Hostinger Business (Unlimited), US Massachusetts, paid through 2030-08-13 |
 | WordPress | Installed; theme, uploads and database imported |
-| Theme active | Tanya Barrans Real Estate 0.3.4 |
-| Pages verified | All 9 public pages + `wp-login.php` return 200, no PHP warnings |
+| Theme active | Tanya Barrans Real Estate 0.3.4, current with the repository |
+| Published content | 23 pages, 10 posts |
+| Template overrides | 13 — see `WORKFLOW.md` |
+| Active plugins | 2 — `hostinger-reach`, `wp-reviews-plugin-for-google` |
+| Pages verified | Every public page returns 200, no PHP warnings |
 | Desktop / mobile | Passes at 1440 px and 390 px |
 | Contact form → Follow Up Boss | **Verified working from production** |
 | SSH / WP-CLI | Enabled and working |
+| Change history | Content revisions, plus the `tanya-audit` log for settings and plugins |
+
+**There are two installs on this plan.** `salmon-otter-516624.hostingersite.com` was the original and is being kept deliberately — Tanya describes it as a staging copy of staging. It is stale and **must not be deployed to**. Everything below refers to violet-wren.
 
 ### Two deployment facts that must not be forgotten
 
@@ -68,11 +74,17 @@ Both items are done, verified on the live staging site 2026-08-18:
 
 The Brand Bible principle held: nothing was invented to fill the gap, and the band was removed rather than guessed at.
 
-**One placeholder remains**, and it is not a claim — it is instructional text about photography that was written into the Buy and Sell layouts and published by accident: one sentence on `/buy/`, two on `/sell/`, plus a "LIFESTYLE PHOTO PLACEHOLDER" label. Tanya is filling those sections as her photo library grows. Not a legal or trust issue, but it must not ship.
+**One placeholder line remains on each of `/buy/` and `/sell/`** — down from three. It is not a claim; it is instructional text about photography that was written into those layouts and published by accident. Tanya is clearing it as her photo library grows. Not a legal or trust issue, but it must not ship.
 
 ### 1.4 Google reviews link — **resolved**
 
 The homepage now reads "Read Tanya's Google reviews" and links to `https://g.page/r/CTDpOcL-7SDkEAE`, which resolves to her Google Business Profile listing. Verified by following the redirect on 2026-08-18. Label and destination match.
+
+### 1.5 Property listings — **verified real, 2026-08-22**
+
+Three listings are published, plus a sales portfolio page. **Tanya has confirmed all are real and current.** That matters more than any SEO item here: published property detail that is stale, sold, or another brokerage's is a regulatory problem rather than a marketing one.
+
+**Standing rule:** whenever a listing closes or expires, the page comes down or is marked closed the same week. Worth agreeing who owns that before launch, because nothing on the site will prompt it.
 
 ---
 
@@ -126,26 +138,33 @@ Both hubs embed the correct live Homebot experiences (buyer `hmbt.co/YgFMRD`, se
 
 ## 3. Content — no public path may lead somewhere empty
 
-### 3.1 Navigation — done, one addition pending structure
+### 3.1 Navigation and area pages — **built**
 
-Trimmed from eleven items to six: Home, Buy, Sell, Blog, About Tanya, Contact. Every remaining item leads to real content.
+Navigation now reads: Home, Buy, Sell, Listings, Neighborhoods, Blog, About, Contact — with **Renton, Kent, Covington, Maple Valley and Newcastle nested beneath Neighborhoods**, which is exactly the hierarchy Tanya asked for. That item is closed.
 
-**Neighborhoods has since been added back** and is live in the deployed navigation, per Tanya's direction that Renton should sit nested beneath it as a dropdown. **The dropdown structure itself is not built yet** — Neighborhoods currently resolves to a single page. Building that hierarchy is outstanding (see 3.3). Neighborhoods, Love Your Home, Rooted in Renton, and Resources remain published and reachable by URL so work can continue; they are simply withheld from public navigation until each is useful.
+Tanya built this herself in the Site Editor between 20 and 21 August, along with `/renton-parks-outdoors/`, three property listing pages and a sales portfolio page. Six new template overrides came with it (see `WORKFLOW.md`).
 
-### 3.2 Remaining CTAs that point at empty pages — **SEAN**, pending direction
+### 3.2 Pages that exist but are not ready to be found — **handled in code, needs deploy**
 
-Four links in the theme still lead to near-empty destinations:
+Seven published pages have little or no content of their own:
 
-| Location | Points at | Content there |
+| Page | Rendered | State |
 |---|---|---|
-| Homepage hero, second button | `/rooted-in-renton/` | 127 characters |
-| Homepage "rooted teaser" section | `/rooted-in-renton/` | 127 characters |
-| Homepage pathways section | `/love-your-home/` | 163 characters |
-| Article template | `/rooted-in-renton/` | 127 characters |
+| `/kent/` `/covington/` `/maple-valley/` `/newcastle/` | ~1,600 chars each | Honest stubs: "the full guide is still being written" |
+| `/living-in-renton/` `/resources/` | ~580 chars | Empty — header and footer only |
+| `/listing-template-duplicate-me/` | 3,207 chars | Internal working template, titled "LISTING TEMPLATE — Duplicate Me" |
 
-The Journal's topic navigation also lists five categories, and three have no posts (Home Selling Tips, Local Life, Home & Garden).
+The four area stubs are a reasonable holding page for someone following a link, and poor material for a search result — four near-identical pages differing only by place name read as thin content, and it is the local searches they will eventually win that get devalued. The listing template should never have been public.
 
-**Recommendation:** withhold these until the destinations are real. Each is a small, reversible edit and a one-line restore later.
+All seven are now `noindex` and excluded from the sitemap in theme code, while staying published and reachable so work continues and links keep working. **Remove a slug from `tanya_unfinished_pages()` the moment its page has real content.**
+
+**Committed as `aa4ac41`; not yet uploaded to violet-wren.**
+
+### 3.2a Duplicate article — **resolved 2026-08-22**
+
+Two published posts carried the identical title, H1 and opening copy — *Moving to Renton, WA: A Practical Guide to Planning Your Move* — each declaring itself canonical, competing for the exact query Tanya most wants locally. Caused by the `wordpress-importer` plugin creating a second copy rather than replacing the first.
+
+Post 65 is now a draft; post 90160 remains published. `wordpress-importer` has been deactivated so it cannot recur. Two further drafts of the same article remain unpublished and harmless.
 
 ### 3.3 Rooted in Renton — **TEAM**, then **TANYA**
 
@@ -346,11 +365,9 @@ Deliberately excluded from the baseline so they do not delay it: Rooted in Rento
 
 ---
 
-## The short version — updated 2026-08-18
+## The short version — updated 2026-08-22
 
-**Every original hard blocker is cleared.** The privacy policy is written and published, the contact form files leads into Follow Up Boss and is verified from production, real named testimonials replace the placeholder, the unverified stats band is gone, the Google reviews link resolves correctly, analytics is installed, and hosting is bought and deployed.
-
-Content has moved a long way too: **ten articles are published**, the Renton hub has real content, and Neighborhoods now carries Renton beneath it in the navigation. Structured data and social sharing tags are live across every page.
+**Every original hard blocker is cleared**, and the site is substantially bigger than it was a week ago. Tanya has built the Neighborhoods hierarchy with five area pages beneath it, a Renton parks guide, three property listings and a sales portfolio — and published real Google reviews.
 
 **Nothing on this list is urgent, because nothing is public.** These are all "before DNS switches", not "today".
 
@@ -358,19 +375,25 @@ Content has moved a long way too: **ten articles are published**, the Renton hub
 
 1. **Flodesk or Hostinger Reach** for the newsletter — running both splits the subscriber list in two.
 2. **2-Step Verification** on her Google account, so an app password exists and password resets can send.
-3. **Finish the Buy and Sell photo sections**, which clears the last placeholder text.
+3. **The last placeholder line** on Buy and Sell.
 
 ### Sean
 
-4. **Re-enter the Flodesk key** on production — it is malformed, so signups go nowhere.
-5. **Rotate the Follow Up Boss key** — it passed through a working transcript.
-6. **Decide the four thin pages** — `/love-your-home/`, `/resources/`, `/listings/` and `/neighborhoods/` are indexable with almost no content. Finish them or set them noindex.
-7. **Launch day:** revert `siteurl`/`home` to `tanyabarrans.com`, verify `robots.txt` is not still CDN-injected, exclude the staging hostname from GA4.
+4. **Deploy `functions.php` to violet-wren** — carries the noindex rules for the seven unfinished pages and the description fixes (`aa4ac41`).
+5. **Re-enter the Flodesk key** — it is malformed, so signups go nowhere.
+6. **Rotate the Follow Up Boss key** — it passed through a working transcript.
+7. **Take the WordPress 7.1 update** before launch, not after.
 
-**Going live is one switch** — point the domain at Hostinger and turn off the GoDaddy forward. Nothing before that moment is visible to anyone.
+### Launch day
+
+Revert `siteurl`/`home` → add the domain → switch GoDaddy DNS and kill the forward → **verify `/robots.txt` matches `/?robots=1`** → SSL and full retest → GA4 Realtime, and exclude **both** staging hostnames → submit the sitemap.
+
+### A standing rule worth agreeing now
+
+**Property listings go stale.** When one closes, its page comes down or is marked closed that week. Nothing on the site will prompt anyone, and a live page for a sold home is a compliance problem rather than an SEO one.
 
 ### A note on this document
 
-It drifted badly between 13 and 18 August, because the site kept changing while the document sat still. Testimonials and the stats band were listed as hard launch blockers for days after Tanya had already fixed them, which is worse than useless — it sends people to redo finished work.
+It drifted badly between 13 and 18 August, and again between 18 and 22 August — the second time because the site moved to a different install (`violet-wren`) while every document still described the old one. Deploying to the abandoned copy would have looked like a no-op with no error.
 
-**Re-verify against the live site before acting on any section.** See `WORKFLOW.md` for why the site changes without the developer touching it.
+**Re-verify against the live site before acting on any section.** `WORKFLOW.md` explains why the site changes without the developer touching it, and the three change histories — content revisions, the `tanya-audit` log, and git — now make "what changed since I last looked" answerable in about a minute.
