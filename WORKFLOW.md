@@ -45,7 +45,7 @@ That is not how the project started. Until 2026-08-14 the repo was authoritative
 
 When someone edits a template in **Appearance → Editor**, WordPress saves a `wp_template` row in the database that **permanently shadows the theme file**. The file stays in git, keeps looking authoritative, and never renders again.
 
-Measured on **violet-wren, 2026-08-22**. Thirteen templates are overridden:
+Measured on **violet-wren, 2026-08-28**. Twenty-three templates are overridden. The live generation for the area pages is `rooted-in-*-page`, assigned explicitly through `_wp_page_template`; an older `page-*` generation still exists and is dead. Check which is which before editing:
 
 ```
 archive      front-page   home         page-buy      page-covington

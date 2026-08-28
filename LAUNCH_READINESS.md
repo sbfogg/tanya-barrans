@@ -1,6 +1,6 @@
 # Launch Readiness — Baseline Go-Live
 
-**Status as of 2026-08-22.** Verified against the live staging site, its database, the audit log, and the repository.
+**Status as of 2026-08-28.** Verified against the live site, its database, and the audit log.
 
 This is the minimum required to put the site in front of the public without embarrassment or legal exposure. It is deliberately *not* the full vision. Anything that can safely grow after launch is listed at the bottom rather than treated as a blocker.
 
@@ -29,11 +29,11 @@ Nothing is public. `tanyabarrans.com` still forwards to John L Scott, and no vis
 |---|---|
 | Hosting | Hostinger Business (Unlimited), US Massachusetts, paid through 2030-08-13 |
 | WordPress | Installed; theme, uploads and database imported |
-| Theme active | Tanya Barrans Real Estate 0.3.4, current with the repository |
-| Published content | 23 pages, 10 posts |
-| Template overrides | 13 — see `WORKFLOW.md` |
+| Theme active | Tanya Barrans Real Estate 0.5.11, in sync with the repository |
+| Published content | 23 pages, 12 posts |
+| Template overrides | 23 — see `WORKFLOW.md`. Live generation is `rooted-in-*-page` |
 | Active plugins | 2 — `hostinger-reach`, `wp-reviews-plugin-for-google` |
-| Pages verified | Every public page returns 200, no PHP warnings |
+| Pages verified | Every public page returns 200; **zero broken internal links** |
 | Desktop / mobile | Passes at 1440 px and 390 px |
 | Contact form → Follow Up Boss | **Verified working from production** |
 | SSH / WP-CLI | Enabled and working |
@@ -144,7 +144,7 @@ Navigation now reads: Home, Buy, Sell, Listings, Neighborhoods, Blog, About, Con
 
 Tanya built this herself in the Site Editor between 20 and 21 August, along with `/renton-parks-outdoors/`, three property listing pages and a sales portfolio page. Six new template overrides came with it (see `WORKFLOW.md`).
 
-### 3.2 Pages that exist but are not ready to be found — **handled in code, needs deploy**
+### 3.2 Pages that exist but are not ready to be found — **live**
 
 Seven published pages have little or no content of their own:
 
@@ -158,13 +158,34 @@ The four area stubs are a reasonable holding page for someone following a link, 
 
 All seven are now `noindex` and excluded from the sitemap in theme code, while staying published and reachable so work continues and links keep working. **Remove a slug from `tanya_unfinished_pages()` the moment its page has real content.**
 
-**Committed as `aa4ac41`; not yet uploaded to violet-wren.**
+**Deployed and verified 2026-08-28.** The list now covers `/rootedin/`, `/rooted-in-issaquah/`, `/resources/`, the listing template, and the two placeholder guides. The area pages came off it — Kent and Covington are past 11,000 characters and should be found.
 
 ### 3.2a Duplicate article — **resolved 2026-08-22**
 
 Two published posts carried the identical title, H1 and opening copy — *Moving to Renton, WA: A Practical Guide to Planning Your Move* — each declaring itself canonical, competing for the exact query Tanya most wants locally. Caused by the `wordpress-importer` plugin creating a second copy rather than replacing the first.
 
 Post 65 is now a draft; post 90160 remains published. `wordpress-importer` has been deactivated so it cannot recur. Two further drafts of the same article remain unpublished and harmless.
+
+### 3.2b Debugging session — **resolved 2026-08-28**
+
+Tanya reported "odd stuff" while navigating. A crawl of every internal link found five broken ones and a set of rendering faults. All are fixed and verified live.
+
+**Broken links: 5 → 0.**
+
+| Fault | Cause | Fix |
+|---|---|---|
+| `/neighborhoods/` 404 on all 45 pages | Page deleted in the rename to `/rooted-cities/`; the footer was never updated | 15 rows repointed, including **two** footer parts (`footer` and `footer-rooted`) |
+| Dropdown text invisible on `/rooted-in-covington/` | Page-scoped CSS forced *every* header link white, including submenu items on an ivory panel — **1.06:1** | Scoped counter-rule added to the three affected templates. Now **8.31:1** |
+| Cream strip under the header, every page | WordPress block gap between top-level blocks, showing the ivory body behind a navy header | `.wp-site-blocks > main { margin-block-start: 0 }` |
+| Header CTA off-brand | Blush fill, and neither text colour reached 4.5:1 on it | Coral class removed at source; outline button on navy, **8.79:1** |
+| 3 links to a drafted article | An earlier fix drafted a duplicate post without checking inbound links | Repointed, both relative and absolute forms |
+| `/newcastle/`, missing Ravensdale guide | Renames and a page built from a template before its article existed | Link repointed; placeholder guides created for Ravensdale and Issaquah |
+
+**Two things worth carrying forward.**
+
+The Covington fault came from **page-ID-scoped CSS surviving a page duplication**. `body.page-id-90243 … a { color:#fff !important }` was copied onto the Kent page too, where it is inert — which is why the symptom looked random. Page-ID selectors do not survive duplication; they either stop working or start applying to the wrong page.
+
+The noindex list is **keyed on slugs, and slugs get renamed in batches**. Between 22 and 28 August every area page moved to a `rooted-in-` prefix, silently turning the list into a no-op. Re-check it against the live sitemap rather than trusting it.
 
 ### 3.3 Rooted in Renton — **TEAM**, then **TANYA**
 
@@ -365,9 +386,11 @@ Deliberately excluded from the baseline so they do not delay it: Rooted in Rento
 
 ---
 
-## The short version — updated 2026-08-22
+## The short version — updated 2026-08-28
 
-**Every original hard blocker is cleared**, and the site is substantially bigger than it was a week ago. Tanya has built the Neighborhoods hierarchy with five area pages beneath it, a Renton parks guide, three property listings and a sales portfolio — and published real Google reviews.
+**Every original hard blocker is cleared, and the site is far bigger than the plan assumed.** Tanya has built a Neighborhoods hierarchy with seven area pages beneath it, a Renton parks guide, three property listings and a sales portfolio, and published twelve articles and real Google reviews.
+
+A full debugging pass on 28 August took **broken internal links from five to zero** and fixed four rendering faults, including a dropdown that was invisible on one page and a cream strip under the header on every page.
 
 **Nothing on this list is urgent, because nothing is public.** These are all "before DNS switches", not "today".
 
@@ -376,17 +399,22 @@ Deliberately excluded from the baseline so they do not delay it: Rooted in Rento
 1. **Flodesk or Hostinger Reach** for the newsletter — running both splits the subscriber list in two.
 2. **2-Step Verification** on her Google account, so an app password exists and password resets can send.
 3. **The last placeholder line** on Buy and Sell.
+4. **Replace the two placeholder city guides** — Ravensdale and Issaquah are holding pages, hidden from search until she writes them.
 
 ### Sean
 
-4. **Deploy `functions.php` to violet-wren** — carries the noindex rules for the seven unfinished pages and the description fixes (`aa4ac41`).
 5. **Re-enter the Flodesk key** — it is malformed, so signups go nowhere.
 6. **Rotate the Follow Up Boss key** — it passed through a working transcript.
-7. **Take the WordPress 7.1 update** before launch, not after.
+7. **Change the SSH and WordPress passwords** — one value covered both and appeared in a transcript twice.
+8. **Delete the dead template generation** — `page-covington`, `page-kent`, `page-maple-valley`, `page-newcastle`, `page-renton`, `page-neighborhoods`, and a stray `rooted-in-kent`. Nothing points at them, and leaving them invites another page-ID-scoped CSS bug on the next duplication.
+9. **Two empty `<h1>`s** — `/rootedin/` and `/rooted-in-issaquah/`. Both noindexed, so not urgent.
+10. **Set up an SSH key.** Every deploy this session bounced off a password prompt.
 
 ### Launch day
 
-Revert `siteurl`/`home` → add the domain → switch GoDaddy DNS and kill the forward → **verify `/robots.txt` matches `/?robots=1`** → SSL and full retest → GA4 Realtime, and exclude **both** staging hostnames → submit the sitemap.
+Revert `siteurl`/`home` → add the domain → switch GoDaddy DNS and kill the forward → **verify `/robots.txt` matches `/?robots=1`** → SSL and full retest → GA4 Realtime, excluding both staging hostnames → submit the sitemap.
+
+**Also at go-live:** 34 rows contain absolute `violet-wren-104886` URLs. They keep working, but they permanently point at the staging hostname. Worth a search-replace in the same pass that reverts `siteurl`.
 
 ### A standing rule worth agreeing now
 
@@ -394,6 +422,6 @@ Revert `siteurl`/`home` → add the domain → switch GoDaddy DNS and kill the f
 
 ### A note on this document
 
-It drifted badly between 13 and 18 August, and again between 18 and 22 August — the second time because the site moved to a different install (`violet-wren`) while every document still described the old one. Deploying to the abandoned copy would have looked like a no-op with no error.
+It has drifted three times: 13→18 August, 18→22 August when the site moved to a different install, and 22→28 August when every area page was renamed to a `rooted-in-` prefix. Each time, work that was already finished was still listed as outstanding.
 
-**Re-verify against the live site before acting on any section.** `WORKFLOW.md` explains why the site changes without the developer touching it, and the three change histories — content revisions, the `tanya-audit` log, and git — now make "what changed since I last looked" answerable in about a minute.
+**Re-verify against the live site before acting on any section.** `WORKFLOW.md` explains why the site changes without the developer touching it, and the three change histories — content revisions, the `tanya-audit` log, and git — make "what changed since I last looked" answerable in about a minute.
