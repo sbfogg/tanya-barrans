@@ -1154,6 +1154,12 @@ function tanya_unfinished_pages() {
 			'rooted-in-issaquah',
 			'resources',
 			'listing-template-duplicate-me',
+
+			// Placeholder city guides, standing in until the real ones exist.
+			// Ravensdale's closes a live 404 the area page was pointing at;
+			// Issaquah's is pre-emptive, so the same gap cannot open there.
+			'living-in-ravensdale-wa-local-guide',
+			'living-in-issaquah-wa-local-guide',
 		)
 	);
 }
@@ -1173,9 +1179,11 @@ function tanya_unfinished_page_ids() {
 	$ids = array();
 
 	foreach ( tanya_unfinished_pages() as $slug ) {
-		$page = get_page_by_path( $slug );
-		if ( $page instanceof WP_Post ) {
-			$ids[] = (int) $page->ID;
+		// Posts as well as pages: the city guides are posts, and Ravensdale's
+		// is a placeholder standing in until the real one is written.
+		$match = get_page_by_path( $slug, OBJECT, array( 'page', 'post' ) );
+		if ( $match instanceof WP_Post ) {
+			$ids[] = (int) $match->ID;
 		}
 	}
 
@@ -1188,7 +1196,19 @@ add_filter(
 	function ( $robots ) {
 		$slugs = tanya_unfinished_pages();
 
-		if ( ! empty( $slugs ) && is_page( $slugs ) ) {
+		if ( empty( $slugs ) || ! is_singular() ) {
+			return $robots;
+		}
+
+		/*
+		 * Matched on the slug of whatever is being viewed rather than with
+		 * is_page(), which only ever covers pages. The city guides are posts,
+		 * so a placeholder guide would otherwise have been indexed no matter
+		 * what this list said.
+		 */
+		$object = get_queried_object();
+
+		if ( $object instanceof WP_Post && in_array( $object->post_name, $slugs, true ) ) {
 			$robots['noindex'] = true;
 		}
 
