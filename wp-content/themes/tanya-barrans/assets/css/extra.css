@@ -1896,6 +1896,17 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	color: var(--wp--preset--color--charcoal);
 }
 
+/* WordPress puts its block gap (1.5rem) between every direct child of
+   .wp-site-blocks, which includes the join between the header and the page
+   content. Because the body is ivory and the header is navy, that gap showed
+   as a 24px cream strip directly under the header on every page -- most
+   obvious where a full-bleed hero image is meant to start immediately below
+   it. Only the header/content join is closed; the gap elsewhere is left
+   alone. */
+.wp-site-blocks > main {
+	margin-block-start: 0;
+}
+
 /* The header was laid out for seven nav items; the sitemap brings it to nine,
    two of them long ("Rooted in Renton", "Love Your Home"). At the default
    1.5rem gap the row overflowed 1320px by a hair and wrapped "About Tanya"
