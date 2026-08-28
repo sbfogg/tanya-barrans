@@ -1,3 +1,30 @@
+:root {
+	--tb-page-gutter: clamp(1.25rem, 4vw, 3rem);
+	--tb-page-section: clamp(4.5rem, 8vw, 7.5rem);
+}
+/* Buyer/seller pages may override these tokens; homepage sections (e.g. the reviews row) rely on the :root default above. */
+/* --- Palette restore (2026-08-19): the cloned staging site lost its
+   linked Global Styles color customizations, so blocks referencing these
+   slugs (has-charcoal-color, has-alabaster-background-color, etc.) were
+   rendering with no color at all. Re-declaring the preset custom properties
+   here restores the intended brand palette regardless of that link. --- */
+:root {
+	--wp--preset--color--base: #FFFFFF;
+	--wp--preset--color--alabaster: #FBF8F4;
+	--wp--preset--color--sand: #DBC8B3;
+	--wp--preset--color--ink: #465D7C;
+	--wp--preset--color--charcoal: #344c6a;
+	--wp--preset--color--stone: #DBC8B3;
+	--wp--preset--color--bronze: #6F8A74;
+	--wp--preset--color--coral: #D6A3B5;
+	--wp--preset--color--coral-deep: #465D7C;
+	--wp--preset--color--slate: #6F8A74;
+	--wp--preset--color--muted: #2D2D2D;
+	--wp--preset--color--sound: #6F8A74;
+	--wp--preset--color--sage: #6F8A74;
+	--wp--preset--color--graphite: #2D2D2D;
+}
+
 /* Polish that theme.json can't express. */
 
 /* Smooth font rendering for the editorial look */
@@ -968,11 +995,13 @@ footer.wp-block-template-part :where(a[href], button):focus-visible,
 /* Eyebrow labels remain readable without JavaScript. When motion is
    available, reveal.js gives each one a restrained left-to-right entrance. */
 /* Dusty Blush on Warm Ivory measures 2.03:1, below the 3:1 WCAG needs even
-   for large text, so the eyebrow used a deeper rose on light backgrounds
-   (3.9:1). On navy the original blush reaches 7.3:1 and reads better, so the
-   colour is a variable that dark sections set back. */
+   for large text, and having a separate darker rose just for light backgrounds
+   read as an off-brand "wrong pink" next to the real blush used everywhere
+   else (2026-08-19 feedback). Charcoal on light backgrounds solves the
+   contrast problem cleanly (matches the Story Quote eyebrow already) and
+   keeps blush reserved for dark backgrounds, where it reaches 7.3:1. */
 .tb-eyebrow {
-	--tb-eyebrow-color: #B0687F;
+	--tb-eyebrow-color: var(--wp--preset--color--charcoal);
 	font-size: 1.75rem;
 	font-weight: 700;
 	letter-spacing: 0.18em;
@@ -984,6 +1013,22 @@ footer.wp-block-template-part :where(a[href], button):focus-visible,
 .tb-renton-hero .tb-eyebrow,
 footer.wp-block-template-part .tb-eyebrow {
 	--tb-eyebrow-color: var(--wp--preset--color--coral);
+}
+/* Footer eyebrows sit in narrow ~193px columns; the default 1.75rem
+   page-section eyebrow size wraps awkwardly (e.g. "GET IN TOUCH" breaking
+   across two lines and overflowing), so scale it down here. */
+footer.wp-block-template-part .tb-eyebrow {
+	font-size: 0.95rem;
+	letter-spacing: 0.1em;
+}
+/* Footer "Explore"/"Connect" link lists use the is-style-none variant,
+   which should render with no bullet and no indent — but without this rule
+   the browser default list padding/marker shows through, so the links sit
+   offset from the eyebrow heading and brand text above/below them. */
+footer.wp-block-template-part .wp-block-list.is-style-none {
+	list-style: none;
+	padding-left: 0;
+	margin-left: 0;
 }
 .tb-motion-ready .tb-eyebrow {
 	opacity: 0;
@@ -1147,6 +1192,14 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	padding: 0.3rem 0.7rem;
 	border-radius: 3px;
 }
+.tb-sales-tag--active {
+	background: var(--wp--preset--color--sage);
+	color: var(--wp--preset--color--base);
+}
+.tb-sales-tag--pending {
+	background: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--base);
+}
 
 /* WPForms — match the site's typography and button styling.
    WPForms sets its button colors via CSS custom properties with an
@@ -1207,10 +1260,10 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 34px;
-	height: 34px;
+	width: 52px;
+	height: 52px;
 	border-radius: 999px;
-	border: 1px solid var(--wp--preset--color--charcoal);
+	border: 1px solid var(--wp--preset--color--coral);
 	color: var(--wp--preset--color--stone);
 	transition: color 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 }
@@ -1778,6 +1831,7 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 /* Light, magazine-like site header. */
 .tb-site-header {
 	position: relative;
+	top: 0;
 	z-index: 100;
 	border-bottom: 1px solid rgba(15, 30, 53, 0.1);
 	box-shadow: none;
@@ -1798,16 +1852,16 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 }
 .tb-site-header .tb-logo-divider {
 	height: 32px;
-	background: rgba(15, 30, 53, 0.18);
+	background: rgba(255, 255, 255, 0.35);
 }
 .tb-site-header .wp-block-navigation {
 	background: transparent;
-	color: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--alabaster);
 }
 .tb-site-header .wp-block-navigation-item__content {
 	position: relative;
 	padding-block: 0.45rem;
-	color: var(--wp--preset--color--charcoal);
+	color: var(--wp--preset--color--alabaster);
 	text-decoration: none;
 }
 .tb-site-header .wp-block-navigation-item__content::after {
@@ -1824,15 +1878,22 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 .tb-site-header .current-menu-item > .wp-block-navigation-item__content::after {
 	right: 0;
 }
+/* Header CTA. Blush fill was the odd element in an otherwise white-on-navy
+   header, and it did not survive a contrast check either way: navy on blush
+   is 4.09:1 and white on blush is 2.15:1, both under the 4.5:1 needed for
+   text this size. An outline button on the navy reads as part of the header,
+   stays obviously a button, and lands at 8.79:1. Hover inverts to the same
+   pair, so it never drops below that. */
 .tb-site-header .tb-header-cta .wp-block-button__link {
-	background: var(--wp--preset--color--coral);
-	color: var(--wp--preset--color--charcoal);
-	padding: 0.8rem 1.45rem;
-	border: 1px solid transparent;
-}
-.tb-site-header .tb-header-cta .wp-block-button__link:hover {
-	background: var(--wp--preset--color--charcoal);
+	background: transparent;
 	color: var(--wp--preset--color--base);
+	padding: 0.8rem 1.45rem;
+	border: 1px solid var(--wp--preset--color--base);
+}
+.tb-site-header .tb-header-cta .wp-block-button__link:hover,
+.tb-site-header .tb-header-cta .wp-block-button__link:focus-visible {
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--charcoal);
 }
 
 /* The header was laid out for seven nav items; the sitemap brings it to nine,
@@ -2271,7 +2332,7 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 }
 .tb-brand-pillar p:last-child {
 	margin: 0;
-	color: var(--wp--preset--color--stone);
+	color: var(--wp--preset--color--base);
 	font-size: 0.92rem;
 	line-height: 1.75;
 }
@@ -2680,4 +2741,146 @@ footer.wp-block-template-part a:not(.tb-social-icon):hover {
 		flex-basis: auto;
 		width: 100%;
 	}
+}
+
+/* Pop/overlap photo accents added 2026-08-19 per Tanya's request, modeled on the Buy/Sell page treatment.
+   isolation:isolate on the SECTION (not the image) scopes the negative z-index block to that
+   section's own stacking context, so it peeks out from behind the photo instead of sinking
+   behind the whole page. */
+.tb-editorial-feature,
+.tb-story-quote {
+	isolation: isolate;
+}
+.tb-editorial-feature__image {
+	position: relative;
+}
+.tb-editorial-feature--photo-left .tb-editorial-feature__image::before {
+	content: "";
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	width: 45%;
+	height: 45%;
+	background: var(--wp--preset--color--coral);
+	z-index: -1;
+}
+.tb-editorial-feature--photo-right .tb-editorial-feature__image::before {
+	content: "";
+	position: absolute;
+	bottom: -20px;
+	left: -20px;
+	width: 45%;
+	height: 45%;
+	background: var(--wp--preset--color--sage);
+	z-index: -1;
+}
+.tb-story-quote__image {
+	position: relative;
+}
+.tb-story-quote__image::before {
+	content: "";
+	position: absolute;
+	top: -20px;
+	left: -20px;
+	width: 40%;
+	height: 40%;
+	background: var(--wp--preset--color--sage);
+	z-index: -1;
+}
+@media (max-width: 782px) {
+	.tb-editorial-feature--photo-left .tb-editorial-feature__image::before,
+	.tb-editorial-feature--photo-right .tb-editorial-feature__image::before,
+	.tb-story-quote__image::before {
+		display: none;
+	}
+}
+
+/* Gentle parallax added 2026-08-19, revised same day — background-attachment:fixed sizes
+   the image against the VIEWPORT instead of the element, so short sections showed a cropped,
+   jumpy slice of the photo instead of a smooth drift (Tanya's "cut off, not popping" report).
+   Swapped for a JS-driven background-position shift (see assets/js/reveal.js), which pans the
+   photo gently within its own box — no viewport-relative cropping, same "keeps the eyes busy"
+   feel as askpaigeschulte.com. */
+
+/* Track Record stats band added 2026-08-19 — a count-up stats moment near the top of Home,
+   modeled on askpaigeschulte.com's credibility band. Reuses the .tb-stat count-up engine
+   already built into reveal.js (it parses the number straight out of the markup, so editing
+   a figure here is all that's needed to update the animation) and the vertical-divider
+   column pattern from .tb-brand-pillar. */
+.tb-stats-band {
+	padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+}
+.tb-stats-band__grid {
+	margin: 0;
+	gap: 0;
+}
+.tb-stat-item {
+	padding: 0 clamp(1rem, 3vw, 2.5rem);
+	border-right: 1px solid rgba(250, 247, 242, 0.2);
+	text-align: center;
+}
+.tb-stat-item:first-child {
+	padding-left: 0;
+}
+.tb-stat-item:last-child {
+	padding-right: 0;
+	border-right: 0;
+}
+.tb-stat-item__icon {
+	width: 2.25rem;
+	height: 2.25rem;
+	margin: 0 auto 1rem;
+	color: var(--wp--preset--color--coral);
+}
+.tb-stat-item__icon svg {
+	width: 100%;
+	height: 100%;
+	display: block;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.tb-stat-item .tb-stat {
+	margin: 0 0 0.4rem;
+	font-family: var(--wp--preset--font-family--serif);
+	font-size: clamp(2.25rem, 4vw, 3.25rem);
+	font-weight: 700;
+	line-height: 1;
+	color: var(--wp--preset--color--base);
+}
+.tb-stat-item__label {
+	margin: 0;
+	color: var(--wp--preset--color--coral);
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+@media (max-width: 782px) {
+	.tb-stats-band__grid {
+		flex-direction: column;
+	}
+	.tb-stat-item {
+		border-right: 0;
+		border-bottom: 1px solid rgba(250, 247, 242, 0.2);
+		padding: 1.5rem 0;
+	}
+	.tb-stat-item:first-child {
+		padding-top: 0;
+	}
+	.tb-stat-item:last-child {
+		border-bottom: 0;
+		padding-bottom: 0;
+	}
+}
+
+
+/* Home page reviews section (Trustindex widget) */
+.tb-home-reviews .tb-eyebrow {
+	margin: 0 0 clamp(1.25rem, 2.5vw, 2rem);
+}
+.tb-home-reviews .tb-page-shell {
+	max-width: 960px;
 }

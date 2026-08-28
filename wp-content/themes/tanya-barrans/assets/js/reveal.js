@@ -112,3 +112,43 @@
 		statObserver.observe( el );
 	} );
 })();
+
+/* Parallax added 2026-08-19 — pans full-bleed photos gently within their own box as you
+   scroll, instead of the earlier background-attachment:fixed approach (which sized against
+   the viewport and cropped short sections). Amplitude is kept small so background-size:cover
+   never runs out of slack and shows a gap. Skipped for reduced-motion users and on narrow
+   screens, where the effect is barely visible and not worth the scroll listener. */
+(function () {
+	var prefersReduced = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	var els = document.querySelectorAll( '.tb-editorial-feature__image, .tb-story-quote__image' );
+	if ( prefersReduced || els.length === 0 || window.innerWidth < 783 ) {
+		return;
+	}
+
+	var AMPLITUDE = 8; // max % shift off center in either direction
+	var ticking = false;
+
+	function update() {
+		var vh = window.innerHeight;
+		els.forEach( function ( el ) {
+			var rect = el.getBoundingClientRect();
+			var center = rect.top + rect.height / 2;
+			var span = vh / 2 + rect.height / 2;
+			var progress = span > 0 ? ( vh / 2 - center ) / span : 0;
+			progress = Math.max( -1, Math.min( 1, progress ) );
+			el.style.backgroundPosition = 'center ' + ( 50 + progress * AMPLITUDE ) + '%';
+		} );
+		ticking = false;
+	}
+
+	function onScroll() {
+		if ( ! ticking ) {
+			window.requestAnimationFrame( update );
+			ticking = true;
+		}
+	}
+
+	window.addEventListener( 'scroll', onScroll, { passive: true } );
+	window.addEventListener( 'resize', onScroll );
+	update();
+})();

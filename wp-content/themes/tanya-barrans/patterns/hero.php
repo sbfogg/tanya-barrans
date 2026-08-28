@@ -30,7 +30,7 @@
 			     carry one H1, so the script accent lives inside the heading
 			     rather than as a separate line above it. -->
 			<!-- wp:heading {"level":1,"className":"tb-home-hero__title"} -->
-			<h1 class="wp-block-heading tb-home-hero__title"><span class="tb-script-accent">Helping you</span>love your home<br>and where you live.</h1>
+			<h1 class="wp-block-heading tb-home-hero__title">Helping you <span class="tb-script-accent">love<br>where you live.</span></h1>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"className":"tb-home-hero__dek"} -->
