@@ -1132,17 +1132,26 @@ function tanya_trim_description( $description, $limit = 155 ) {
  * working. They are simply withheld from search until each is worth finding.
  * Remove a slug from this list the moment its page has real content.
  *
+ * Reviewed 2026-08-28. The four area pages came off this list because Tanya
+ * built them out — Kent and Covington now run past 11,000 characters. Living
+ * in Renton and Love Your Home were deleted outright. What replaced them are
+ * two new stubs, /rootedin/ and /rooted-in-issaquah/, both around 660
+ * characters and both currently rendering an empty <h1>.
+ *
+ * The lesson worth keeping: this list is keyed on slugs, and slugs here get
+ * renamed in batches. Between 22 and 28 August every area page moved to a
+ * "rooted-in-" prefix, which silently pointed half these entries at pages
+ * that no longer existed while the replacements went unguarded. Re-check it
+ * against the live sitemap rather than trusting it.
+ *
  * @return string[]
  */
 function tanya_unfinished_pages() {
 	return apply_filters(
 		'tanya_unfinished_pages',
 		array(
-			'kent',
-			'covington',
-			'maple-valley',
-			'newcastle',
-			'living-in-renton',
+			'rootedin',
+			'rooted-in-issaquah',
 			'resources',
 			'listing-template-duplicate-me',
 		)
