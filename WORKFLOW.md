@@ -21,8 +21,6 @@ There are two WordPress installs on the hosting plan. `salmon-otter-516624.hosti
 
 Both are currently unreachable to search engines, but a second full copy of the site is a duplicate-content risk the moment either becomes public. Decide whether salmon-otter gets deleted before launch.
 
-The template-override list below was measured on salmon-otter and has **not** been re-checked against violet-wren. Run the query in that section before relying on it.
-
 ---
 
 ## The rule
@@ -41,27 +39,35 @@ That is not how the project started. Until 2026-08-14 the repo was authoritative
 
 ---
 
-## Templates: the seven that ignore this repo
+## Templates: the twenty-three that ignore this repo
 
 When someone edits a template in **Appearance → Editor**, WordPress saves a `wp_template` row in the database that **permanently shadows the theme file**. The file stays in git, keeps looking authoritative, and never renders again.
 
 Measured on **violet-wren, 2026-08-28**. Twenty-three templates are overridden. The live generation for the area pages is `rooted-in-*-page`, assigned explicitly through `_wp_page_template`; an older `page-*` generation still exists and is dead. Check which is which before editing:
 
 ```
-archive      front-page   home         page-buy      page-covington
-page-kent    page-maple-valley         page-neighborhoods
-page-newcastle            page-renton  page-renton-parks-outdoors
-page-sell    single
+LIVE   archive  front-page  home  single  page  page-buy  page-sell
+       page-renton-parks-outdoors  city-guides  local-guides
+       love-where-you-live-no-title
+       rooted-in-renton-page  rooted-in-kent-page  rooted-in-covington-page
+       rooted-in-maple-valley-page  rooted-in-newcastle-page
+
+DEAD   page-covington  page-kent  page-maple-valley  page-newcastle
+       page-renton  page-neighborhoods  rooted-in-kent
 ```
+
+**`page` is now overridden too**, which it was not a week ago. `templates/page.html` in this repo no longer renders anything.
+
+The DEAD set is the previous generation of area templates. Nothing points at them — the live ones are assigned through `_wp_page_template` — but they still contain page-ID-scoped CSS, which is what caused the invisible dropdown on Covington. Duplicating one of them will reintroduce that bug.
 
 **Editing those files in this repo does nothing.** Change them in Appearance → Editor instead.
 
-Six of them did not exist a week ago. The area pages, the Neighborhoods index and the parks page were all built in the Site Editor between 20 and 21 August, and `page-neighborhoods` moved out of the repo's control in the process — it used to be safe to edit here. **Assume this list grows, and re-run the query below rather than trusting it.**
+Ten of these did not exist two weeks ago. The count went 7 → 13 → 23 between 18 and 28 August as Tanya built the area pages in the Site Editor, and `page` and `page-neighborhoods` moved out of the repo's control along the way — both used to be safe to edit here. **Assume this list keeps growing, and re-run the query below rather than trusting it.**
 
 These are still served from the repo and safe to edit here:
 
 ```
-404.html   index.html   page.html   page-no-title.html
+404.html   index.html   page-no-title.html
 ```
 
 To check whether that list has grown:
